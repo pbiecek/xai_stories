@@ -8,7 +8,5 @@ _bookdown_files
 _main.Rmd
 *.log
 *.Rproj
-./*.html
 book.tex
-*.html
 packages.bib

@@ -1,5 +1,8 @@
 # XAI Stories. Case studies for eXplainable Artificial Intelligence
 
+ebook: https://pbiecek.github.io/xai_stories/
+
+
 Machine learning has a number of applications. Very often, however, machine learning predictive models are treated as black boxes which can be automatically trained without worrying about the domain in which they are used.
 
 The development of XAI tools allows to x-ray these black boxes. In the following chapters we show example applications of different XAI techniques to real-world problems.

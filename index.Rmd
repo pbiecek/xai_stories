@@ -35,8 +35,7 @@ Machine learning has a number of applications. Very often, however, machine lear
 The development of XAI tools allows to x-ray these black boxes. In the following chapters we show example applications of different XAI techniques to real-world problems.
 
 
-TODO: more about how the course
-
+TODO: write more about how the course
 
 This book is the result of a student projects for [Interpretable Machine Learning](https://github.com/pbiecek/InterpretableMachineLearning2020) course at University of Warsaw and Warsaw University of Technology. Each team has prepares one case study for selected XAI technique.
 

@@ -7,8 +7,6 @@ Machine learning has a number of applications. Very often, however, machine lear
 
 The development of XAI tools allows to x-ray these black boxes. In the following chapters, we show example applications of different XAI techniques to real-world problems.
 
-TODO: more about how the course
-
 ## How this book came about
 
 This book is the result of a student projects for [Interpretable Machine Learning](https://github.com/pbiecek/InterpretableMachineLearning2020) course at the University of Warsaw and the Warsaw University of Technology. Each team has prepared one case study for selected XAI technique.
@@ -29,9 +27,6 @@ devtools::install_dev_deps()
 Step 3: Render the book (R commands)
 
 ```{r}
-# HTML
 bookdown::render_book('./', 'bookdown::gitbook')
-# PDF
-bookdown::render_book('./', 'bookdown::pdf_book')
 ```
 

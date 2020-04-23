@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Acknowledgements | XAI Stories</title>
+  <title>Chapter 4 Story Meps: regression | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Acknowledgements | XAI Stories" />
+  <meta property="og:title" content="Chapter 4 Story Meps: regression | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Acknowledgements | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 4 Story Meps: regression | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="story-compas.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="story-uplift-modelling.html"/>
+<link rel="next" href="story-meps-healthcare-expenditures-of-individuals.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -191,19 +191,40 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="acknowledgements" class="section level1 unnumbered" number="">
-<h1>Acknowledgements</h1>
-<p>This project is inspired by a fantastic book <a href="https://compstat-lmu.github.io/iml_methods_limitations/">Limitations of Interpretable Machine Learning Methods</a> created at the Department of Statistics, LMU Munich.
-We used the LIML project as cornerstone for this reopsitory.</p>
+<div id="story-meps-regression" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Story Meps: regression</h1>
+<p><em>Authors: Anna Kozioł (Warsaw University of Technology), Katarzyna Lorenc (Warsaw University of Technology), Piotr Podolski (University of Warsaw)</em></p>
+<p><em>Mentors: Maciej Andrzejak (Affiliation 2), Alicja Jośko (Affiliation 1)</em></p>
+<div id="introduction-3" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<p>The aim of the project is to predict medical expenses based on demographic and socio-economic variables.</p>
+<p>The Medical Expenditure Panel Survey provides data on health care as well as related costs. Data for the MEPS project has been collected regularly since 1996.
+Each year, approximately 15,000 households are selected as a new panel of surveyed units.</p>
+</div>
+<div id="model-3" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Model</h2>
+<p>We are testing models and trying to improve their quality.
+Right now, the best model we developed is Gradient Boosting Regressor.
+The figures below present the prediction values on training and test set.</p>
+<p><img src="images/05-bg_train.png" width="500" style="display: block; margin: auto;" /></p>
+<p><img src="images/05-bg_test.png" width="500" style="display: block; margin: auto;" /></p>
+<p>All key information about the final model we will put in this section.</p>
+</div>
+<div id="explanations-3" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Explanations</h2>
+</div>
+<div id="summary-and-conclusions-3" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Summary and conclusions</h2>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="story-compas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="story-uplift-modelling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="story-meps-healthcare-expenditures-of-individuals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -234,7 +255,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/98-acknowledgements.Rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/05-story-meps.rmd",
 "text": "Edit"
 },
 "history": {

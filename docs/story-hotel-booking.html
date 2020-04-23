@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Story covid19: eXplainable predictions for mortality | XAI Stories</title>
+  <title>Chapter 4 Story hotel booking: eXplainable predictions of booking cancelation and guests coming back | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Story covid19: eXplainable predictions for mortality | XAI Stories" />
+  <meta property="og:title" content="Chapter 4 Story hotel booking: eXplainable predictions of booking cancelation and guests coming back | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Story covid19: eXplainable predictions for mortality | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 4 Story hotel booking: eXplainable predictions of booking cancelation and guests coming back | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="foreword.html"/>
-<link rel="next" href="story-lungs.html"/>
+<link rel="prev" href="story-compas.html"/>
+<link rel="next" href="story-house-sale-prices.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -145,27 +145,117 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="story-covid19" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Story covid19: eXplainable predictions for mortality</h1>
-<p><em>Authors: Author 1 (University 1), Author 2 (University 2), Author 3 (University 3)</em></p>
-<p><em>Mentors: Mentor 1 (Affiliation 1), Mentor 2 (Affiliation 2)</em></p>
-<div id="introduction" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Introduction</h2>
-<p>Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.</p>
+<div id="story-hotel-booking" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Story hotel booking: eXplainable predictions of booking cancelation and guests coming back</h1>
+<p><em>Authors: Domitrz Witalis (MIM), Seweryn Karolina (MiNI)</em></p>
+<p><em>Mentors: Jakub Tyrek (Data Scientist), Aleksander Pernach (Consultant)</em></p>
+<div id="introduction-3" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<p>The dataset is downloaded from the Kaggle competition website <a href="https://www.kaggle.com/jessemostipak/hotel-booking-demand" class="uri">https://www.kaggle.com/jessemostipak/hotel-booking-demand</a>.
+This dataset contains booking information for a city hotel and a resort hotel in Portugal, and includes information such as when the booking was made, length of stay, the number of adults, children, babies, the number of available parking spaces, chosen meals, price etc. There are 32 features and 119 390 observations. The booking website has information about these reservation characteristics and building models can help this company in better offer management. The most important information could be</p>
+<ul>
+<li>the prediction of booking cancelation,</li>
+<li>the prediction if client comes back to the hotel,</li>
+<li>the prediction whether client orders additional services (eg. meals),</li>
+<li>customer segmentation.</li>
+</ul>
+<p>In this project, we have decided to focus on two first issues.</p>
+<div id="hyperparameter-optimization" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Hyperparameter optimization</h3>
 </div>
-<div id="model" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Model</h2>
+<div id="imbalanced-dataset" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Imbalanced dataset</h3>
+<p>[Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.]</p>
+</div>
+</div>
+<div id="model-3" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Model</h2>
+<div id="model-1.-booking-cancelation" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Model 1. Booking cancelation</h3>
+<p>The aim of this model is to predict whether guest cancels reservation and explanation of the reasons. The chosen model is XGBoost with RFE (Recursive Feature Elimination). Bayesian optimisation with TPE tuner has been applied in order to improve model performance. Neural Network Intelligence (NNI) package has been chosen for this task, because it provides user-friendly GUI with summary of experiments.</p>
+<p>List of optimized hyperparameters and search space:</p>
+<ol style="list-style-type: decimal">
+<li><strong>max_depth</strong> - the maximum depth of tree.</li>
+<li><strong>n_esimators</strong> - the number of trees.</li>
+<li><strong>learning_rate</strong> - boosting learning rate</li>
+<li><strong>colsample_bytree</strong> - subsample ratio of columns when constructing each tree.</li>
+</ol>
+<p><img src="images/04-hyperparameter_optimization.png" alt="image" />
+<em>Figure details paths of hyperparameters values chosen by algorithm. On the right you can see metric (AUC) of model with those parameters.</em></p>
+<p><img src="images/04-ho2.png" alt="image" />
+<em>Figure presents AUC for each experiment. It shows a clear trend in model performence so algorithm is choosing better and better hyperparameters.</em></p>
+<table>
+<tbody>
+<tr class="odd">
+<td>AUC train</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>AUC test</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="images/04-roc_curve.png" alt="" />
+<p class="caption">image</p>
+</div>
+</div>
+<div id="model-2.-repeated-guests" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Model 2. Repeated guests</h3>
 <p>Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.</p>
 </div>
-<div id="explanations" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Explanations</h2>
+</div>
+<div id="explanations-3" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Explanations</h2>
+<div id="model-1.-booking-cancelation-1" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Model 1. Booking cancelation</h3>
+<div id="dataset" class="section level4" number="4.3.1.1">
+<h4><span class="header-section-number">4.3.1.1</span> dataset</h4>
+<div class="figure">
+<img src="images/04-feature_importance.png" alt="" />
+<p class="caption">image</p>
+</div>
+<p><img src="images/04-shap_summary_plot.png" alt="image" />
+<em>.</em></p>
+<p>Figure above shows SHAP values. There are some interesting findings which are intuitive:</p>
+<ul>
+<li>Clients who canceled some reservations in the past are more likely to cancel another reservation.</li>
+<li>People who buy refundable option cancel reservations more often than others.</li>
+<li>A lot of days between reservation time and arrival time increases probability of cancelling booking.</li>
+<li>People who travel with children are more likely to cancel booking.</li>
+</ul>
+<p>There are also less intuitive findings:</p>
+<ul>
+<li>People without any special requests cancel reservetion more often than others.</li>
+<li>If trip starts at the end of the week there is higher probability that customers change their minds.</li>
+<li>The bigger number of adults, the highest probability of cancelation.</li>
+</ul>
+</div>
+<div id="instance" class="section level4" number="4.3.1.2">
+<h4><span class="header-section-number">4.3.1.2</span> instance</h4>
+<ol style="list-style-type: decimal">
+<li>The lowest prediction of cancelation probability
+<img src="images/04-shap_min.png" alt="image" />
+<img src="images/04-min_break_down.png" alt="image" /></li>
+<li>The highest prediction of cancelation probability
+<img src="images/04-shap_max.png" alt="image" />
+<img src="images/04-max_break_down.png" alt="image" /></li>
+</ol>
+</div>
+</div>
+<div id="model-2.-repeated-guests-1" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Model 2. Repeated guests</h3>
 <p>Here, show how XAI techniques can be used to solve the problem.
 Will dataset specific or instance specific techniques help more?</p>
 <p>Will XAI be useful before (pre), during (in) or after (post) modeling?</p>
 <p>What is interesting to learn from the XAI analysis?</p>
 </div>
-<div id="summary-and-conclusions" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Summary and conclusions</h2>
+</div>
+<div id="summary-and-conclusions-3" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Summary and conclusions</h2>
 <p>Here add the most important conclusions related to the XAI analysis.
 What did you learn?
 Where were the biggest difficulties?
@@ -178,8 +268,8 @@ What else did you recommend?</p>
           </div>
         </div>
       </div>
-<a href="foreword.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="story-lungs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="story-compas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="story-house-sale-prices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -210,7 +300,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/01-story-covid19.Rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/04-hotel-booking.Rmd",
 "text": "Edit"
 },
 "history": {

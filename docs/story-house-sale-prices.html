@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Story covid19: eXplainable predictions for mortality | XAI Stories</title>
+  <title>Chapter 5 Story House Sale Prices: eXplainable predictions for house sale | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Story covid19: eXplainable predictions for mortality | XAI Stories" />
+  <meta property="og:title" content="Chapter 5 Story House Sale Prices: eXplainable predictions for house sale | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Story covid19: eXplainable predictions for mortality | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 5 Story House Sale Prices: eXplainable predictions for house sale | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="foreword.html"/>
-<link rel="next" href="story-lungs.html"/>
+<link rel="prev" href="story-hotel-booking.html"/>
+<link rel="next" href="acknowledgements.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -145,27 +145,82 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="story-covid19" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Story covid19: eXplainable predictions for mortality</h1>
-<p><em>Authors: Author 1 (University 1), Author 2 (University 2), Author 3 (University 3)</em></p>
-<p><em>Mentors: Mentor 1 (Affiliation 1), Mentor 2 (Affiliation 2)</em></p>
-<div id="introduction" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Introduction</h2>
-<p>Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.</p>
+<div id="story-house_sale_prices" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Story House Sale Prices: eXplainable predictions for house sale</h1>
+<p><em>Authors: Piotr Grązka (SGH Warsaw School of Economics), Anna Kozak (Warsaw University of Technology), Paweł Wicherek (Warsaw University of Technology)</em></p>
+<p><em>Mentors: Mateusz Zawisza (McKinsey &amp; Company), Adam Zmaczyński (McKinsey &amp; Company)</em></p>
+<blockquote>
+<p>,,That’s all your house is: it’s a place to keep your stuff while you go out and get more stuff.’’
+<em>George Carlin</em></p>
+</blockquote>
+<div id="introduction-4" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>Everybody needs a roof over their heads. It can be a house, villa or a flat. Everybody, at some point of life, faces a choice if to buy a house. If so, which one. And why they are so expensive?</p>
+<p>Topic of real estates is not only the topic you just have to deal with. It can also be very interesting. There are plenty of TV Shows, for instance <em>Property Brothers</em>, of which plot is based on examples of people buying and renovating houses. This particular one is the most famous in the world and has been running already almost a decade.
+For many people houses are also products to buy and sell with income.</p>
+<p>Regardless of motives of buy/sell real estate, both sides agree to a price. It is always good to know, <strong>how much</strong> it is worth, what’s the fair/true value. And, maybe it’s even more important, <strong>why</strong> the price is like that, what has an influence on it.</p>
+<p>In this work we want to try to find an answer to both questions with stronger emphasis on the second one. This paper is intended to be a complete use cases how to deal with regression problem for Data Scientists. Let’s start with a couple of questions that will allow us to understand and define the problems</p>
+<ul>
+<li><p><em>The seller does not know how to increase the cost of the apartment so that the investment outlay is lower than the added value (e.g. building a pool will increase the price and renovating the bathroom is not worth it).</em></p></li>
+<li><p><em>The seller does not know how much to sell the apartment for (he makes an offer on the portal and does not know if the price is fair).</em></p></li>
+<li><p><em>The buyer does not know how much the apartment is worth (as above, whether the price is fair).</em></p></li>
+<li><p><em>Commercial problem: Auction services do not have tools to support sellers/buyers.</em></p></li>
+</ul>
+<p>These are just some of the questions we can ask. As a definition of our problem, we have set ourselves a property valuation, and through explanations we will try to get an answer depending on the position we choose.</p>
+<p>We have divided our work into several stages, below we present a diagram with a step plan. It allowed us to plan our work, and now we will use it to tell you what we did.</p>
+<p><img src="images/05-plan.png" width="600" style="display: block; margin: auto;" /></p>
+<p>We started our work with a literature review. Many works show a comparison of hedonistic models (linear regression) and machine learning models. Below there is a plot with comparison of results achieved by models interpretable by design (hedonistic) and black box model (ANN) based on the article @ref(house_prices).</p>
+<p><img src="images/05-model_article.png" width="400" style="display: block; margin: auto;" /></p>
+<p>We can conclude that we reduce the interpretability to an increase in the quality of model fitting.</p>
+<p>The next point was data analysis, we work on dataset which contains house sale prices for King County, which includes Seattle. It is include homes sold between May 2014 and May 2015. Data available on <a href="https://www.kaggle.com/harlfoxem/housesalesprediction">kaggle</a> and <a href="https://www.openml.org/d/42079">openml</a>.
+We have analyzed the data. More <a href="https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Reports/DataAnalysis">link</a>. Data contains 19 house features plus the price and the id columns, along with 21613 observations.</p>
+<ul>
+<li><code>id</code> unique ID for each home sold</li>
+<li><code>date</code> date of the home sale</li>
+<li><code>price</code> price of each home sold</li>
+<li><code>bedrooms</code> number of bedrooms</li>
+<li><code>bathrooms</code> number of bathrooms, where .5 accounts for a room with a toilet but no shower</li>
+<li><code>sqft_living</code> square footage of the apartments interior living space</li>
+<li><code>sqft_lot</code> square footage of the land space</li>
+<li><code>floors</code> sumber of floors</li>
+<li><code>waterfront</code> apartment was overlooking the waterfront or not</li>
+<li><code>view</code> how good the view of the property was</li>
+<li><code>condition</code> condition of the apartment</li>
+<li><code>grade</code> level of construction and design</li>
+<li><code>sqft_above</code> the square footage of the interior housing space that is above ground level</li>
+<li><code>sqft_basement</code> the square footage of the interior housing space that is below ground level</li>
+<li><code>yr_built</code> the year the house was initially built</li>
+<li><code>yr_renovated</code> the year of the house’s last renovation</li>
+<li><code>zipcode</code> zipcode area</li>
+<li><code>lat</code> lattitude</li>
+<li><code>long</code> longitude</li>
+<li><code>sqft_living15</code> the square footage of interior housing living space for the nearest 15 neighbors</li>
+<li><code>sqft_lot15</code> the square footage of the land lots of the nearest 15 neighbors</li>
+</ul>
+<p>We have collected methods to evaluate the performance of the regression model, we decided to use RMSRE (root mean square relative errors), because the difference of 50 thousand on a property worth millions and 50 thousand on a property worth 200 thousand is quite considerable. More about measures <a href="">link</a>.</p>
+<p>Based on the literature we decided to test the following models:
+- fixed effects model
+- random effects model
+- Spatial Autoregressive (SAR) model
+- linear regression
+- decision tree
+- random forest
+- gradient boosting, xgboost</p>
+<p>Another idea how to enrich our solution was to add external data. The location of the property can significantly affect the price, so we also took into account the distance from public transport and the number of cultural facilities within a kilometre radius.</p>
 </div>
-<div id="model" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Model</h2>
+<div id="model-4" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Model</h2>
 <p>Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.</p>
 </div>
-<div id="explanations" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Explanations</h2>
+<div id="explanations-4" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Explanations</h2>
 <p>Here, show how XAI techniques can be used to solve the problem.
 Will dataset specific or instance specific techniques help more?</p>
 <p>Will XAI be useful before (pre), during (in) or after (post) modeling?</p>
 <p>What is interesting to learn from the XAI analysis?</p>
 </div>
-<div id="summary-and-conclusions" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Summary and conclusions</h2>
+<div id="summary-and-conclusions-4" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Summary and conclusions</h2>
 <p>Here add the most important conclusions related to the XAI analysis.
 What did you learn?
 Where were the biggest difficulties?
@@ -178,8 +233,8 @@ What else did you recommend?</p>
           </div>
         </div>
       </div>
-<a href="foreword.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="story-lungs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="story-hotel-booking.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="acknowledgements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -210,7 +265,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/01-story-covid19.Rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/05-story-house-sale-prices.Rmd",
 "text": "Edit"
 },
 "history": {

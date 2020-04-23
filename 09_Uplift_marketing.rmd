@@ -1,0 +1,52 @@
+# Story Uplift modeling on marketing dataset: eXplainable predictions for optimized marketing campaigns {#story-uplift-marketing}
+
+*Authors: Jan Ludziejewski (Warsaw University), Paulina Tomaszewska(Warsaw University of Technology), Andżelika Zalewska (Warsaw University of Technology)*
+
+*Mentors: Łukasz Frydrych (McKinsey), Łukasz Pająk (McKinsey)*
+
+## Introduction 
+
+Imagine you are a businessman running your own company - who wouldn't like to be?
+Of course you want to maximize profits and cut down costs but often finding the tradeoff is not an easy task.
+Here comes Machine Learning and uplift models that can help you in optimizing marketing costs.
+You may ask yourself sometimes whether it makes sense to address marketing campaigns to all your customers. 
+From one point of view by sending an offer you think the probability that the customer will buy your product is higher - in fact it is not always the cases 
+(we will go back to the matter in a moment).
+On the other hand, making large-scale campaign is costly. It would be good to know what is the return of investment. 
+
+Much food for thought was presented, we will try in this chapter to clarify the topic.
+
+First - is it true that by sending the marketing offer we only extend the chance for the customer to buy our product and therefore extend out profit?
+The issue was already investigated [cite] and it was pointed out that customers of any company can be divided into 4 groups. [wkleić obrazek]
+In the picture it can be seen that there is a clear division on a customers that received/didn't receive the treatment (in our case marketing materials) and the ones that later 
+on bought/didn't buy the product. [tutaj opiszę w większych szczegółach cztery kategorie]
+
+### Approaches towards uplift modelling
+[tutaj streszczę artykuł który czytaliśmy na medium]
+
+## Dataset
+[tutaj opiszę nasz dataset + wizualizacje] 
+
+
+## Model 
+
+Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
+
+## Explanations
+
+Here, show how XAI techniques can be used to solve the problem.
+Will dataset specific or instance specific techniques help more?
+
+Will XAI be useful before (pre), during (in) or after (post) modeling?
+
+What is interesting to learn from the XAI analysis?
+
+![image](C:/Users/Ja/Desktop/Studia/images/iml_book_shap_1.png)
+![image](C:/Users/Ja/Desktop/Studia/images/iml_book_shap_2.png)
+
+## Summary and conclusions 
+
+Here add the most important conclusions related to the XAI analysis.
+What did you learn? 
+Where were the biggest difficulties?
+What else did you recommend?

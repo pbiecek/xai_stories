@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | XAI Stories</title>
+  <title>Chapter 3 Story Uplift Modelling: eXplaining colon cancer survival rate after treatment | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | XAI Stories" />
+  <meta property="og:title" content="Chapter 3 Story Uplift Modelling: eXplaining colon cancer survival rate after treatment | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 3 Story Uplift Modelling: eXplaining colon cancer survival rate after treatment | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="acknowledgements.html"/>
-
+<link rel="prev" href="story-hotel-booking.html"/>
+<link rel="next" href="story-meps-healthcare-expenditures-of-individuals.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -173,16 +173,77 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered" number="">
-<h1>References</h1>
+<div id="story-uplift-modelling" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Story Uplift Modelling: eXplaining colon cancer survival rate after treatment</h1>
+<p><em>Authors: Aleksandra Łuczak (Warsaw University of Technology), Tymoteusz Makowski (Warsaw University of Technology), Kateryna Shulikova (Warsaw School of Economics)</em></p>
+<p><em>Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)</em></p>
+<div id="introduction-2" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<p>TODO(oryginał): Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.</p>
+<div id="what-is-uplift-modelling" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> What is Uplift Modelling?</h3>
+<ul>
+<li>Czym jest uplift modelling?</li>
+<li>Gdzie go się stosuje?</li>
+<li>Jakie problemy możemy modelować (survival &amp; leki, marketing &amp; zysk)?</li>
+</ul>
+</div>
+<div id="dataset-description" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Dataset Description</h3>
+<ul>
+<li>Opis naszego zbioru.</li>
+<li>Co na nim będziemy modelować (treatment a survival rate).</li>
+<li>Wstępne uzasadnienie dlaczego warto tym się zająć i dlaczego dobrze będzie tu cokolwiek wyjaśniać [ad 5].</li>
+</ul>
+</div>
+</div>
+<div id="model-2" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Model</h2>
+<p>TODO(oryginał): Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
+- Jaki model wybraliśmy?
+- Jak trzeba było przygotować dataset?
+- Jakie ma osiągi?
+- Jakieś miary typu F1, accuracy i opis tego, które miary na tym zbiorze powinno się stosować.</p>
+</div>
+<div id="explanations-2" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Explanations</h2>
+<p>TODO:(oryginał):
+&gt; Here, show how XAI techniques can be used to solve the problem.
+&gt; Will dataset specific or instance specific techniques help more?
+&gt;
+&gt; Will XAI be useful before (pre), during (in) or after (post) modeling?
+&gt;
+&gt; What is interesting to learn from the XAI analysis?</p>
+<ul>
+<li>Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?</li>
+<li>Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].</li>
+</ul>
+<div id="dataset-level-explainations" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Dataset Level Explainations</h3>
+<ul>
+<li>Jaka jest istotność zmiennych?</li>
+</ul>
+</div>
+<div id="instance-level-explainations" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Instance Level Explainations</h3>
+<ul>
+<li>Jakieś “ciekawe” przypadki?</li>
+</ul>
+</div>
+</div>
+<div id="summary-and-conclusions-2" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Summary and conclusions</h2>
+<p>TODO:(oryginał):
+&gt; Here add the most important conclusions related to the XAI analysis.
+&gt; What did you learn?
+&gt; Where were the biggest difficulties?
+&gt; What else did you recommend?</p>
+<ul>
+<li>Jakich informacji XAI nam dostarczyło na temat tego problemu?</li>
+<li>Jak XAI sprawdza się do wyjaśniania upliftu?</li>
+<li>Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].</li>
+</ul>
 
-<div id="refs" class="references hanging-indent">
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
 </div>
 </div>
             </section>
@@ -190,8 +251,8 @@
           </div>
         </div>
       </div>
-<a href="acknowledgements.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="story-hotel-booking.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="story-meps-healthcare-expenditures-of-individuals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -222,7 +283,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/99-references.Rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/04-story-uplift-modelling.Rmd",
 "text": "Edit"
 },
 "history": {

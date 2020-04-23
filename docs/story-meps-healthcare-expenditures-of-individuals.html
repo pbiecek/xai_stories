@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | XAI Stories</title>
+  <title>Chapter 4 Story MEPS: Healthcare expenditures of individuals | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | XAI Stories" />
+  <meta property="og:title" content="Chapter 4 Story MEPS: Healthcare expenditures of individuals | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 4 Story MEPS: Healthcare expenditures of individuals | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="acknowledgements.html"/>
-
+<link rel="prev" href="story-uplift-modelling.html"/>
+<link rel="next" href="examples.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -173,15 +173,43 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered" number="">
-<h1>References</h1>
-
-<div id="refs" class="references hanging-indent">
-<div>
-<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+<div id="story-meps-healthcare-expenditures-of-individuals" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Story MEPS: Healthcare expenditures of individuals</h1>
+<div id="introduction-3" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<div style="text-align: justify">
+<p>In this part, models that predict annual healthcare expenditure of individuals will be developed and analyzed using XAI methods.</p>
+<p>The dataset used is called MEPS (Medical Expenditure Panel Survey) and it is freely accessible at [ref1]. The data comes from large-scale surveys of families, individuals, medical providers and employers from the United States of America. Each observation of the data set contains total expenditures of an individual as well as number of other variables describing his or her demographic and socio-economic status. This allows to create models predicting the expenditure based on other factors. For this reason it is particularly interesting from the point of view of the subject that is financially responsible for the healthcare cost – insurance company, government, healthcare provider or individuals. It is important to mention, that for all of these subjects, accurate model is only a part of the success – the other part are the relations between input parameters and predictions of the model. Having that we can provide an answer not only for how much? but also for why? Hopefully, this can be achieved with available XAI methods.</p>
+<p>The data analyzed in the following sections was not downloaded directly from MEPS website. Instead, it was obtained through IBM’s AIX360 [ref2]. Therefore it is initially preprocessed – race is restricted to black and white and ethnicity to non-Hispanic, records with special values (negative integers) are removed for some of the variables, variables are initially selected. The dataset provides 18350 observations and it contains variables that describe:</p>
+<ul>
+<li><p>demographics (age, gender, marital status),</p></li>
+<li><p>socio-economics (education, income, insurance coverage),</p></li>
+<li><p>self-reported health status (self-evaluation of physical and mental health status),</p></li>
+<li><p>diagnoses (stroke, cancer, heart disease, diabetes),</p></li>
+<li><p>health limitations (cognitive, activity, sensory).</p></li>
+</ul>
+<p>Since the distribution of the predicted variable is strongly skewed to the right, it was transformed with logarithm base 3. Typically in such cases, natural logarithm is chosen, but having in mind that impact of input variables on the prediction will be analyzed, the decision was made to use base 3 instead (when we see that some input variable affected the prediction increasing it by one, then we can say that it increased the total expenditures by the factor of three, not factor of Euler number).</p>
+<p>The following section describes the development of three different models for predicting the transformed total health expenditure of an individual. Once developed, these models are compared in terms of their quality and of them is selected and analyzed using XAI methods. Explanations provided by different methods are discussed.</p>
+<p>The baseline for this discussion was provided by the authors of IBM’s AIX360 [ref3].</p>
 </div>
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
+</div>
+<div id="models" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Models</h2>
+<div id="model-1-linear" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Model 1: Linear</h3>
+</div>
+<div id="model-2-ann" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Model 2: ANN</h3>
+</div>
+<div id="model-3-xgb" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Model 3: XGB</h3>
+</div>
+<div id="working-refs" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Working refs</h3>
+<p>[ref1] <a href="https://www.meps.ahrq.gov/mepsweb/" class="uri">https://www.meps.ahrq.gov/mepsweb/</a>
+[ref2] <a href="https://github.com/IBM/AIX360" class="uri">https://github.com/IBM/AIX360</a>
+[ref3] <a href="https://nbviewer.jupyter.org/github/IBM/AIX360/blob/master/examples/tutorials/MEPS.ipynb#data" class="uri">https://nbviewer.jupyter.org/github/IBM/AIX360/blob/master/examples/tutorials/MEPS.ipynb#data</a></p>
+
 </div>
 </div>
 </div>
@@ -190,8 +218,8 @@
           </div>
         </div>
       </div>
-<a href="acknowledgements.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="story-uplift-modelling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -222,7 +250,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/99-references.Rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/06-story-Medical-Expenditure-Panel-Survey.Rmd",
 "text": "Edit"
 },
 "history": {

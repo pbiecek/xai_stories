@@ -35,13 +35,13 @@ We have divided our work into several stages, below we present a diagram with a 
 
 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/05-plan.png')
+knitr::include_graphics('images/02-plan.png')
 ```
 
 We started our work with a literature review. Many works show a comparison of hedonistic models (linear regression) and machine learning models. Below there is a plot with comparison of results achieved by models interpretable by design (hedonistic) and black box model (ANN) based on the article \@ref(house_prices).
 
 ```{r , cache=FALSE, out.width="400", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/05-model_article.png')
+knitr::include_graphics('images/02-model_article.png')
 ```
 
 We can conclude that we reduce the interpretability to an increase in the quality of model fitting.

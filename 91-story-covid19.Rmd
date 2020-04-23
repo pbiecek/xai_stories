@@ -1,8 +1,26 @@
+# Examples {-}
+
 # Story covid19: eXplainable predictions for mortality {#story-covid19}
 
 *Authors: Author 1 (University 1), Author 2 (University 2), Author 3 (University 3)*
 
 *Mentors: Mentor 1 (Affiliation 1), Mentor 2 (Affiliation 2)*
+
+## Figures and citations 
+
+Cite other materials this way:
+This book is created with [@xie2015].
+
+Refer to figures or chatpers this way:
+In Figure \@ref(fig:cc-logo) we show a [CC BY-NA-SA](https://creativecommons.org/licenses/by-nc-sa/2.0/) logo.
+
+The next chapter is \@ref(story-lungs).
+
+```{r cc-logo, echo=FALSE, fig.cap='Licence: Creative Commons Attribution NonCommercial ShareAlike', out.width = '50%', fig.align='center'}
+knitr::include_graphics("images/by-nc-sa.png")
+```
+
+
 
 ## Introduction 
 

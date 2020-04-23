@@ -1,0 +1,57 @@
+# Story Uplift Modelling: eXplaining colon cancer survival rate after treatment {#story-uplift-modelling}
+
+*Authors: Aleksandra Łuczak (Warsaw University of Technology), Tymoteusz Makowski (Warsaw University of Technology), Kateryna Shulikova (Warsaw School of Economics)*
+
+*Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)*
+
+## Introduction 
+TODO(oryginał): Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.
+
+### What is Uplift Modelling?
+ - Czym jest uplift modelling?
+ - Gdzie go się stosuje?
+ - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
+
+### Dataset Description
+ - Opis naszego zbioru.
+ - Co na nim będziemy modelować (treatment a survival rate).
+ - Wstępne uzasadnienie dlaczego warto tym się zająć i dlaczego dobrze będzie tu cokolwiek wyjaśniać [ad 5].
+
+
+## Model 
+TODO(oryginał): Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
+ - Jaki model wybraliśmy?
+ - Jak trzeba było przygotować dataset?
+ - Jakie ma osiągi?
+ - Jakieś miary typu F1, accuracy i opis tego, które miary na tym zbiorze powinno się stosować.
+
+
+## Explanations
+TODO:(oryginał):
+> Here, show how XAI techniques can be used to solve the problem.
+> Will dataset specific or instance specific techniques help more?
+>
+> Will XAI be useful before (pre), during (in) or after (post) modeling?
+>
+> What is interesting to learn from the XAI analysis?
+
+ - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
+ - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
+
+### Dataset Level Explainations
+ - Jaka jest istotność zmiennych?
+
+### Instance Level Explainations
+ - Jakieś "ciekawe" przypadki?
+
+
+## Summary and conclusions 
+TODO:(oryginał):
+> Here add the most important conclusions related to the XAI analysis.
+> What did you learn? 
+> Where were the biggest difficulties?
+> What else did you recommend?
+
+ - Jakich informacji XAI nam dostarczyło na temat tego problemu?
+ - Jak XAI sprawdza się do wyjaśniania upliftu?
+ - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].

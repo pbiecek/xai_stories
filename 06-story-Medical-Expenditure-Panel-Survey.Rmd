@@ -1,0 +1,41 @@
+# Story MEPS: Healthcare expenditures of individuals
+## Introduction
+
+<div style="text-align: justify"> 
+In this part, models that predict annual healthcare expenditure of individuals will be developed and analyzed using XAI methods.
+
+The dataset used is called MEPS (Medical Expenditure Panel Survey) and it is freely accessible at [ref1]. The data comes from large-scale surveys of families, individuals, medical providers and employers from the United States of America. Each observation of the data set contains total expenditures of an individual as well as number of other variables describing his or her demographic and socio-economic status. This allows to create models predicting the expenditure based on other factors. For this reason it is particularly interesting from the point of view of the subject that is financially responsible for the healthcare cost – insurance company, government, healthcare provider or individuals. It is important to mention, that for all of these subjects, accurate model is only a part of the success – the other part are the relations between input parameters and predictions of the model. Having that we can provide an answer not only for how much? but also for why? Hopefully, this can be achieved with available XAI methods.
+
+The data analyzed in the following sections was not downloaded directly from MEPS website. Instead, it was obtained through IBM’s AIX360 [ref2]. Therefore it is initially preprocessed – race is restricted to black and white and ethnicity to non-Hispanic, records with special values (negative integers) are removed for some of the variables, variables are initially selected. The dataset provides 18350 observations and it contains variables that describe:
+
+* demographics (age, gender, marital status),
+
+* socio-economics (education, income, insurance coverage),
+
+* self-reported health status (self-evaluation of physical and mental health status),
+
+* diagnoses (stroke, cancer, heart disease, diabetes),
+* health limitations (cognitive, activity, sensory).
+
+Since the distribution of the predicted variable is strongly skewed to the right, it was transformed with logarithm base 3. Typically in such cases, natural logarithm is chosen, but having in mind that impact of input variables on the prediction will be analyzed, the decision was made to use base 3 instead (when we see that some input variable affected the prediction increasing it by one, then we can say that it increased the total expenditures by the factor of three, not factor of Euler number).
+
+The following section describes the development of three different models for predicting the transformed total health expenditure of an individual. Once developed, these models are compared in terms of their quality and of them is selected and analyzed using XAI methods. Explanations provided by different methods are discussed.
+
+The baseline for this discussion was provided by the authors of IBM’s AIX360 [ref3].
+</div>
+
+
+## Models
+### Model 1: Linear
+
+### Model 2: ANN
+
+### Model 3: XGB
+
+
+### Working refs
+
+[ref1] https://www.meps.ahrq.gov/mepsweb/
+[ref2] https://github.com/IBM/AIX360
+[ref3] https://nbviewer.jupyter.org/github/IBM/AIX360/blob/master/examples/tutorials/MEPS.ipynb#data
+

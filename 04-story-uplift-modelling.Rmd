@@ -13,8 +13,47 @@ TODO(oryginał): Put a description of the problem here. indicate the data source
  - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
 
 ### Dataset Description
- - Opis naszego zbioru.
+These are data from one of the first successful trials of adjuvant chemotherapy for
+colon cancer. Levamisole is a low-toxicity compound previously used to treat worm
+infestations in animals; 5-FU is a moderately toxic (as these things go) chemotherapy
+agent. There are two records per person, one for recurrence and one for death.
+
+Jest tutaj mowa o raku jelita grubego i eksperymentalnym podejściu do leczenia.
+Użyty był lek Levamisole - który jest stosowany u zwierząt jako lek przeciwrobaczy, ale
+zauważono jego właśniwości do leczenia raka jelita grubego. Do porównania jest drugi lek
+5-FU, czyli 5-Fluoro-Uracyl, który się stosuje "standardowo" w leczeniu raka jelita grubego
+To jest ten "mocniejszy" lek. Oba te leki podaje się po opreacji wycięcia raka, jest to
+adjutowantowa chemia, czyli 'dodatkowa pooperacyjna'.
+
+W zabiorze mamy zmienne:
+
+Variable name                   | Description
+--------------------------------|---------------
+id                              |    id
+study                           | 	1 for all patients
+rx                              |    Treatment - Obs(ervation), Lev(amisole), Lev(amisole)+5-FU
+sex                             | 	1=male
+age                             | 	in years
+obstruct                        | 	obstruction of colon by tumour - jest to zwężenie okrężnicy przez tak, czyli zablokowanie przez guz
+perfor                          |    perforation of colon - czy zrobiła się dziura w jelicie
+adhere                          | 	adherence to nearby organs - przyleganie do okolicznych narzadów(np pęcherza moczowego)
+nodes                           |    number of lymph nodes with detectable cancer - podczas operacji wycina się węzły chłonne które były zaatakowane przez raka i to jest liczba węzłów chłonych z wykrywalnym rakiem, powinno być dużo minimum 12, żeby operacja była 'udana'
+time                            |    days until event or censoring - liczba dni do rozpoczęcia leczenia?
+status                          |    censoring status
+differ                          | 	differentiation of tumour (1=well, 2=moderate, 3=poor) - zróżnicowanie komórek guza - im więcej tym lepiej, bo bardziej przypomina komórki jelita, a nie zlepek nie wiadomo czego
+extent                          |    Extent of local spread (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures) - Zasięg nowotworu, tzn do jakich tkanek dotarł, 1=podśluzowa, 2=mięśniowa, 3=surowicza, 4=przyległe struktury (im mniej tym lepiej)
+surg                            | 	time from surgery to registration (0=short, 1=long) - czas od operacji do rejestracji
+node4                           | 	more than 4 positive lymph nodes - 4 lub więcej węzłów chłonnych
+etype                           | 	event type: 1=recurrence,2=death - nawrót lub śmierć
+
+
+
  - Co na nim będziemy modelować (treatment a survival rate).
+ Modele przewidują śmiertelność danego pacjenta w zależności odpodanego leku oraz skuteczność leku, czyli czy poprawił stan zdrowotny pacjenta, czy nie.
+
+
+
+
  - Wstępne uzasadnienie dlaczego warto tym się zająć i dlaczego dobrze będzie tu cokolwiek wyjaśniać [ad 5].
 
 
@@ -24,7 +63,30 @@ TODO(oryginał): Place a description of the model(s) here. Focus on key informat
  - Jak trzeba było przygotować dataset?
  - Jakie ma osiągi?
  - Jakieś miary typu F1, accuracy i opis tego, które miary na tym zbiorze powinno się stosować.
+Model do przewidywania skuteczności leku został stworzony za pomocą algorytmu ExtraTrees z pakietu sklearn.
+ Test -> AUC = 90.98%
+ Train -> AUC = 90.31%
 
+ 	columns 	|importance
+	status 	    |0.747059
+ 	node4 	    |0.101439
+ 	treatment 	|0.026713
+	extent 	    |0.024557
+ 	adhere 	    |0.022921
+ 	nodes 	    |0.022467
+ 	age 	    |0.018148
+ 	perfor 	    |0.010347
+ 	obstruct 	|0.007869
+ 	sex 	    |0.007074
+ 	surg 	    |0.006733
+ 	differ 	    |0.004674
+
+Model do przewidywania śmiertelności w zależności od podanego leku został stworzony za pomocą algorytmu UpliftTreeClassifier z pakietu casualml.
+
+Przewidywanie leczenia:
+Acc = 43.27%
+Przewidywanie nawrotu choroby:
+AUC = 55.35%
 
 ## Explanations
 TODO:(oryginał):

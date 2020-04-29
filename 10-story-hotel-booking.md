@@ -18,6 +18,8 @@ A persuasive manager of the facility might want to attempt to offer the booking 
 
 Here we will provide various models with their respective accuracy scores and our comments on the intuitiveness of explanations behind those predictions.
 
+We will reference respective python libraries when describing used models.
+
 ## Offering different conditions
 
 Here we will attempt to use a instance-specific explainable machine learning techniques in order to provide a similar offer that will reduce the probability of cancellation.
@@ -26,3 +28,4 @@ We will determine which methods, if any, might be applicable for real-time negot
 ## Final remarks
 
 Here we will summarize our findings and conclude the chapter.
+Does XAI improve predictions?

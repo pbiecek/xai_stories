@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Story Meps: regression | XAI Stories</title>
+  <title>Chapter 7 Hotel booking cancellation story: eXplainable predictions for booking cancellation for a | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Story Meps: regression | XAI Stories" />
+  <meta property="og:title" content="Chapter 7 Hotel booking cancellation story: eXplainable predictions for booking cancellation for a | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Story Meps: regression | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 7 Hotel booking cancellation story: eXplainable predictions for booking cancellation for a | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="story-uplift-modelling.html"/>
-<link rel="next" href="story-meps-healthcare-expenditures-of-individuals.html"/>
+<link rel="prev" href="story-uplift-marketing1.html"/>
+<link rel="next" href="examples.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -205,30 +205,31 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="story-meps-regression" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Story Meps: regression</h1>
-<p><em>Authors: Anna Kozioł (Warsaw University of Technology), Katarzyna Lorenc (Warsaw University of Technology), Piotr Podolski (University of Warsaw)</em></p>
-<p><em>Mentors: Maciej Andrzejak (Affiliation 2), Alicja Jośko (Affiliation 1)</em></p>
-<div id="introduction-3" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Introduction</h2>
-<p>The aim of the project is to predict medical expenses based on demographic and socio-economic variables.</p>
-<p>The Medical Expenditure Panel Survey provides data on health care as well as related costs. Data for the MEPS project has been collected regularly since 1996.
-Each year, approximately 15,000 households are selected as a new panel of surveyed units.</p>
+<div id="story-hotel-booking-2" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Hotel booking cancellation story: eXplainable predictions for booking cancellation for a</h1>
+<p><em>Authors: Miłosz Michta (University of Warsaw), Kazimierz Wojciechowski (Warsaw University of Technology)</em></p>
+<p><em>Mentors: Maciej Andrzejak (McKinsey &amp; Company), Alicja Jośko (McKinsey &amp; Company)</em></p>
+<p>Apr–Jun 2020</p>
+<div id="introduction-6" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<p>Imagine you are the owner of a portuguese hotel. You notice that some of the reservations are cancelled on a regular basis. To maximize revenue you plan to practice room overbooking strategy. How exactly would you approach this strategy? How many rooms to oversell? Which customers are most likely to cancel their reservation? What is the probability of cancellation? And most importantly: <strong>what is the reason behind the prediction?</strong> We will make an attempt to answer this question using explainable machine learning.</p>
+<p>From the standpoint of a machine learning engineer one might want to find a model that not only is high-performing, but is also based on intuitive insights about the data. In the case of several competing</p>
+<p>A persuasive manager of the facility might want to attempt to offer the booking on slightly different conditions to customers that are most prone to cancel their reservation e.g. by offering a non-refundable booking for customers from Portugal and Germany. It will be of crucial importance to determine which features to tweak to make the booking as secure as possible while trying not to make the customer feel too uncomfortable by insisting on too many changes. To solve this interesting problem we propose instance-specific explainable machine learning techniques.</p>
 </div>
-<div id="model-3" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Model</h2>
-<p>We are testing models and trying to improve their quality.
-Right now, the best model we developed is Gradient Boosting Regressor.
-The figures below present the prediction values on training and test set.</p>
-<p><img src="images/05-bg_train.png" width="500" style="display: block; margin: auto;" /></p>
-<p><img src="images/05-bg_test.png" width="500" style="display: block; margin: auto;" /></p>
-<p>All key information about the final model we will put in this section.</p>
+<div id="model-comparison" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Model comparison</h2>
+<p>Here we will provide various models with their respective accuracy scores and our comments on the intuitiveness of explanations behind those predictions.</p>
+<p>We will reference respective python libraries when describing used models.</p>
 </div>
-<div id="explanations-3" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Explanations</h2>
+<div id="offering-different-conditions" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Offering different conditions</h2>
+<p>Here we will attempt to use a instance-specific explainable machine learning techniques in order to provide a similar offer that will reduce the probability of cancellation.
+We will determine which methods, if any, might be applicable for real-time negotiation.</p>
 </div>
-<div id="summary-and-conclusions-3" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Summary and conclusions</h2>
+<div id="final-remarks" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Final remarks</h2>
+<p>Here we will summarize our findings and conclude the chapter.
+Does XAI improve predictions?</p>
 
 </div>
 </div>
@@ -237,8 +238,8 @@ The figures below present the prediction values on training and test set.</p>
           </div>
         </div>
       </div>
-<a href="story-uplift-modelling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="story-meps-healthcare-expenditures-of-individuals.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="story-uplift-marketing1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -269,7 +270,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/05-story-meps.rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/10-story-hotel-booking.rmd",
 "text": "Edit"
 },
 "history": {

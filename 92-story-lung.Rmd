@@ -60,7 +60,10 @@ As we have indentified higle defendent features as well as observed that tumor s
 - encode, remove highly dependent features and normalize 
 - encode, introduce tumor volume, discard tumor sizes, remove highly dependent features and normalize 
 
-Finally we have settled on Neural Net with 10 hidden neurons.
+Finally we have settled on Neural Net with 10 hidden neurons with following receiver operating curve.
+
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+knitr::include_graphics('images/92_auc_nn.png')
 
 
 ## Explanations

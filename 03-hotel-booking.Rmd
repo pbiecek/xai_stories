@@ -219,7 +219,7 @@ What is interesting to learn from the XAI analysis?
 We first inspected the Shapley values for two interesting instances with different correct answer. The first instance showed us that the model learned that guests coming to the hotel in October are less likely to come back and that the lack of booking changes also affects repeating negatively. This explanations are reasonable, because in contrast to the holiday guests, the non-vacation time guests probably are visiting the hotel because of some other, independent reason, that is not as repeatable as the annual vacations. The similar reasoning can be repeated for the changes in the booking and number of special requests - when one comes to some place to relax, they will probably care more about additional attractions provided by the hotel and people who visit a relaxing place, when it met their expecations, probably will come again. The second guest, that is an adult coming to the hotel regularly (`previous_booking_not_canceled`) for a weekend (`arrival_weekday` and `stays_in_week_nights`) probably will come again for one more weekend, for the same reasons as they came before.
 
 <!--![image](images/03-shap_2_1.png)-->
-```{r shap_2_1, echo=FALSE, fig.cap='Shapley values for non-repeating customer' out.width = '100%', fig.align='center'}
+```{r shap_2_1, echo=FALSE, fig.cap='Shapley values for non-repeating customer', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/03-shap_2_1.png")
 ```
 

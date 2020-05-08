@@ -119,12 +119,9 @@ knitr::include_graphics('images/92_cp_4.png')
 At this stage we can already conclude that the techniques of model explanations are not only useful at the end of our journey. They can give us tips on how to transform data or which variables should be deleted.
  
 
-
-
 ## Summary and conclusions 
 
-Here add the most important conclusions related to the XAI analysis.
-What did you learn? 
-Where were the biggest difficulties?
-What else did you recommend?
+- XAI methods legitimised employed approach of pruning the dataset.
+- XAI methods yielded explainations consistent with biological intuintion, what builds up trust in the model.
+- As variety of modelling and preprocessing approaches resulted in similar predicitive performance we conclude there is not much more to squeeze out of the dataset.
 

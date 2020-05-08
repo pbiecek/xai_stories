@@ -1,0 +1,188 @@
+# Story Uplift modeling on marketing dataset: eXplainable predictions for optimized marketing campaigns {#story-uplift-marketing1}
+
+*Authors: Jan Ludziejewski (Warsaw University), Paulina Tomaszewska (Warsaw University of Technology), Andżelika Zalewska (Warsaw University of Technology)*
+
+*Mentors: Łukasz Frydrych (McKinsey), Łukasz Pająk (McKinsey)*
+
+## Introduction 
+
+Running bussiness is a challenge. It involves making a lot of decisions in order to maximize profits and cut down costs - finding the tradeoff is not a straight-forward task.
+Here comes Machine Learning and uplift models that can help in optimizing marketing costs.
+
+People often ask whether it makes sense to address marketing campaigns to all company's customers. 
+From one point of view by sending an offer we think the probability that the customer will buy our product is higher - in fact it is not always the cases 
+(the matter will be described in details later).
+On the other hand, making large-scale campaign is costly. Therefore it would be good to know what is the return of investment. 
+
+Above we presented the common sense arguments but how science addresses a question: *"Is it true that by sending the marketing offer we only extend the chance for the customer to buy our product and therefore extend our profit?"*.
+
+The issue was already investigated [@book_uplift] and it was pointed out that customers of any company can be divided into 4 groups \@ref(fig:4groups). 
+
+```{r 4groups, echo=FALSE, fig.cap='Customer types taking into consideration their response to treatment', out.width = '50%', fig.align='center'}
+knitr::include_graphics("images/09_e45e2d97-confmatrix_alt.png")
+```
+
+The image matrix was created based on the customer decision to buy a product depending on the fact that they were addressed by marketing campaign or not. The action used for trigggering in customer the particular behaviour is called treatment. In the 4 groups we distinghuish \@ref(fig:4groups) :
+
+  * the customers that irrespective of the fact that they experienced treatment or now that are going to buy a product *(these are called "sure things")*
+  * the customers that irrespective of the fact that they experienced treatment or now that are **NOT** going to buy a product *("lost causes")*
+  * the customers that without being exposed to marketing campaing would **NOT** buy a product *("persuadables")*
+  * the customers that without being exposed to marketing campaing would buy a product but in case thay receive a marketing offer they resign *("sleeping dogs")*
+
+It can be than observed that in case of *"lost causes"* and *"sure things"* sending a marketing offer makes no impact therefore it doesn't make sense to spend money on targeting these customers. As the company we should however pay more attention to the groups *"persuadables"* and *"sleeping dogs"*. In case of the first bearing the costs of marketing campaign will bring benefit. In case of the latter we not only spend money on targeting them but as the result we will also discourage them from buying the product therefore we as a company loose two times. The case of sleeping dogs can seem irrealistic, therefore we present an example. 
+
+> *Let's imagine there is a customer that subscriped our paid newsletter. He forgot that he pays each month fixed fee. He would continue paying unless a company sends him a discount offer. At this moment the customer realises that he doesn;t need and offer and unsubscripes.*
+
+By understading the structure of the company's customers, it can target its offer more effectively.
+
+
+
+### Approaches towards uplift modeling
+
+In [@uplift_stanford] it was pointed out that the problem of deciding whether it is profitable to send an offer to particular customer can be tackled from two different perspectives: predictive response modelling (it is classical classification task where model assigns probability to each of the classes) and uplift modelling (where the "incremental" probability of purchase is modelled). The latter is more interesting but at the same time more challenging.
+Uplift modeling is a technique that helps to determine probability gain that the customer by getting the marketing materials will buy a product.
+The field is relatievely new. The two most commmon approaches are [@uplift_approaches]:
+
+  * Two Model
+  
+In this method there are build two classifiers. The one is trained on observations that received treatment *(model_T1)* and the second is trained on observations that didn't receive a treatment *(model_T0)*. Later the uplift for particular observations is calculated. If the observation experienced treatment then it is an input to the *model_T1* and the probability that the customer will buy a product is calculated. Later the if condition is investigated meaning what would happen if the customer didn't receive a treatment. In Ssuch case  the treatment indicator in observation's feature is changed to "zero". Such modified record is an input to *model_T0* that predicts the probability that such customer will buy a product. The uplift is calculated as difference between output of the *model_T1* and *model_T0*. The higher the difference, the more profitable is addressing marketing campaign to particular customer.    
+
+  * One Model
+  
+The one model approach is similar conceptually to the Two model approach with such a difference that instead of building two classifiers only one is used. Therefore every observation is an input to the model that generates prediction. Later the indicator in the treatment column is changed into the negation and such vector is used as input to the model that once again output probability that the customer buy a product. The uplift is the difference of the two predicted probabilities. 
+
+[przydałoby się stworzyć jakąś prostą grafikę tutaj]
+
+As the uplift modeling is an emenrging field there isn't a list of good practices in terms of what classifier is better to use. 
+In [@uplift_svm], the autors investigated application of SVM. But due to the fact that SVM requires precise, long lasting finetuning we decided to use xgboost (the architecture of our solution is described in details in section Model).
+
+## Dataset
+
+There is a scarcity of well-documented datasets dedicated to uplift modeling. Therefore the autors of [@uplift_dataset_modification] proposed to artificially modify available datasets in order to extract information about treatment. As the purpose of this story is to investigate XAI techniques in the domain of uplift modeling we decided to use real life dataset. 
+We chose Kevin Hillstrom's dataset from E-Mail Analytics And Data Mining Challenge [@uplift_dataset_marketing].The dataset consists of 64000 records reflecting customers that last purchased within 12 months. As a treatment an e-mail campaign was addressed:
+
+  * 1/3 of customers were randomly chosen to receive an e-mail campaign featuring Mens merchandise
+  * 1/3 were randomly chosen to receive an e-mail campaign featuring Womens merchandise
+  * 1/3 were randomly chosen to not receive an e-mail campaign *("control group")*
+  
+As an expected behaviour the following actions were determined: 
+* visit the company's website within 2 weeks after sending to the customers a marketing campaign
+* purchase a product from the website within 2 weeks after sending to the customers a marketing campaign
+
+In the challenge the task was to determine whether the Mens or Womens e-mail campaign was successful. In our task we reformulated the task and we want to answer the question whether any e-mail campaign was profitable for the company.
+
+The features about customers in the dataset are specified in fig \@ref(fig:dataset):
+
+```{r dataset, echo=FALSE, fig.cap='Customer features in the dataset', out.width = '100%', fig.align='center'}
+knitr::include_graphics("images/09_xai_customer.jpg")
+```
+
+There is also information about customer activity in the two weeks following delivery of the e-mail campaign (these can be interpreted as labels):
+
+* Visit: 1/0 indicator, 1 = Customer visited website in the following two weeks.
+* Conversion: 1/0 indicator, 1 = Customer purchased merchandise in the following two weeks.
+* Spend: Actual dollars spent in the following two weeks.
+
+[zwiększę potem czcionkę na grafice]
+
+### Feature engineering
+
+It is largely imbalanced - there is only about 15% of positive cases in column Visit and x% in column Conversion.
+In such situation we decided to use column Visit as a label.
+As the number of column is small we decided to use one-hot encoding for transforming categorical variables instead of target encoding. 
+
+## Model [wymaga dopracowania]
+There is not many packages dedicated to uplift modeling in python. We investigated the two: pylift [@pylift] and pyuplift. The latter enables usage of 4 types of models - one of those is Two Model approach. In pylift package there is the TransformedOutcome class that generate predictions. However, the model itself is not well described and uses XGBRegressor unserneath that is not intuitive. Fortunately the package offer also the class UpliftEval that allow uplift metric visualization. 
+In the scene, we decided to create our own classifier (as in the One-Model approach) and use UpliftEval class from pylift model for metric evaluation.
+As the classifier we used fine-tuned XGBoost. In the figure below we show the cumulative gain chart for train and test sets. 
+
+
+```{r upliftRES, echo=FALSE, fig.cap='Cumulative gain chart: (left) train set, (right) test set', out.width = '50%', fig.align='default', fig.show="hold"}
+knitr::include_graphics("images/09_uplift_train.png")
+knitr::include_graphics("images/09_uplift_test.png")
+```
+[DODAĆ ZDANIE JAK CZYTAĆ TEN WYKRES - JAK ON POWSTAJE]
+
+It can be seen that our model is better than random choice but much worse than practical/theoretical maximum possible. It is also worse than the case without sleeping dogs.
+It is worth emphesising that our model didn't experience overfitting as its quality on train and test sets are similar.
+
+[napisać gdzieś że miara accuracy jest tu niewłaściwa i poprzeć to dowodem liczbowym]
+
+
+## Explanations [wymaga dopracowania]
+The model is already created and the metric show that it brings additional value.Here comes the question whether the model is reliable, does it make the decision based on the features that are important form expert knowledge perspective. Such judgement can be done based on results of XAI tools.
+We decided to investigate model interpretability from the perspective of the 4 customer groups @\ref(fig:4groups). Therefore we chose one representative customer from each group and analyse the model on instance-level. 
+
+### Individual perspective
+
+In order to explain model output for particular customer we employed Shapley values [@shap]. We benefit from additive feature attribution property of shapley values to model the uplift:
+
+UPLIFT=P(PUCHASE|TREATMENT=1) - P(PURCHASE|TREATMENT=0)) --> 
+SHAP(P(PUCHASE|TREATMENT=1)) - SHAP(P(PUCHASE|TREATMENT=0)) = SHAP (UPLIFT)
+
+This gives us great opportunity to evaluate these two vectors of Shapley values independently. For example if we use any tree-based model, we can make use of tree-based kernel for shapley value estimation (faster and better convergent) instead of modelling it directly as a black blox model returning difference between two regressors.
+
+Experimental results proved, that these two ways of calulcation are providing close estimations, with precision to numerical errors.
+
+Below we present Shapley values for the customer with the highest and the lowest uplift computed directly on uplift (without using its additivity) @\ref(fig:upliftSHAP).
+
+```{r upliftSHAP, echo=FALSE, fig.cap='Shapley values: (left) customer with the lowest uplift, (right) customer with the highest uplift', out.width = '50%', fig.align='default', fig.show="hold"}
+knitr::include_graphics("images/09_shap_min_uplift.png")
+knitr::include_graphics("images/09_shap_max_uplift.png")
+```
+
+[DODAĆ WNIOSKI]
+
+
+In a table @\ref(tab:upliftTABLE) there is a comparison of Shapley values obtained using two methods for the customer with the lowest uplift.
+
+```{r upliftTABLE, echo=FALSE, tab.cap='Shapley values obtained using two methods', out.width = '50%', fig.align='default', fig.show="hold"}
+tab=read.csv2("images/uplift_table.csv")
+knitr::kable(tab)
+```
+
+Experimental results proved, that these two ways of calulcation are providing close estimations, with precision to numerical errors [TRZEBA NAPISAĆ TEŻ O WPŁYWIE LOSOWOŚCI - LOSUJEMY SUBSET]
+
+Conclusions
+
+In case of our model there is no need to apply LIME as its main advantages - sparsity - is not important as we have few columns.
+
+
+### Data scientist perspective
+Unfortunately, its impossible to calculate directly Permutation Feature Importance, because of the previously mentioned problem with lack of full information in both cases: Will the client make the purchse after treatment, and will he without it. Because of having in disposal only historical data (not an oracle), we have only one of these two informations. However, we can make use of the previously computed shapley values of uplift to calculate the same value of permutational feature importance as an average of local shapley importance (defined in a permutational way itself, however calculated in a smarter manner, more in [@feature_importance_shap].
+
+We decided to evaluate feature importance not from the well-known dataset-level but subset-level. We extracted from the dataset 3 groups: "sleeping dogs", "persuadables" and "no impact" (this group is a merge of the groups: "sure things" and "lost causes"). The division was based on the predicted uplift. Sleeping dogs have negative uplift, "no impact" have uplift from zero to the defined epsilon and persuadables have uplift greater than epsilon. We decided to not take into consideration epsilon in case of sleeping dogs as we want to be more conservative. The worst thing the company can do is to discourage the customer from buying.
+
+
+```{r sleepingDOGS, echo=FALSE, fig.cap='Variable importance - "sleeping dogs"', out.width = '100%', fig.align='center'}
+knitr::include_graphics("images/09_sleeping_dogs_feature_importance.PNG")
+```
+
+
+```{r noIMPACT, echo=FALSE, fig.cap='Variable importance - "no impact"', out.width = '100%', fig.align='center'}
+knitr::include_graphics("images/09_sure_things_lost_cases_feature_importance.PNG")
+```
+
+
+```{r persuadables, echo=FALSE, fig.cap='Variable importance - "persuadables"', out.width = '100%', fig.align='center'}
+knitr::include_graphics("images/09_persuadables_feature_importance.PNG")
+```
+
+
+Conclusions
+
+
+[W TEJ CZĘŚCI DODAMY JESZCZE PDP]
+
+
+## Summary and conclusions 
+Using XAI for uplift modeling helps to understand its complex models better. The analysis goes beyond just assesing whether the model is reliable... it can help the executive to understand better the company customers - their behaviour without paying for some extra surveys to investigate their attitude towards the company.
+
+A vital part of our work was adjusting XAI techniques for the particularities of uplift modeling. We found out that thanks its additivity Shapley values are well suited for uplift modelling - we showed two methods of using it. We identified limitations of well-known Permutation Feature Importance in terms of explaining uplift modeling. It is caused by the fact that unlike in other supervised models here we do not have exactly labels. Therefore we used the generalization of Shapley values that converge to Permutation Feature Importance. We employed the analysis for the three gropus of customers based on the corresponding uplift.
+
+.........................................
+
+Here add the most important conclusions related to the XAI analysis.
+What did you learn? 
+Where were the biggest difficulties?
+What else did you recommend?

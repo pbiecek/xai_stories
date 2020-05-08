@@ -1,3 +1,5 @@
+<div style="text-align: right"> 
+
 # Story MEPS: Healthcare expenditures of individuals
 
 *Authors: Dominika Bankiewicz (University of Warsaw), Jakub Białek (Warsaw University of Technology), Agata Pładyn (Warsaw University of Technology)  *
@@ -242,4 +244,4 @@ PCS42 was created based on set of concrete questions about specific pain, limita
 
 ## Summary and conclusions
 
-
+</div>

@@ -64,6 +64,7 @@ Finally we have settled on Neural Net with 10 hidden neurons with following rece
 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
 knitr::include_graphics('images/92_auc_nn.png')
+```
 
 
 ## Explanations

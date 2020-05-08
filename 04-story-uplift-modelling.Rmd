@@ -4,116 +4,337 @@
 
 *Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)*
 
+```{r, echo = FALSE}
+# Function used to set columns' widths in HTML knitr::kable tables.
+# Source of the function: https://github.com/rstudio/bookdown/issues/122#issuecomment-221101375
+html_table_width <- function(kable_output, width){
+  width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
+  sub('<table>', paste0('<table class="table">\n', width_html), kable_output)
+}
+```
+
 ## Introduction 
-TODO(oryginał): Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.
+We will use data about **Chemotherapy for Stage B/C colon cancer** from `survival` package in R. The documentation can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html), the package can be installed with `install.packages("survival")` command in R console. After the installation dataset can be accessed via `survival::colon` command.
+
+<!--
+    TODO: Describe why this problem is important. Indicate the most important literature on the problem. 
+    TODO(oryginał): Put a description of the problem here. *Indicate the data source.*
+-->
+
 
 ### What is Uplift Modelling?
+
+For classical algorithms in machine learning it is hard to predict causal impact of the event because they are more suited for predicting the results after an action. In some cases, such as a marketing campaign or medical treatment, that causal impact might be extremely important. Due to the possibility of using two training sets (treatment and control groups) by uplift modeling this problem was solved. 
+
+Uplift modeling is one of the techniques or a branch of machine learning that tries to forecast class probability differences between group exposed to some action or therapy and control group (without that action or therapy).
+
+This technique also allows to discover in research those groups of patients for which treatment was most beneficial, so it is commonly used not only in marketing campaigns or medical treatments but also in other customer services.
+
+References:
+
+ * Uplift modeling with survival data [@04_jaroszewicz_uplift],
+ * Uplift modeling for clinical trial data [@04_jaskowski_uplift],
+ * Uplift Modeling for Multiple Treatments with Cost Optimization [@04_zhao_uplift],
+ * Linear regression for uplift modeling [@04_jaroszewicz_linear],
+ * Ensemble methods for uplift modeling [@04_soltys_ensemble].
+
+<!-- TODO:
  - Czym jest uplift modelling?
  - Gdzie go się stosuje?
  - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
+-->
+
 
 ### Dataset Description
-These are data from one of the first successful trials of adjuvant chemotherapy for
-colon cancer. Levamisole is a low-toxicity compound previously used to treat worm
-infestations in animals; 5-FU is a moderately toxic (as these things go) chemotherapy
-agent. There are two records per person, one for recurrence and one for death.
+We use data from one of the first successful trials of adjuvant chemotherapy for colon cancer. There are two type of treatment:
 
-Jest tutaj mowa o raku jelita grubego i eksperymentalnym podejściu do leczenia.
-Użyty był lek Levamisole - który jest stosowany u zwierząt jako lek przeciwrobaczy, ale
-zauważono jego właśniwości do leczenia raka jelita grubego. Do porównania jest drugi lek
-5-FU, czyli 5-Fluoro-Uracyl, który się stosuje "standardowo" w leczeniu raka jelita grubego
-To jest ten "mocniejszy" lek. Oba te leki podaje się po opreacji wycięcia raka, jest to
-adjutowantowa chemia, czyli 'dodatkowa pooperacyjna'.
+ - *Levamisole* is a low-toxicity compound previously used to treat worm infestations in animals and its effects on the treatment of colon cancer have been noted; 
+ - *5-FluoroUracyl(FU)* is a moderately toxic (as these things go) chemotherapy agent. This is the "strongest" one treatment. 
 
-W zabiorze mamy zmienne:
+Both of these medications are given after the cancer excision, it's adjutant chemistry, that means "extra post-operative".
 
-Variable name                   | Description
---------------------------------|---------------
-id                              |    id
-study                           | 	1 for all patients
-rx                              |    Treatment - Obs(ervation), Lev(amisole), Lev(amisole)+5-FU
-sex                             | 	1=male
-age                             | 	in years
-obstruct                        | 	obstruction of colon by tumour - jest to zwężenie okrężnicy przez tak, czyli zablokowanie przez guz
-perfor                          |    perforation of colon - czy zrobiła się dziura w jelicie
-adhere                          | 	adherence to nearby organs - przyleganie do okolicznych narzadów(np pęcherza moczowego)
-nodes                           |    number of lymph nodes with detectable cancer - podczas operacji wycina się węzły chłonne które były zaatakowane przez raka i to jest liczba węzłów chłonych z wykrywalnym rakiem, powinno być dużo minimum 12, żeby operacja była 'udana'
-time                            |    days until event or censoring - liczba dni do rozpoczęcia leczenia?
-status                          |    censoring status
-differ                          | 	differentiation of tumour (1=well, 2=moderate, 3=poor) - zróżnicowanie komórek guza - im więcej tym lepiej, bo bardziej przypomina komórki jelita, a nie zlepek nie wiadomo czego
-extent                          |    Extent of local spread (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures) - Zasięg nowotworu, tzn do jakich tkanek dotarł, 1=podśluzowa, 2=mięśniowa, 3=surowicza, 4=przyległe struktury (im mniej tym lepiej)
-surg                            | 	time from surgery to registration (0=short, 1=long) - czas od operacji do rejestracji
-node4                           | 	more than 4 positive lymph nodes - 4 lub więcej węzłów chłonnych
-etype                           | 	event type: 1=recurrence,2=death - nawrót lub śmierć
+There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the \@ref(tab:04-variables-description) table.
+
+```{r, echo = FALSE}
+html_table_width(
+    knitr::kable(
+        data.frame(
+            Variable = c(
+                "id",
+                "study",
+                "rx",
+                "sex",
+                "age",
+                "obstruct",
+                "perfor",
+                "adhere",
+                "nodes",
+                "time",
+                "status",
+                "differ",
+                "extent",
+                "surg",
+                "node4",
+                "etype"
+            ),
+            Type = c(
+                "categorical",
+                "categorical",
+                "categorical",
+                "categorical",
+                "continuous",
+                "binary",
+                "binary",
+                "binary",
+                "continuous",
+                "continuous",
+                "binary",
+                "categorical",
+                "categorical",
+                "categorical",
+                "binary",
+                "categorical"
+            ),
+            Description = c(
+                "An id.",
+                "1 for all patients.",
+                "Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl.",
+                "Patient's sex: Male or Female.",
+                "Patient's age in years.",
+                "Stenosis of the colon by the cancer, which is blockage by the tumor.",
+                "Perforation of colon - a flag whether there was a hole in the colon.",
+                "Adherence to the surrounding organs (e.g. bladder).",
+                "Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes.",
+                "Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment.",
+                "Censoring status.",
+                "Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells.",
+                "Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better.",
+                "Time from surgery to registration (0=short, 1=long).",
+                "More than 4 positive lymph nodes.",
+                "Event type: 1=recurrence, 2=death."
+            )
+        ),
+        "html",
+        caption = "Description of variables found in the dataset with values types from data exploration.",
+        label = "04-variables-description"
+    ),
+    c("20%", "20%", "75%")
+)
+```
+
+Typically, the survival data includes two variables: the observed survival time (`time` variable in our dataset) and a binary censoring status variable (`status` variable in our dataset). The `status` variable indicates whether the event has been observed (typically denoted by `status = 1`). However, if the event has not been observed (`status = 0`) then the true survival time has ben censored, i.e. it is only known that the true survival time is at least equal to `time` [@04_jaroszewicz_uplift].
 
 
+### Ideas
+There are many ways to use this data:
 
- - Co na nim będziemy modelować (treatment a survival rate).
- Modele przewidują śmiertelność danego pacjenta w zależności odpodanego leku oraz skuteczność leku, czyli czy poprawił stan zdrowotny pacjenta, czy nie.
+- prediction of the patient's life expectancy depending on whether they received  treatment or not,
+- prediction whether the treatment is effective or not,
+- prediction of the life expectancy depending on the medicine administered.
+
+We have decided to focus on the last mentioned approach. There are two approaches for modelling this approach. One of them being classification whether the patient will live longer than given threshold [@04_jaroszewicz_uplift] and the second one, on whom we will focus, regression which will yield result by how much the treatment will change the life expectancy.
 
 
+### Why is it worth the hassle?
+When a patient learns about the colon cancer disease they usually ask *"How much more time do I have left he has left?"*. And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but still be unable to tell how much time there is left or what's the patient's expectancy to live.
+
+The aim of this model is helping to provide more accurate data and answer the patient's question and how the treatment is going to change their life expectancy.
 
 
- - Wstępne uzasadnienie dlaczego warto tym się zająć i dlaczego dobrze będzie tu cokolwiek wyjaśniać [ad 5].
+## Data Preprocessing
+We removed columns:
+
+- `id`,
+- `study`,
+- `etype`,
+- `study` - due to the intent of regression modelling of the problem.
+
+The dataset has been divided into:
+
+- X - all features (without time and rx),
+- y - target variable (time),
+- treatment - `rx` variable.
+
+Distribution of the variable `rx` is as shown in the \@ref(tab:04-rx-distribution) table. This feature has been categorised.
+
+Table: (\#tab:04-rx-distribution) Number of observations with given treatment type.
+
+| Levamisole | Levamisole + 5-FU | Observation |
+|:----------:|:-----------------:|:-----------:|
+| 620        | 608               | 630         |
 
 
 ## Model 
-TODO(oryginał): Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
- - Jaki model wybraliśmy?
- - Jak trzeba było przygotować dataset?
- - Jakie ma osiągi?
- - Jakieś miary typu F1, accuracy i opis tego, które miary na tym zbiorze powinno się stosować.
-Model do przewidywania skuteczności leku został stworzony za pomocą algorytmu ExtraTrees z pakietu sklearn.
- Test -> AUC = 90.98%
- Train -> AUC = 90.31%
+To predict model we used algorithms from the package [causalml](https://github.com/uber/causalml) in Python 3.
+To optimize hyper parameters we used algorithms from the package [hyperopt](https://github.com/hyperopt/hyperopt) also in Python 3.
+All notebooks and codes can be found on [GitHub](https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4).
 
- 	columns 	|importance
-	status 	    |0.747059
- 	node4 	    |0.101439
- 	treatment 	|0.026713
-	extent 	    |0.024557
- 	adhere 	    |0.022921
- 	nodes 	    |0.022467
- 	age 	    |0.018148
- 	perfor 	    |0.010347
- 	obstruct 	|0.007869
- 	sex 	    |0.007074
- 	surg 	    |0.006733
- 	differ 	    |0.004674
+The final model is `XGBTRegressor` with parameters summarised in the \@ref(tab:04-model-params) table.
 
-Model do przewidywania śmiertelności w zależności od podanego leku został stworzony za pomocą algorytmu UpliftTreeClassifier z pakietu casualml.
+```{r, echo = FALSE}
+sub(
+    "<table>",
+    '<table style="width: 60%; margin-right: 25%; margin-left: 25%;">',
+    knitr::kable(
+        data.frame(
+            Parameter = c(
+                "colsample_bytree",
+                "gamma",
+                "learning_rate",
+                "max_depth",
+                "min_child_weight",
+                "n_estimators"
+            ),
+            Value = c(
+                "0.8336948571372381",
+                "0.5564260515876811",
+                "0.9327196556867555",
+                "6",
+                "0.45533158266464746",
+                "200"
+            )
+        ),
+        "html",
+        caption = "Final set of parameters used in our model.",
+        label = "04-model-params",
+        align = "rl"
+    )
+)
+```
 
-Przewidywanie leczenia:
-Acc = 43.27%
-Przewidywanie nawrotu choroby:
-AUC = 55.35%
+
+This gives as Average Treatment(Lev) Effect $74.38$ and Average Treatment(Lev+5-FU) Effect $185.69$.
+
+The average treatment effect (ATE) is a measure used to compare treatments in randomized experiments, evaluation of medical trials. The ATE measures the difference in mean  outcomes between units assigned to the treatment and units assigned to the control. In a randomized trial the average treatment effect can be estimated from a sample using a comparison in mean outcomes for treated and untreated units. 
+The treatment effect for individual $i$ is given by $y_{1}(i)-y_{0}(i)=\beta(i)$. In the general case, there is no reason to expect this effect to be constant across individuals. The average treatment effect is given by the equation \@ref(eq:04-ate).
+
+\begin{equation} 
+    ATE = \frac{1}{N}\sum_{i}y_{1}(i)-y_{0}(i)
+    (\#eq:04-ate)
+\end{equation}
+
+Where the sum in the \@ref(eq:04-ate) equation performed over all $N$ individuals in the population. 
+
 
 ## Explanations
-TODO:(oryginał):
-> Here, show how XAI techniques can be used to solve the problem.
-> Will dataset specific or instance specific techniques help more?
->
-> Will XAI be useful before (pre), during (in) or after (post) modeling?
->
-> What is interesting to learn from the XAI analysis?
+<!--
+    TODO:(oryginał):
+    > Here, show how XAI techniques can be used to solve the problem.
+    > Will dataset specific or instance specific techniques help more?
+    >
+    > Will XAI be useful before (pre), during (in) or after (post) modeling?
+    >
+    > What is interesting to learn from the XAI analysis?
 
- - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
- - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
+     - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
+     - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
+-->
+
 
 ### Dataset Level Explainations
- - Jaka jest istotność zmiennych?
+<!--
+    TODO: Jaka jest istotność zmiennych?
+-->
+
 
 ### Instance Level Explainations
- - Jakieś "ciekawe" przypadki?
+For the instance level explainations we have decided to focus on a limited number of observations.
+These observations are taken from set which seemed to provide interesting results during the data exploration process.
+
+The two observations which we have selected can be found in the \@ref(tab:04-selected-obs) table.
+
+```{r, echo = FALSE}
+{
+    colNames <- c("sex", "age", "obstruct", "perfor", "adhere", "nodes", "status", "differ", "extent", "surg", "node4")
+
+    sub(
+        "<tbody>",
+        '<tbody style="font-size: 87%;">',
+        sub(
+            "<thead>",
+            '<thead style="font-size: 87%;">',
+            knitr::kable(
+                setNames(
+                    as.data.frame(
+                        t(
+                            data.frame(
+                                "865" = c(0, 68, 0, 0, 1, 2, 1, 1, 3, 0, 0),
+                                "983" = c(1, 56, 0, 0, 0, 4, 0, 2, 3, 0, 0),
+                                check.names = FALSE
+                            )
+                        )
+                    ),
+                    colNames
+                ),
+                "html",
+                caption = "The two observations selected from the dataset for instance level explainations.",
+                label = "04-selected-obs",
+                align = rep("c", length(colNames))
+            )
+        )
+    )
+}
+```
+
+Both patients have the same severity of the cancer which is denoted by the `extent` variable. One of them is a female and the other is male. The older patient's (`age = 68`) cancer is adhered to surrounding organs whilst the other's cancer is not --- this is denoted by the `adhere` variable. Finally, the last difference is in `differ` variable which is difference between colon cells and cancer cells.
+
+The Explanations plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Levamisole(Lev)* and *Levamisole+5-FluoroUracyl(Lev+5FU)* -- as seen on figures below.
+
+#### Break Down
+On the figures
+```{r BD865, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. ",fig.show='hold',fig.align='center'}
+knitr::include_graphics('images/04-UL-865BD1.png')
+knitr::include_graphics('images/04-UL-865BD2.png')
+```
+
+```{r BD983, echo=FALSE,out.width="45%", out.height="40%",fig.cap="Break Down plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
+knitr::include_graphics('images/04-UL-983BD1.png')
+knitr::include_graphics('images/04-UL-983BD2.png')
+```
 
 
-## Summary and conclusions 
-TODO:(oryginał):
-> Here add the most important conclusions related to the XAI analysis.
-> What did you learn? 
-> Where were the biggest difficulties?
-> What else did you recommend?
+#### LIME
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c('images/04-UL-983Lime1.png','images/04-UL-983Lime2.png'))
+#knitr::include_graphics('images/04-UL-865Lime2.png')
+```
 
- - Jakich informacji XAI nam dostarczyło na temat tego problemu?
- - Jak XAI sprawdza się do wyjaśniania upliftu?
- - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].
+```{r, echo=FALSE,out.width="49%", out.height="20%",fig.cap="Lime plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.",fig.show='hold',fig.align='center'}
+knitr::include_graphics(c('images/04-UL-865Lime1.png','images/04-UL-865Lime2.png'))
+#knitr::include_graphics('images/04-UL-865Lime2.png')
+```
+
+
+#### SHAP
+The SHAP plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that `XGBTRegressor` model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is -- in our case *Lev* and *Lev+5FU* -- as seen on figures \@ref(fig:04-SHAP-865) and \@ref(fig:04-SHAP-983).
+
+```{r, 04-SHAP-865, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
+knitr::include_graphics(
+    c(
+        "images/04-UL-865SHAP1.png",
+        "images/04-UL-865SHAP2.png"
+    )
+)
+```
+
+```{r, 04-SHAP-983, echo=FALSE, out.width = "49%", fig.cap="SHAP plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment.", fig.show='hold', fig.align='center'}
+knitr::include_graphics(
+    c(
+        "images/04-UL-983SHAP1.png",
+        "images/04-UL-983SHAP2.png"
+    )
+)
+```
+
+## Summary and Conclusions 
+<!--
+    TODO:(oryginał):
+    > Here add the most important conclusions related to the XAI analysis.
+    > What did you learn? 
+    > Where were the biggest difficulties?
+    > What else did you recommend?
+
+     - Jakich informacji XAI nam dostarczyło na temat tego problemu?
+     - Jak XAI sprawdza się do wyjaśniania upliftu?
+     - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].
+-->

@@ -125,14 +125,17 @@
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#what-is-uplift-modelling"><i class="fa fa-check"></i><b>4.1.1</b> What is Uplift Modelling?</a></li>
 <li class="chapter" data-level="4.1.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#dataset-description"><i class="fa fa-check"></i><b>4.1.2</b> Dataset Description</a></li>
+<li class="chapter" data-level="4.1.3" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#ideas"><i class="fa fa-check"></i><b>4.1.3</b> Ideas</a></li>
+<li class="chapter" data-level="4.1.4" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#why-is-it-worth-the-hassle"><i class="fa fa-check"></i><b>4.1.4</b> Why is it worth the hassle?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#model-2"><i class="fa fa-check"></i><b>4.2</b> Model</a></li>
-<li class="chapter" data-level="4.3" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#explanations-3"><i class="fa fa-check"></i><b>4.3</b> Explanations</a>
+<li class="chapter" data-level="4.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#data-preprocessing"><i class="fa fa-check"></i><b>4.2</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="4.3" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#model-2"><i class="fa fa-check"></i><b>4.3</b> Model</a></li>
+<li class="chapter" data-level="4.4" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#explanations-3"><i class="fa fa-check"></i><b>4.4</b> Explanations</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#dataset-level-explainations"><i class="fa fa-check"></i><b>4.3.1</b> Dataset Level Explainations</a></li>
-<li class="chapter" data-level="4.3.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#instance-level-explainations"><i class="fa fa-check"></i><b>4.3.2</b> Instance Level Explainations</a></li>
+<li class="chapter" data-level="4.4.1" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#dataset-level-explainations"><i class="fa fa-check"></i><b>4.4.1</b> Dataset Level Explainations</a></li>
+<li class="chapter" data-level="4.4.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#instance-level-explainations"><i class="fa fa-check"></i><b>4.4.2</b> Instance Level Explainations</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#summary-and-conclusions-3"><i class="fa fa-check"></i><b>4.4</b> Summary and conclusions</a></li>
+<li class="chapter" data-level="4.5" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#summary-and-conclusions-3"><i class="fa fa-check"></i><b>4.5</b> Summary and Conclusions</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="story-meps-regression.html"><a href="story-meps-regression.html"><i class="fa fa-check"></i><b>5</b> Story Meps: regression</a>
 <ul>
@@ -228,181 +231,600 @@
 <p><em>Mentors: Miłosz Dobersztyn (McKinsey), Armin Reinert (McKinsey)</em></p>
 <div id="introduction-3" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
-<p>TODO(oryginał): Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.</p>
+<p>We will use data about <strong>Chemotherapy for Stage B/C colon cancer</strong> from <code>survival</code> package in R. The documentation can be found <a href="https://stat.ethz.ch/R-manual/R-devel/library/survival/html/colon.html">here</a>, the package can be installed with <code>install.packages("survival")</code> command in R console. After the installation dataset can be accessed via <code>survival::colon</code> command.</p>
+<!--
+    TODO: Describe why this problem is important. Indicate the most important literature on the problem. 
+    TODO(oryginał): Put a description of the problem here. *Indicate the data source.*
+-->
 <div id="what-is-uplift-modelling" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> What is Uplift Modelling?</h3>
+<p>For classical algorithms in machine learning it is hard to predict causal impact of the event because they are more suited for predicting the results after an action. In some cases, such as a marketing campaign or medical treatment, that causal impact might be extremely important. Due to the possibility of using two training sets (treatment and control groups) by uplift modeling this problem was solved.</p>
+<p>Uplift modeling is one of the techniques or a branch of machine learning that tries to forecast class probability differences between group exposed to some action or therapy and control group (without that action or therapy).</p>
+<p>This technique also allows to discover in research those groups of patients for which treatment was most beneficial, so it is commonly used not only in marketing campaigns or medical treatments but also in other customer services.</p>
+<p>References:</p>
 <ul>
-<li>Czym jest uplift modelling?</li>
-<li>Gdzie go się stosuje?</li>
-<li>Jakie problemy możemy modelować (survival &amp; leki, marketing &amp; zysk)?</li>
+<li>Uplift modeling with survival data <span class="citation">(Jaroszewicz and Rzepakowski <a href="#ref-04_jaroszewicz_uplift" role="doc-biblioref">2014</a>)</span>,</li>
+<li>Uplift modeling for clinical trial data <span class="citation">(Jaskowski and Jaroszewicz <a href="#ref-04_jaskowski_uplift" role="doc-biblioref">2012</a>)</span>,</li>
+<li>Uplift Modeling for Multiple Treatments with Cost Optimization <span class="citation">(Zhao and Harinen <a href="#ref-04_zhao_uplift" role="doc-biblioref">2019</a>)</span>,</li>
+<li>Linear regression for uplift modeling <span class="citation">(Krzysztof and Jaroszewicz <a href="#ref-04_jaroszewicz_linear" role="doc-biblioref">2018</a>)</span>,</li>
+<li>Ensemble methods for uplift modeling <span class="citation">(Sołtys, Jaroszewicz, and Rzepakowski <a href="#ref-04_soltys_ensemble" role="doc-biblioref">2015</a>)</span>.</li>
 </ul>
+<!-- TODO:
+ - Czym jest uplift modelling?
+ - Gdzie go się stosuje?
+ - Jakie problemy możemy modelować (survival & leki, marketing & zysk)?
+-->
 </div>
 <div id="dataset-description" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Dataset Description</h3>
-<p>These are data from one of the first successful trials of adjuvant chemotherapy for
-colon cancer. Levamisole is a low-toxicity compound previously used to treat worm
-infestations in animals; 5-FU is a moderately toxic (as these things go) chemotherapy
-agent. There are two records per person, one for recurrence and one for death.</p>
-<p>Jest tutaj mowa o raku jelita grubego i eksperymentalnym podejściu do leczenia.
-Użyty był lek Levamisole - który jest stosowany u zwierząt jako lek przeciwrobaczy, ale
-zauważono jego właśniwości do leczenia raka jelita grubego. Do porównania jest drugi lek
-5-FU, czyli 5-Fluoro-Uracyl, który się stosuje “standardowo” w leczeniu raka jelita grubego
-To jest ten “mocniejszy” lek. Oba te leki podaje się po opreacji wycięcia raka, jest to
-adjutowantowa chemia, czyli ‘dodatkowa pooperacyjna’.</p>
-<p>W zabiorze mamy zmienne:</p>
+<p>We use data from one of the first successful trials of adjuvant chemotherapy for colon cancer. There are two type of treatment:</p>
+<ul>
+<li><em>Levamisole</em> is a low-toxicity compound previously used to treat worm infestations in animals and its effects on the treatment of colon cancer have been noted;</li>
+<li><em>5-FluoroUracyl(FU)</em> is a moderately toxic (as these things go) chemotherapy agent. This is the “strongest” one treatment.</li>
+</ul>
+<p>Both of these medications are given after the cancer excision, it’s adjutant chemistry, that means “extra post-operative”.</p>
+<p>There are two records per person, one for recurrence and one for death. Dataset contains 1858 observations and 16 features which are described in the <a href="story-uplift-modelling.html#tab:04-variables-description">4.1</a> table.</p>
+<table class="table">
+<col width="20%">
+<col width="20%">
+<col width="75%">
+<caption>
+<span id="tab:04-variables-description">TABLE 4.1: </span>Description of variables found in the dataset with values types from data exploration.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Type
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+id
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+An id.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+study
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+1 for all patients.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rx
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+Treatment: Observation, Levamisole or Levamisole+5-FluoroUracyl.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+Patient’s sex: Male or Female.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:left;">
+continuous
+</td>
+<td style="text-align:left;">
+Patient’s age in years.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obstruct
+</td>
+<td style="text-align:left;">
+binary
+</td>
+<td style="text-align:left;">
+Stenosis of the colon by the cancer, which is blockage by the tumor.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+perfor
+</td>
+<td style="text-align:left;">
+binary
+</td>
+<td style="text-align:left;">
+Perforation of colon - a flag whether there was a hole in the colon.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+adhere
+</td>
+<td style="text-align:left;">
+binary
+</td>
+<td style="text-align:left;">
+Adherence to the surrounding organs (e.g. bladder).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nodes
+</td>
+<td style="text-align:left;">
+continuous
+</td>
+<td style="text-align:left;">
+Number of lymph nodes with detectable cancer i.e. during the operation the lymph nodes that were attacked by the cancer are cut out. For the operation to be successful there should be at least 12 lymph nodes.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time
+</td>
+<td style="text-align:left;">
+continuous
+</td>
+<td style="text-align:left;">
+Days until event or censoring. The time of receiving the treatment is considered to be time = 0, the time that passed in the variable time is the time until death or relapse from receiving the treatment.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+status
+</td>
+<td style="text-align:left;">
+binary
+</td>
+<td style="text-align:left;">
+Censoring status.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+differ
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+Differentiation of tumour cell (1=well, 2=moderate, 3=poor). The more the better because it is more like colon cells.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+extent
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+Extent of local spread, what cells did he reach (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures). The less the better.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+surg
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+Time from surgery to registration (0=short, 1=long).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+node4
+</td>
+<td style="text-align:left;">
+binary
+</td>
+<td style="text-align:left;">
+More than 4 positive lymph nodes.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+etype
+</td>
+<td style="text-align:left;">
+categorical
+</td>
+<td style="text-align:left;">
+Event type: 1=recurrence, 2=death.
+</td>
+</tr>
+</tbody>
+</table>
+<p>Typically, the survival data includes two variables: the observed survival time (<code>time</code> variable in our dataset) and a binary censoring status variable (<code>status</code> variable in our dataset). The <code>status</code> variable indicates whether the event has been observed (typically denoted by <code>status = 1</code>). However, if the event has not been observed (<code>status = 0</code>) then the true survival time has ben censored, i.e. it is only known that the true survival time is at least equal to <code>time</code> <span class="citation">(Jaroszewicz and Rzepakowski <a href="#ref-04_jaroszewicz_uplift" role="doc-biblioref">2014</a>)</span>.</p>
+</div>
+<div id="ideas" class="section level3" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Ideas</h3>
+<p>There are many ways to use this data:</p>
+<ul>
+<li>prediction of the patient’s life expectancy depending on whether they received treatment or not,</li>
+<li>prediction whether the treatment is effective or not,</li>
+<li>prediction of the life expectancy depending on the medicine administered.</li>
+</ul>
+<p>We have decided to focus on the last mentioned approach. There are two approaches for modelling this approach. One of them being classification whether the patient will live longer than given threshold <span class="citation">(Jaroszewicz and Rzepakowski <a href="#ref-04_jaroszewicz_uplift" role="doc-biblioref">2014</a>)</span> and the second one, on whom we will focus, regression which will yield result by how much the treatment will change the life expectancy.</p>
+</div>
+<div id="why-is-it-worth-the-hassle" class="section level3" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Why is it worth the hassle?</h3>
+<p>When a patient learns about the colon cancer disease they usually ask <em>“How much more time do I have left he has left?”</em>. And now what? What is the treatment? The doctor may indicate a number of therapies that may be effective, but still be unable to tell how much time there is left or what’s the patient’s expectancy to live.</p>
+<p>The aim of this model is helping to provide more accurate data and answer the patient’s question and how the treatment is going to change their life expectancy.</p>
+</div>
+</div>
+<div id="data-preprocessing" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Data Preprocessing</h2>
+<p>We removed columns:</p>
+<ul>
+<li><code>id</code>,</li>
+<li><code>study</code>,</li>
+<li><code>etype</code>,</li>
+<li><code>study</code> - due to the intent of regression modelling of the problem.</li>
+</ul>
+<p>The dataset has been divided into:</p>
+<ul>
+<li>X - all features (without time and rx),</li>
+<li>y - target variable (time),</li>
+<li>treatment - <code>rx</code> variable.</li>
+</ul>
+<p>Distribution of the variable <code>rx</code> is as shown in the <a href="story-uplift-modelling.html#tab:04-rx-distribution">4.2</a> table. This feature has been categorised.</p>
 <table>
-<colgroup>
-<col width="68%" />
-<col width="31%" />
-</colgroup>
+<caption><span id="tab:04-rx-distribution">TABLE 4.2: </span> Number of observations with given treatment type.</caption>
 <thead>
 <tr class="header">
-<th>Variable name</th>
-<th>Description</th>
+<th align="center">Levamisole</th>
+<th align="center">Levamisole + 5-FU</th>
+<th align="center">Observation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>id</td>
-<td>id</td>
-</tr>
-<tr class="even">
-<td>study</td>
-<td>1 for all patients</td>
-</tr>
-<tr class="odd">
-<td>rx</td>
-<td>Treatment - Obs(ervation), Lev(amisole), Lev(amisole)+5-FU</td>
-</tr>
-<tr class="even">
-<td>sex</td>
-<td>1=male</td>
-</tr>
-<tr class="odd">
-<td>age</td>
-<td>in years</td>
-</tr>
-<tr class="even">
-<td>obstruct</td>
-<td>obstruction of colon by tumour - jest to zwężenie okrężnicy przez tak, czyli zablokowanie przez guz</td>
-</tr>
-<tr class="odd">
-<td>perfor</td>
-<td>perforation of colon - czy zrobiła się dziura w jelicie</td>
-</tr>
-<tr class="even">
-<td>adhere</td>
-<td>adherence to nearby organs - przyleganie do okolicznych narzadów(np pęcherza moczowego)</td>
-</tr>
-<tr class="odd">
-<td>nodes</td>
-<td>number of lymph nodes with detectable cancer - podczas operacji wycina się węzły chłonne które były zaatakowane przez raka i to jest liczba węzłów chłonych z wykrywalnym rakiem, powinno być dużo minimum 12, żeby operacja była ‘udana’</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>days until event or censoring - liczba dni do rozpoczęcia leczenia?</td>
-</tr>
-<tr class="odd">
-<td>status</td>
-<td>censoring status</td>
-</tr>
-<tr class="even">
-<td>differ</td>
-<td>differentiation of tumour (1=well, 2=moderate, 3=poor) - zróżnicowanie komórek guza - im więcej tym lepiej, bo bardziej przypomina komórki jelita, a nie zlepek nie wiadomo czego</td>
-</tr>
-<tr class="odd">
-<td>extent</td>
-<td>Extent of local spread (1=submucosa, 2=muscle, 3=serosa, 4=contiguous structures) - Zasięg nowotworu, tzn do jakich tkanek dotarł, 1=podśluzowa, 2=mięśniowa, 3=surowicza, 4=przyległe struktury (im mniej tym lepiej)</td>
-</tr>
-<tr class="even">
-<td>surg</td>
-<td>time from surgery to registration (0=short, 1=long) - czas od operacji do rejestracji</td>
-</tr>
-<tr class="odd">
-<td>node4</td>
-<td>more than 4 positive lymph nodes - 4 lub więcej węzłów chłonnych</td>
-</tr>
-<tr class="even">
-<td>etype</td>
-<td>event type: 1=recurrence,2=death - nawrót lub śmierć</td>
+<td align="center">620</td>
+<td align="center">608</td>
+<td align="center">630</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li><p>Co na nim będziemy modelować (treatment a survival rate).
-Modele przewidują śmiertelność danego pacjenta w zależności odpodanego leku oraz skuteczność leku, czyli czy poprawił stan zdrowotny pacjenta, czy nie.</p></li>
-<li><p>Wstępne uzasadnienie dlaczego warto tym się zająć i dlaczego dobrze będzie tu cokolwiek wyjaśniać [ad 5].</p></li>
-</ul>
 </div>
+<div id="model-2" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Model</h2>
+<p>To predict model we used algorithms from the package <a href="https://github.com/uber/causalml">causalml</a> in Python 3.
+To optimize hyper parameters we used algorithms from the package <a href="https://github.com/hyperopt/hyperopt">hyperopt</a> also in Python 3.
+All notebooks and codes can be found on <a href="https://github.com/aleksandramiesiac/UpliftModelling_Iml_team4">GitHub</a>.</p>
+<p>The final model is <code>XGBTRegressor</code> with parameters summarised in the <a href="story-uplift-modelling.html#tab:04-model-params">4.3</a> table.</p>
+<table style="width: 60%; margin-right: 25%; margin-left: 25%;">
+<caption>
+<span id="tab:04-model-params">TABLE 4.3: </span>Final set of parameters used in our model.
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Parameter
+</th>
+<th style="text-align:left;">
+Value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+colsample_bytree
+</td>
+<td style="text-align:left;">
+0.8336948571372381
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+gamma
+</td>
+<td style="text-align:left;">
+0.5564260515876811
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+learning_rate
+</td>
+<td style="text-align:left;">
+0.9327196556867555
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+max_depth
+</td>
+<td style="text-align:left;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+min_child_weight
+</td>
+<td style="text-align:left;">
+0.45533158266464746
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+n_estimators
+</td>
+<td style="text-align:left;">
+200
+</td>
+</tr>
+</tbody>
+</table>
+<p>This gives as Average Treatment(Lev) Effect <span class="math inline">\(74.38\)</span> and Average Treatment(Lev+5-FU) Effect <span class="math inline">\(185.69\)</span>.</p>
+<p>The average treatment effect (ATE) is a measure used to compare treatments in randomized experiments, evaluation of medical trials. The ATE measures the difference in mean outcomes between units assigned to the treatment and units assigned to the control. In a randomized trial the average treatment effect can be estimated from a sample using a comparison in mean outcomes for treated and untreated units.
+The treatment effect for individual <span class="math inline">\(i\)</span> is given by <span class="math inline">\(y_{1}(i)-y_{0}(i)=\beta(i)\)</span>. In the general case, there is no reason to expect this effect to be constant across individuals. The average treatment effect is given by the equation <a href="story-uplift-modelling.html#eq:04-ate">(4.1)</a>.</p>
+<p><span class="math display" id="eq:04-ate">\[\begin{equation} 
+    ATE = \frac{1}{N}\sum_{i}y_{1}(i)-y_{0}(i)
+    \tag{4.1}
+\end{equation}\]</span></p>
+<p>Where the sum in the <a href="story-uplift-modelling.html#eq:04-ate">(4.1)</a> equation performed over all <span class="math inline">\(N\)</span> individuals in the population.</p>
 </div>
-<div id="model-2" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Model</h2>
-<p>TODO(oryginał): Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
-- Jaki model wybraliśmy?
-- Jak trzeba było przygotować dataset?
-- Jakie ma osiągi?
-- Jakieś miary typu F1, accuracy i opis tego, które miary na tym zbiorze powinno się stosować.
-Model do przewidywania skuteczności leku został stworzony za pomocą algorytmu ExtraTrees z pakietu sklearn.
-Test -&gt; AUC = 90.98%
-Train -&gt; AUC = 90.31%</p>
-<pre><code>columns     |importance
-status      |0.747059
-node4       |0.101439
-treatment   |0.026713
-extent      |0.024557
-adhere      |0.022921
-nodes       |0.022467
-age         |0.018148
-perfor      |0.010347
-obstruct    |0.007869
-sex         |0.007074
-surg        |0.006733
-differ      |0.004674</code></pre>
-<p>Model do przewidywania śmiertelności w zależności od podanego leku został stworzony za pomocą algorytmu UpliftTreeClassifier z pakietu casualml.</p>
-<p>Przewidywanie leczenia:
-Acc = 43.27%
-Przewidywanie nawrotu choroby:
-AUC = 55.35%</p>
-</div>
-<div id="explanations-3" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Explanations</h2>
-<p>TODO:(oryginał):
-&gt; Here, show how XAI techniques can be used to solve the problem.
-&gt; Will dataset specific or instance specific techniques help more?
-&gt;
-&gt; Will XAI be useful before (pre), during (in) or after (post) modeling?
-&gt;
-&gt; What is interesting to learn from the XAI analysis?</p>
-<ul>
-<li>Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?</li>
-<li>Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].</li>
-</ul>
-<div id="dataset-level-explainations" class="section level3" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Dataset Level Explainations</h3>
-<ul>
-<li>Jaka jest istotność zmiennych?</li>
-</ul>
-</div>
-<div id="instance-level-explainations" class="section level3" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Instance Level Explainations</h3>
-<ul>
-<li>Jakieś “ciekawe” przypadki?</li>
-</ul>
-</div>
-</div>
-<div id="summary-and-conclusions-3" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Summary and conclusions</h2>
-<p>TODO:(oryginał):
-&gt; Here add the most important conclusions related to the XAI analysis.
-&gt; What did you learn?
-&gt; Where were the biggest difficulties?
-&gt; What else did you recommend?</p>
-<ul>
-<li>Jakich informacji XAI nam dostarczyło na temat tego problemu?</li>
-<li>Jak XAI sprawdza się do wyjaśniania upliftu?</li>
-<li>Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].</li>
-</ul>
+<div id="explanations-3" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Explanations</h2>
+<!--
+    TODO:(oryginał):
+    > Here, show how XAI techniques can be used to solve the problem.
+    > Will dataset specific or instance specific techniques help more?
+    >
+    > Will XAI be useful before (pre), during (in) or after (post) modeling?
+    >
+    > What is interesting to learn from the XAI analysis?
 
+     - Jak w ogóle to wyjaśniać skoro np. możemy mieć dwa modele?
+     - Wizualizacje dopracować (czytelne wykresy, opisy itp.) [ad 4].
+-->
+<div id="dataset-level-explainations" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Dataset Level Explainations</h3>
+<!--
+    TODO: Jaka jest istotność zmiennych?
+-->
+</div>
+<div id="instance-level-explainations" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Instance Level Explainations</h3>
+<p>For the instance level explainations we have decided to focus on a limited number of observations.
+These observations are taken from set which seemed to provide interesting results during the data exploration process.</p>
+<p>The two observations which we have selected can be found in the <a href="story-uplift-modelling.html#tab:04-selected-obs">4.4</a> table.</p>
+<table>
+<caption>
+<span id="tab:04-selected-obs">TABLE 4.4: </span>The two observations selected from the dataset for instance level explainations.
+</caption>
+<thead style="font-size: 87%;">
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+sex
+</th>
+<th style="text-align:center;">
+age
+</th>
+<th style="text-align:center;">
+obstruct
+</th>
+<th style="text-align:center;">
+perfor
+</th>
+<th style="text-align:center;">
+adhere
+</th>
+<th style="text-align:center;">
+nodes
+</th>
+<th style="text-align:center;">
+status
+</th>
+<th style="text-align:center;">
+differ
+</th>
+<th style="text-align:center;">
+extent
+</th>
+<th style="text-align:center;">
+surg
+</th>
+<th style="text-align:center;">
+node4
+</th>
+</tr>
+</thead>
+<tbody style="font-size: 87%;">
+<tr>
+<td style="text-align:left;">
+865
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+68
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+983
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+56
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Both patients have the same severity of the cancer which is denoted by the <code>extent</code> variable. One of them is a female and the other is male. The older patient’s (<code>age = 68</code>) cancer is adhered to surrounding organs whilst the other’s cancer is not — this is denoted by the <code>adhere</code> variable. Finally, the last difference is in <code>differ</code> variable which is difference between colon cells and cancer cells.</p>
+<p>The Explanations plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that <code>XGBTRegressor</code> model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is – in our case <em>Levamisole(Lev)</em> and <em>Levamisole+5-FluoroUracyl(Lev+5FU)</em> – as seen on figures below.</p>
+<div id="break-down" class="section level4" number="4.4.2.1">
+<h4><span class="header-section-number">4.4.2.1</span> Break Down</h4>
+On the figures
+<div class="figure" style="text-align: center"><span id="fig:BD865"></span>
+<img src="images/04-UL-865BD1.png" alt="Break Down plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. " width="45%" height="40%" /><img src="images/04-UL-865BD2.png" alt="Break Down plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment. " width="45%" height="40%" />
+<p class="caption">
+FIGURE 4.1: Break Down plots for patient with id 865. The left plot represents model using <em>Levamisole</em> treatment and the right one represents model using <em>Levamisole+5-FluoroUracyl</em> treatment.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:BD983"></span>
+<img src="images/04-UL-983BD1.png" alt="Break Down plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="45%" height="40%" /><img src="images/04-UL-983BD2.png" alt="Break Down plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="45%" height="40%" />
+<p class="caption">
+FIGURE 4.2: Break Down plots for patient with id 983. The left plot represents model using <em>Levamisole</em> treatment and the right one represents model using <em>Levamisole+5-FluoroUracyl</em> treatment.
+</p>
+</div>
+</div>
+<div id="lime" class="section level4" number="4.4.2.2">
+<h4><span class="header-section-number">4.4.2.2</span> LIME</h4>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="images/04-UL-983Lime1.png" alt="Lime plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" height="20%" /><img src="images/04-UL-983Lime2.png" alt="Lime plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" height="20%" />
+<p class="caption">
+FIGURE 4.3: Lime plots for patient with id 865. The left plot represents model using <em>Levamisole</em> treatment and the right one represents model using <em>Levamisole+5-FluoroUracyl</em> treatment.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<img src="images/04-UL-865Lime1.png" alt="Lime plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" height="20%" /><img src="images/04-UL-865Lime2.png" alt="Lime plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" height="20%" />
+<p class="caption">
+FIGURE 4.4: Lime plots for patient with id 983. The left plot represents model using <em>Levamisole</em> treatment and the right one represents model using <em>Levamisole+5-FluoroUracyl</em> treatment.
+</p>
+</div>
+</div>
+<div id="shap" class="section level4" number="4.4.2.3">
+<h4><span class="header-section-number">4.4.2.3</span> SHAP</h4>
+<p>The SHAP plots have been created for both selected observations. For each of the observations there are two different plots. The reason for two different plots is the fact that <code>XGBTRegressor</code> model underneath creates a model for every treatment. Hence we have got one plot for every treatment type there is – in our case <em>Lev</em> and <em>Lev+5FU</em> – as seen on figures <a href="story-uplift-modelling.html#fig:04-SHAP-865">4.5</a> and <a href="story-uplift-modelling.html#fig:04-SHAP-983">4.6</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:04-SHAP-865"></span>
+<img src="images/04-UL-865SHAP1.png" alt="SHAP plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" /><img src="images/04-UL-865SHAP2.png" alt="SHAP plots for patient with id 865. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" />
+<p class="caption">
+FIGURE 4.5: SHAP plots for patient with id 865. The left plot represents model using <em>Levamisole</em> treatment and the right one represents model using <em>Levamisole+5-FluoroUracyl</em> treatment.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:04-SHAP-983"></span>
+<img src="images/04-UL-983SHAP1.png" alt="SHAP plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" /><img src="images/04-UL-983SHAP2.png" alt="SHAP plots for patient with id 983. The left plot represents model using *Levamisole* treatment and the right one represents model using *Levamisole+5-FluoroUracyl* treatment." width="49%" />
+<p class="caption">
+FIGURE 4.6: SHAP plots for patient with id 983. The left plot represents model using <em>Levamisole</em> treatment and the right one represents model using <em>Levamisole+5-FluoroUracyl</em> treatment.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="summary-and-conclusions-3" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Summary and Conclusions</h2>
+<!--
+    TODO:(oryginał):
+    > Here add the most important conclusions related to the XAI analysis.
+    > What did you learn? 
+    > Where were the biggest difficulties?
+    > What else did you recommend?
+
+     - Jakich informacji XAI nam dostarczyło na temat tego problemu?
+     - Jak XAI sprawdza się do wyjaśniania upliftu?
+     - Dlaczego było warto to modelować (konkretnie ten dataset) [ad 5].
+-->
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-04_jaroszewicz_uplift">
+<p>Jaroszewicz, S., and P. Rzepakowski. 2014. “Uplift Modeling with Survival Data.” In <em>ACM Sigkdd Workshop on Health Informatics (Hi-Kdd’14)</em>. New York City, USA.</p>
+</div>
+<div id="ref-04_jaskowski_uplift">
+<p>Jaskowski, Maciej, and Szymon Jaroszewicz. 2012. “Uplift Modeling for Clinical Trial Data.” In.</p>
+</div>
+<div id="ref-04_jaroszewicz_linear">
+<p>Krzysztof, Rudaś, and Szymon Jaroszewicz. 2018. “Linear Regression for Uplift Modeling.” <em>Data Min. Knowl. Discov.</em> 32 (5): 1275–1305.</p>
+</div>
+<div id="ref-04_soltys_ensemble">
+<p>Sołtys, Michał, Szymon Jaroszewicz, and Piotr Rzepakowski. 2015. “Ensemble Methods for Uplift Modeling.” <em>Data Mining and Knowledge Discovery</em> 29 (November). <a href="https://doi.org/10.1007/s10618-014-0383-9">https://doi.org/10.1007/s10618-014-0383-9</a>.</p>
+</div>
+<div id="ref-04_zhao_uplift">
+<p>Zhao, Zhenyu, and Totte Harinen. 2019. “Uplift Modeling for Multiple Treatments with Cost Optimization.” <a href="http://arxiv.org/abs/1908.05372">http://arxiv.org/abs/1908.05372</a>.</p>
 </div>
 </div>
             </section>

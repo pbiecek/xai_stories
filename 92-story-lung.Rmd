@@ -63,7 +63,7 @@ As we have indentified higle defendent features as well as observed that tumor s
 Finally we have settled on Neural Net with 10 hidden neurons with following receiver operating curve.
 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_auc_nn.png')
+knitr::include_graphics('images/07_auc_nn.png')
 ```
 
 
@@ -84,23 +84,23 @@ Of course, it is our goal to understand on what basis our model has found a chan
 Our most recent model indicated that the chances of survival after surgery for such a patient are $24\%.$
 Here we have an explanation of this result by SHAP.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_shap_1.png')
+knitr::include_graphics('images/07_shap_1.png')
 ```
 
 According to our intuition, the lack of symptoms increases the chance of survival, quite advanced stage of UICC equal to IIIA reduces these chances. We may also notice that the prognosis is worse because our patient is a man. However, it will be best if we refer to the results of another method - Ceteris Paribus.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_cp_1.png')
+knitr::include_graphics('images/07_cp_1.png')
 ```
 Here we see 3 variables that show well how a parameter change works for or against the patient. This confirms that women have a better prognosis of survival after surgery, the symptoms of the disease do not herald the best, and also the younger we are, the better we are able to cope with convalescence. 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_cp_2.png')
+knitr::include_graphics('images/07_cp_2.png')
 ```
 
 Here too, the model shows that if our patient's cancer was classified as much lighter, his chances would increase.
 
 Let's take a look at another method for the whole data set - Variable Importance.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_vi_1.png')
+knitr::include_graphics('images/07_vi_1.png')
 ```
  The most important one seems to be the variable that says when the patient started treatment. The second most important is the UICC stage. Interestingly, the period of time the patient smoked cigarettes does not affect the outcome too much.
 
@@ -109,12 +109,12 @@ knitr::include_graphics('images/92_vi_1.png')
  When we built the model on all variables, the explanations allowed us to find correlations. Let's compare the CeterisParibus results for the full model and the deleted dependent variables.
  
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_cp_3.png')
+knitr::include_graphics('images/07_cp_3.png')
 ```
  In the picture above you can see that the influence of two correlated variables was distributed between them, but after leaving only one of these variables, the influence accumulated on it (picture below).
  
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/92_cp_4.png')
+knitr::include_graphics('images/07_cp_4.png')
 ```
 
 At this stage we can already conclude that the techniques of model explanations are not only useful at the end of our journey. They can give us tips on how to transform data or which variables should be deleted.

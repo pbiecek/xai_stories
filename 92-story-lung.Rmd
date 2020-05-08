@@ -1,0 +1,33 @@
+# Story lungs: eXplainable predictions for post operational risks {#story-lungs}
+
+*Authors: Author 1 (University 1), Author 2 (University 2), Author 3 (University 3)*
+
+*Mentors: Mentor 1 (Affiliation 1), Mentor 2 (Affiliation 2)*
+
+
+Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.
+
+## Introduction 
+
+
+## Model 
+
+Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
+
+## Explanations
+
+Here, show how XAI techniques can be used to solve the problem.
+Will dataset specific or instance specific techniques help more?
+
+Will XAI be useful before (pre), during (in) or after (post) modeling?
+
+What is interesting to learn from the XAI analysis?
+
+
+## Summary and conclusions 
+
+Here add the most important conclusions related to the XAI analysis.
+What did you learn? 
+Where were the biggest difficulties?
+What else did you recommend?
+

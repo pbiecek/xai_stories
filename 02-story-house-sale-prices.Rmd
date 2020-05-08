@@ -4,21 +4,21 @@
 
 *Mentors: Mateusz Zawisza (McKinsey & Company), Adam Zmaczyński (McKinsey & Company)*
 
-> ,,That's all your house is: it's a place to keep your stuff while you go out and get more stuff.''
->  *George Carlin*
+> ''That's all your house is: it's a place to keep your stuff while you go out and get more stuff.''
+>  `r tufte::quote_footer('George Carlin')`
 
 
 
 ## Introduction 
 
-Everybody needs a roof over their heads. It can be a house, villa or a flat. Everybody, at some point of life, faces a choice if to buy a house. If so, which one. And why they are so expensive?
+Everybody needs a roof over their heads. It can be a house, villa, or a flat. Everybody, at some point in life, faces a choice if to buy a house. If so, which one. And why they are so expensive?
 
-Topic of real estates is not only the topic you just have to deal with. It can also be very interesting. There are plenty of TV Shows, for instance *Property Brothers*, of which plot is based on examples of people buying and renovating houses. This particular one is the most famous in the world and has been running already almost a decade. 
+The topic of real estate is not only the topic you just have to deal with. It can also be very interesting. There are plenty of TV Shows, for instance, *Property Brothers*, of which plot is based on examples of people buying and renovating houses. This particular one is the most famous in the world and has been running already for almost a decade. 
 For many people houses are also products to buy and sell with income.
 
 Regardless of motives of buy/sell real estate, both sides agree to a price. It is always good to know, **how much** it is worth, what's the fair/true value. And, maybe it's even more important, **why** the price is like that, what has an influence on it.
 
-In this work we want to try to find an answer to both questions with stronger emphasis on the second one. This paper is intended to be a complete use cases how to deal with regression problem for Data Scientists. Let's start with a couple of questions that will allow us to understand and define the problems
+In this work we want to try to find an answer to both questions with a stronger emphasis on the second one. This paper is intended to be a complete use case on how to deal with the regression problem for Data Scientists. Let's start with a couple of questions that will allow us to understand and define the problems
 
 - *The seller does not know how to increase the cost of the apartment so that the investment outlay is lower than the added value (e.g. building a pool will increase the price and renovating the bathroom is not worth it).*
 
@@ -28,75 +28,237 @@ In this work we want to try to find an answer to both questions with stronger em
 
 - *Commercial problem: Auction services do not have tools to support sellers/buyers.*
 
-These are just some of the questions we can ask. As a definition of our problem, we have set ourselves a property valuation, and through explanations we will try to get an answer depending on the position we choose.
+These are just some of the questions we can ask. As a definition of our problem, we have set ourselves a property valuation, and thorough explanations we will try to get an answer depending on the position we choose.
 
 
-We have divided our work into several stages, below we present a diagram with a step plan. It allowed us to plan our work, and now we will use it to tell you what we did.
+We have divided our work into several stages, below we present a diagram (Figure \@ref(fig:plan)) with a step plan. It allowed us to plan our work, and now we will use it to tell you what we did.
 
 
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+```{r plan, out.width="700", fig.align="center", echo=FALSE, fig.cap='A scheme with a step-by-step plan that allowed us to plan our work.'}
 knitr::include_graphics('images/02-plan.png')
 ```
 
-We started our work with a literature review. Many works show a comparison of hedonistic models (linear regression) and machine learning models. Below there is a plot with comparison of results achieved by models interpretable by design (hedonistic) and black box model (ANN) based on the article \@ref(house_prices).
+We started our work with a literature review. Many papers show a comparison of hedonistic models (linear regression) and machine learning models. Below is a graph with results achieved by models that can be interpreted by design (hedonistic) and black box model (ANN) based on the article [@house_prices].
 
-```{r , cache=FALSE, out.width="400", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/02-model_article.png')
+
+```{r paper-plot, out.width="600", fig.align="center", echo=FALSE, fig.cap='Comparison of the performance of hedonic regression model and ANN(artificial neural networks).'}
+knitr::include_graphics('images/02-model-article.png')
 ```
 
-We can conclude that we reduce the interpretability to an increase in the quality of model fitting.
+We can conclude from Figure \@ref(fig:paper-plot) that we reduce the interpretability to an increase in the quality of model fitting.
 
-The next point was data analysis, we work on dataset which contains house sale prices for King County, which includes Seattle. It is include homes sold between May 2014 and May 2015. Data available on [kaggle](https://www.kaggle.com/harlfoxem/housesalesprediction) and [openml](https://www.openml.org/d/42079).
-We have analyzed the data. More [link](https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Reports/DataAnalysis). Data contains 19 house features plus the price and the id columns, along with 21613 observations. 
+The next point was data analysis, we work on a dataset which contains house sale prices for King County, which includes Seattle. It is include homes sold between May 2014 and May 2015. Data available on [kaggle](https://www.kaggle.com/harlfoxem/housesalesprediction) and [openml](https://www.openml.org/d/42079).
+We have analyzed the data, [more](https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Data/DataAnalysis). Data contains 19 house features plus the price and the id columns, along with 21613 observations. 
 
-- `id` unique ID for each home sold
-- `date` date of the home sale
-- `price` price of each home sold
-- `bedrooms` number of bedrooms
-- `bathrooms` number of bathrooms, where .5 accounts for a room with a toilet but no shower
-- `sqft_living` square footage of the apartments interior living space
-- `sqft_lot` square footage of the land space
-- `floors` sumber of floors
-- `waterfront` apartment was overlooking the waterfront or not
-- `view` how good the view of the property was
-- `condition` condition of the apartment
-- `grade` level of construction and design
-- `sqft_above` the square footage of the interior housing space that is above ground level
-- `sqft_basement` the square footage of the interior housing space that is below ground level
-- `yr_built` the year the house was initially built
-- `yr_renovated` the year of the house's last renovation
-- `zipcode` zipcode area
-- `lat` lattitude
-- `long` longitude
-- `sqft_living15` the square footage of interior housing living space for the nearest 15 neighbors
-- `sqft_lot15` the square footage of the land lots of the nearest 15 neighbors
 
-We have collected methods to evaluate the performance of the regression model, we decided to use RMSRE (root mean square relative errors), because the difference of 50 thousand on a property worth millions and 50 thousand on a property worth 200 thousand is quite considerable. More about measures [link]().
+
+|Variable | Description|
+|---------|------------|
+|`id`| unique ID for each home sold|
+|`date`| date of the home sale|
+|`price`| price of each home sold|
+|`bedrooms`| number of bedrooms|
+|`bathrooms`| number of bathrooms, where .5 accounts for a room with a toilet but no shower|
+|`sqft_living`| square footage of the apartments interior living space|
+|`sqft_lot`| square footage of the land space|
+|`floors`| number of floors|
+|`waterfront`| apartment was overlooking the waterfront or not|
+|`view`| how good the view of the property was|
+|`condition`| condition of the apartment|
+|`grade`| level of construction and design|
+|`sqft_above`| the square footage of the interior housing space that is above ground level|
+|`sqft_basement`| the square footage of the interior housing space that is below ground level|
+|`yr_built`| the year the house was initially built|
+|`yr_renovated`| the year of the house's last renovation|
+|`zipcode`| zipcode area|
+|`lat`| lattitude|
+|`long`| longitude|
+|`sqft_living15`| the square footage of interior housing living space for the nearest 15 neighbors|
+|`sqft_lot15`| the square footage of the land lots of the nearest 15 neighbors|
+
+Table: Description of variables in the dataset.
+
+We have collected methods to evaluate the performance of the regression model, we decided to use RMSE (root mean square errors).
 
 Based on the literature we decided to test the following models:
-- fixed effects model
-- random effects model
-- Spatial Autoregressive (SAR) model
-- linear regression
-- decision tree
-- random forest
-- gradient boosting, xgboost
 
-Another idea how to enrich our solution was to add external data. The location of the property can significantly affect the price, so we also took into account the distance from public transport and the number of cultural facilities within a kilometre radius.
+- linear regression
+
+- fixed effects model
+
+- random effects model
+
+- decision tree
+
+- random forest
+
+- gradient boosting
+
+- xgboost
+
+Another idea of how to enrich our solution was to add external data. The location of the property can significantly affect the price, so we also took into account the distance from public transport and the number of cultural facilities within a kilometer radius.
+
+
+## Data preperation
+Original data from kaggle is in good quality at the start, but we need to preprocess it to suit our needs. In this section we want to describe how we prepared ready-to-use `csv`s of the train and test data ([`train.csv`](https://github.com/kozaka93/InterpretableHouseSalePrices/blob/master/Data/TrainAndTest/test.csv), [`test.csv`](https://github.com/kozaka93/InterpretableHouseSalePrices/blob/master/Data/TrainAndTest/train.csv)). This includes variable transformations, joining external data, records processing.
+
+Firstly, we discovered that there are houses that were sold twice, and one house that was sold three times. One can assume, that it was bought, renovated and then sold for more. But they have the same explanatory variables, no changes. Each pair (triple) of houses we decide to aggregate into a single row with averaging the price. 
+
+Secondly, we decided to add external data. Why? We believe most variables describe the house properly. What we are missing is some spatial information. Except zip code, we have longitude and latitude -- good, that'd be helpful -- but we want to explain it more. Why some locations tend to be more expensive? Maybe it's because of public transport availability. That's why we decided to add a variable describing a distance to the nearest bus/subway stop. Data source can be found [here](https://www.kingcounty.gov/depts/transportation/metro/travel-options/bus/app-center/developer-resources.aspx).
+
+There might be also another reason. Maybe some houses are more expensive, because of some interesting places around, like museums, galleries or fine restaurants. We'll call them *cultural places*. Those places are not only standalone facilities, but they are connected to other infrastructure, which generally should increase the price. This time we decided to look in the neighborhood: we search for a number of such places in arbitrarily chosen 1km range. Data obtained from [here](https://data.seattle.gov/Community/Seattle-Cultural-Space-Inventory/vsxr-aydq).
+
+```{r house-stops-cult, out.width="600", fig.align="center", echo=FALSE, fig.cap='Spatial external data. Stops on the left and cultural places on the right.'}
+knitr::include_graphics('images/02-house-stops-cult.png')
+```
+
+
+Both of these external data we visualize at the figure \@ref(fig:house-stops-cult). At this point it is also worth a comment. Let us begin with the latter. Most of them, not all, are concentrated in the city centre. So this column also tells some story  *how much of the city center does this house have*. Since not all of those places are in the city center, then those other points should reflect some *local centers*.  
+
+Public transport stops are very dense in the city center, so they even cover house dots on the plot. Outside of the city center, one can also notice buses routes. It is quite clear, that not every house has good connection to public transport. That'd force parents to drive their children where they need to. For some people it would be kind of an obstacle, so they would rather more sceptical about that particular house, thus reducing demand of that house, which should lower the price.
+
+
+We also did several variable transformations. Since for authors it is hard to think in square feet, we translate it into square meters. `zipcode` and `waterfront` are saved as factors. Further, for us it's easier for us to interpret the age of a building rather than a year when it was built. We also know, if and when a house has been renovated. We can also analyze *relative age*, that is the time which has past since last renovation (variable `since_renovated`). Here we also log the price, since we want to work on a relative scale.
+
+The last step is division the data into train and test samples randomly with ratio 70/30.
+
+Ready script for processing the original data from kaggle is on the github. For spatial data analysis, we were using a short script [`geofast`](https://github.com/kozaka93/InterpretableHouseSalePrices/blob/master/Data/TrainAndTest/geofast.py). Distances between two arbitrary points on earth can be obtained from the [@geopy] package for Python. However, general and precise formula is computationally expensive. With a simple trick, it can be adjusted to our case without losing almost any precision. This can be done by providing distances to measure are not exceeding several hundred kilometers. The original idea was published [here](https://blog.mapbox.com/fast-geodesic-approximations-with-cheap-ruler-106f229ad016).
 
 
 ## Model 
 
-Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
+Inspired by literature, we started our analysis by building a white-box linear model. The aim was not to build an ideal model, but rather to get an insight into the relationships in the data and to have a point of reference for more complex models performance and interpretations.
+Based on economic interpretation, we chose logarithm of price as the dependent variable. The continuous variables characterizing areas were also logarithmized.  Variables referring to latitude and longitude were omitted since they are unlikely to have a linear effect on price. Instead, zip codes were used to model geographical effects. To avoid collinearity with years since renovation variable, age variable was omitted.
+
+This model ignores information about house location almost completely (part of this information is carried only by variables such as distance to the nearest bus stop). It assumes that the price of a house in the city centre is driven by the same effects as the price of a house in the suburbs. One could argue that this assumption is almost never true, and instead, the data should be modelled by the panel or spatial techniques.
+Taking this into consideration, we developed a second model that allows for prices of houses belonging in different zip codes to have their own intercept. The underlying assumption is that the closest area of houses will have a *fixed effect* on their price. It is the same model as before but with new binary variables (in number equal to a number of zip codes - in our case: 70) indicating whether a house belongs to a certain zipcode or not.
+
+A neighbourhood, however, can also have an impact on the effect of the particular variables on price. Increasing an area of a house can have a different impact on its price, depending whether the house is located in the city centre, or in the suburbs. The final model takes this argument into consideration, allowing for houses in different zip codes to have different slopes coefficients for certain variables. Technically, those differences are modelled as *random* deviations from the general effects.
+
+The choice of variables that include random effect was made arbitrarily, to reduce the complexity of the problem. Only variables for which a random deviation of their impact could be easily interpreted were chosen (e. g. `view` importance can vary between geographical locations, since the views themselves are different).
+
+We are aware that one could find different approaches that could better fit the data. However, since our scope was not to maximize fit, and no further analysis yielded considerably different results, we decided to limit the consideration to the three models presented.
+
+Estimated coefficients are presented in the table below. Since the dependent variable is the logarithm of price, the coefficients have an interpretation of a percentage change. 
+Looking at the estimates, a couple of general observations can be made. Firstly, there are no major differences in the coefficients between models, especially between (2) and (3). This tells us that the models can be considered stable. Basing on RMSE, we should note a significant improvement of fit resulting from introducing zip code-based fixed effects in the model (2). A slight, but noticeable improvement was also made by allowing for coefficients to have a random effects in the model (3). These observations suggest that our hypothesis about neighbourhood having a significant impact on a house price, but also about particular variables’ effect on price, was reasonable.
+
+| Model | Log-loglinear (1) | Zipcode-based intercepts (2) |Random effects (3)|
+|--|:--:|:--:|:--:|
+|(Intercept)  | 8.1531 | | 8.8260(RE) |
+|bedrooms|-0.0304|-0.0096|-0.0079 |
+|bathrooms|0.0579|0.0409|0.0379|
+|floors|0.0293|-0.0339|-0.0186|
+|waterfront|0.4605|0.5208|0.4641(RE)|
+|view|0.0559|0.0609|0.0543(RE)|
+|condition|0.0495|0.0557|0.0586|
+|grade|0.1886|0.0885|0.0876|
+|dist_stop_km|-0.0106|-0.0041|-0.0047|
+|ncult|0.0134|0.0016|0.0026|
+|since_renovated|0.0038|-0.0002|-0.0007|
+|m_2_lot_log|0.0043|0.0727|0.0841(RE)|
+|m_2_above_log|0.3257|0.4099|0.3844(RE)|
+|m_2_basement_log|0.0446|0.0270|0.0271|
+|m_2_living_15_log|0.2877|0.1729|0.1566(RE)|
+|m_2_lot_15_log|-0.0314|-0.0126|(RE)|
+|RMSE(train)|0.3054|0.1797|0.1707|
+|RMSE(test)|0.3061|0.1801|0.1762|
+
+Table: Estimated coefficients for linear models.
+
+
+Estimated coefficients can be interpreted rather intuitively. It is not surprising that the area of the house has a considerable positive impact on price. The same can be said about variables characterizing the quality of the property (`grade`, `condition`) and its surroundings (`view`, `waterfront`). Especially we can note how important access to the waterfront is in Seattle, that is related to the city geography. Since it is more convenient to have more bathrooms in the house, `bathrooms` coefficient is also positive. Higher distance to bus stop results in a slight decrease in house value, which again is correct with intuitive expectations. Number of floors, which impact is also negative, can be associated with lower convenience. One may be wondering why years passing since the last renovation do not have a great impact on price. It can be explained by the fact that we already include variables characterizing the condition of the building, and with those being constant – years become not much more than number.
+
+To further assess the model performance, we may take a look into the residual density (Figure\@ref(fig:resid-lm-density)). Most of the residuals being in (-0,5; 0,5) range means our model makes the biggest error of approximate -40% and +66%.
+
+
+
+```{r resid-lm-density, out.width="700", fig.align="center", echo=FALSE, fig.cap='Residuals density for random effects (3) model.'}
+knitr::include_graphics('images/02-residuals-lm.png')
+```
+
+Plotting residuals against explained variable gives us some more insight into what happened in the model.
+
+```{r resid-lm-scatter, out.width="700", fig.align="center", echo=FALSE, fig.cap='Plot the residual for the random effect model. The residuals correspond to the difference between the value of the target variable and the prediction from the model. On the x-axis we have the value of the target variable (price logarithm), on the y-axis of the residual, each point corresponds to the observation from the test set.'}
+knitr::include_graphics('images/02-resid-lm.png')
+```
+
+We can note a lot of points being in the lower left part of the plot. This tells us that the model overestimated prices of low-valued houses. The residuals cannot be considered normally distributed.
+Overall, the model gave us numerous insights and reasonable predictions. It is, however, far from being perfect. The analysis of residuals clearly suggests that there are some other effects in the data that we failed to model with linear regression. These may result from too few variables being taken into consideration, or, what is more interesting for us in this work – from the relationships in data being complex and non-linear. In the following sections, we focus on machine learning models, that can perform better in complex environments.
+
+
+Our main goal, as we mentioned before, is to explain the model of choice.  Along self-explanatory linear models included as comparison, we considered models including: 
+
+- decision tree
+
+- random forest
+
+- gradient boosting
+
+- xgboost.
+
+As mentioned earlier, the variables `zipcode` and `waterfront` were introduced as categorical. These models were built. Additionally, for the `zipcode` variable, which has 70 levels, we use one-hot encoding and build models again. The models are built in `mlr` [@mlr] R package with `ranger` [@ranger], `gbm` [@gbm], `xgboost` [@XGBoost] and `rpart` [@rpart].
+
+For the models the RMSE score was calculated on the training and test set using the R `auditor` [@auditor] package., the results were presented in the Figure \@ref(fig:rmse-train-test). The smallest RMSE has a random forest model, xgboost, xgboost with one-hot encoding, and gbm with one-hot encoding. Other models have a much bigger error. So let's take a look at these four models. 
+
+```{r rmse-train-test, out.width="700", fig.align="center", echo=FALSE, fig.cap='Comparison of model performance by RMSE on training and test set. In the plot the trained models are marked with points, on the x-axis we have RMSE measure for the training set, on the y-axis the RMSE score for the test set, the line stands for RMSE equal on training and test sets'}
+knitr::include_graphics('images/02-rmse-train-test.png')
+```
+
+
+|Model |RMSE train | RMSE test |
+|------|:---------:|:---------:|
+|random forest | 0.07931109 |	0.1674559 |
+|xgboost |	0.1076962 |	0.1600113|
+
+
+Table: Model results on the training and test set.
+
+By analyzing the received models we obtained the following results. The random forest model is overfitted, while the xgboost model is a little better. On the test set they obtained similar scores. The Figure \@ref(fig:residual-1) shows the density of the residuals, for both models. We see that the xgboost model has larger residuals than the random forest model.
+
+```{r residual-1, out.width="700", fig.align="center", echo=FALSE, fig.cap='Residuals density for random forest and xgboost models.'}
+knitr::include_graphics('images/02-residuals1.png')
+```
+
+
+Comparing the xgboost model with one-hot encoding and gbm with one-hot encoding we see that the RMSE score on the training and test set is very similar. Furthermore, the residual density plot (Figure \@ref(fig:residual-2) ) is practically identical. 
+
+|Model |RMSE train | RMSE test |
+|------|:---------:|:---------:|
+|xgboost one-hot |	0.1207626 |	0.1595913|
+|gbm one-hot |	0.1302585 |	0.1607376 |
+
+
+Table: Model results on the training and test set with one-hot encoding.
+
+```{r residual-2, out.width="700", fig.align="center", echo=FALSE, fig.cap='Residuals density for gbm and xgboost models.'}
+knitr::include_graphics('images/02-residuals2.png')
+```
 
 ## Explanations
 
-Here, show how XAI techniques can be used to solve the problem.
-Will dataset specific or instance specific techniques help more?
+In this chapter we will present the methods of explainable machine learning models. They allow us to understand the compiled models. Following the plan from the Figure \@ref(fig:plan), we will show the explanations for the three groups (seller, buyer, and ad portal), but before we do that, we will continue the analytical approach to the regression problem and show how to apply XAI methods in model evaluation.
 
-Will XAI be useful before (pre), during (in) or after (post) modeling?
+We use Feature Importance to evaluate which variables are important in the model. This measure helps the Data scientists assess which variables have the greatest impact on prediction. Below in Figure \@ref(fig:fi) created with R `ingredients` [@ingredients] package we have four models that have the best RMSE performance. Analyzing which variables are important in each model, we see that they all agree on the variables `lat`, which is latitude, `long`, which is longitude, `m2_living`, which is the  square meters of the apartments interior living space, and `grade`, which is the level of construction and design.
 
-What is interesting to learn from the XAI analysis?
+```{r fi, out.width="700", fig.align="center", echo=FALSE, fig.cap='Comparison of the importance of the permutation variables for four models with the best RMSE score. Colour indicates the model, each bar shows the difference between the loss function for the original data (dashed line) and the permuted data for a particular variable, the longer the bar the greater the difference. The bars for each model start in a different position on the x-axis, this depends on the value of the loss function for the original data set.'}
+knitr::include_graphics('images/02-fi.png')
+```
+
+Now let's look at the observation for which the xgboost model makes the biggest misprediction.
+
+```{r bd-1, out.width="600", fig.align="center", echo=FALSE, fig.cap='Break Down Plot created with R `iBreakDown` [@iBreakDownRPackage] package for the observation whose prediction had the biggest error.'}
+knitr::include_graphics('images/02-bd-bad.png')
+```
+
+The Break Down plot (Figure \@ref(fig:bd-1)) shows the spread of the final prediction value over the variables and their contribution. The biggest contribution to this observation is `grade` and `m2_living` variables, their contribution is positive for price prediction. The value of the variable `long` has a negative impact on the value of the prediction. In order to take a closer look at this variable, we can plot Ceteris Paribus profiles (Figure \@ref(fig:cp-1)).
+
+
+```{r cp-1, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus profiles for the `long` variable, the line indicates the profiles for the observation, the x-axis indicates the value of the `long` variable, while the y-axis indicates the prediction for this observation when only the value of the `long` variable is changed, the dot indicates the value for the observation.'}
+knitr::include_graphics('images/02-cp-long.png')
+```
+
+
+Based on the Ceteris Paribus profile (Figure \@ref(fig:cp-1)), we see that if the analyzed property was located to the west of its current location, the price prediction would increase. However, if the property was located to the east, the prediction would decrease.
 
 
 ## Summary and conclusions 

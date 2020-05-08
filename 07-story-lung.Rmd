@@ -17,6 +17,7 @@
 The dataset consists of the following varaibles.
 
 Numerical
+
 Variable | Unit
 --- | ---
 `date_birth` | date

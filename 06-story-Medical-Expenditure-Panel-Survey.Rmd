@@ -1,4 +1,4 @@
-<div style="text-align: right"> 
+<div style="text-align: justify"> 
 
 # Story MEPS: Healthcare expenditures of individuals
 
@@ -34,7 +34,7 @@ The following section describes the development of three different models for pr
 
 
 The baseline for this discussion was provided by the authors of IBM’s AIX360 [ref3].
-</div>
+
 
 
 ## Models

@@ -1,0 +1,78 @@
+# Heloc credits
+
+*Authors: Tomasz Kurzelewski (University of Warsaw), Tomasz Radzikowski (Warsaw University of Technology)*
+
+*Mentors: Marta Gajewska (McKinsey & Company), Amadeusz Andrzejewski (?) (McKinsey & Company)*
+
+## Introduction 
+A home equity line of credit, or HELOC, is a loan in which the lender agrees to lend a maximum amount within an agreed period (called a term), where the collateral is the borrower's equity in his/her house (akin to a second mortgage). Because a home often is a consumer's most valuable asset, many homeowners use home equity credit lines only for major items, such as education, home improvements, or medical bills, and choose not to use them for day-to-day expenses.
+
+Since amount of such credit is not small, banks carefully review financial situation of
+applicants. Utmost care is taken so the whole process is transparent
+and decision is easily explainable to the client. Because of that any automated process
+also has to be explainable, and in this XAI methods may be helpful. 
+
+## Dataset
+Our dataset - Home Equity Line of Credit (HELOC) - originally cames from Explainable Machine Learning Challange organized by FICO company.  The data contains anonymized credit applications of HELOC credit lines, which are a type of loan, collateralized by a customer's property. There are 23 predictors in the dataset, which describe following features:
+* ExternalRiskEstimate - consolidated indicator of risk markers (equivalent of polish BIK's rate)
+* MSinceOldestTradeOpen - number of months that have elapsed since first trade
+* MSinceMostRecentTradeOpen - number of months that have elapsed since last opened trade
+* AverageMInFile - average months in file
+* NumSatisfactoryTrades - number of satisfactory trades
+* NumTrades60Ever2DerogPubRec - number of trades which are more than 60 past due
+* NumTrades90Ever2DerogPubRec - number of trades which are more than 90 past due
+* PercentTradesNeverDelq - percent of trades, that were not delinquent
+* MSinceMostRecentDelq - number of months that have elapsed since last delinquent trade
+* MaxDelq2PublicRecLast12M - the longest delinquency period in last 12 months
+* MaxDelqEver - the longest delinquency period
+* NumTotalTrades - total number of trades
+* NumTradesOpeninLast12M - number of trades opened in last 12 months
+* PercentInstallTrades - percent of installments trades
+* MSinceMostRecentInqexcl7days - months since last inquiry (excluding last 7 days)
+* NumInqLast6M - number of inquiries in last 6 months
+* NumInqLast6Mexcl7days - number of inquiries in last 6 months (excluding last 7 days)
+* NetFractionRevolvingBurden - revolving balance divided by credit limit
+* NetFractionInstallBurden - installment balance divided by original loan amount
+* NumRevolvingTradesWBalance - number of revolving trades with balance
+* NumInstallTradesWBalance - number of installment  trades with balance
+* NumBank2NatlTradesWHighUtilization - number of trades with high utilization ratio (credit utilization ratio - the amount of a credit card balance compared to the credit limit)
+* PercentTradesWBalance - percent of trades with balance
+
+Features containing data about delinquency are coded to numeric scale and missing values are labeled with negative integer number.  
+The majority of features are monotonically decreasing or increasing.
+Dataset has ..xxx.. observations, ..xxx.. of its belongs to class 'Good', what means that clients repaid their HELOC account within 2 years, and ..xxx.. to class 'Bad'.
+
+
+## Model 
+
+Since credit decision takes into account many variables related to the customer's financial
+situation, and many of them were not included into dataset, accuracy of built models was not
+as good as we would want. Best results available in papers are around 0.84 AUC, while
+our model based on XGBoost scored around 0.80 AUC. We experimented with a different models, such based on SVM, Random Forest and XGBoost. The last two gave best results, both around 0.80 AUC, but we chose XGBoost since available implementation allowed us to reinforce monoticity bounds arising from business interpretation of variables. It should provide us with model better describing decision process. We also experimented with variable 'ExternalRiskEstimate'. This variable representing external credit scoring must be based on other variables from the dataset, and because of that many trained models
+were relying almost exclusively on this single variable, marginalising importance of other ones, and oversimplifying explanation. Such explanation wouldn't be in any way meaningful
+to potential applicant. What's more, ExternalRiskEstimate can be explained with other
+variables with mean absolute error 2.5.
+
+## Explanations
+
+
+SHAP values:
+
+![alt text][images/08_shap1.png]
+
+### Explanation for management
+
+Since management is more focused on overall financial situation, they will get more information from data based on whole dataset than individual instances. One of the 
+most important information is which variable are most important in our model. To
+uncover it we can use Permutation Feature Importance. In our case it were 
+NetFractionRevolvingBurden, AverageMInFile and PercentTradesNeverDelq.  
+
+## Application for clients
+
+While working on this project we tried to use SHAP values to change the particular feature in the observation, what should increase or decrease probability of a positive credit decision. Results was surprisingly bad: in some cases changing the most important feauture in a reasonable range did not affect the output. In others, even a small change disrupted the whole SHAP model. 
+
+![alt text][images/08_ERE_pc.png]
+
+## Summary and conclusion 
+
+Our results show that explainable artificial intelligence could be helpful for banking industry and could provide a valuable explanaition for clients, what is necessary in many countries, including Poland. Unfrotunatelly there are some drawbacks of those techniques, what was shown in previous sections. Although SHAP values present current client's situation, it is not possible to modify values of a certain feature causing a monotonical increase of probability of a positive credit decision. 

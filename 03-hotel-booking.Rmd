@@ -151,7 +151,7 @@ We also trained two simpler models - `SGDClassifier` and `DecisionTreeClassifier
 
 <!--![image](images/03-tree_2.png)-->
 
-```{r ex_lime_2_1, echo=FALSE, fig.cap='Plot of DecisionTreeClassifier model', out.width = '100%', fig.align='center'}
+```{r ex_lime_2_2, echo=FALSE, fig.cap='Plot of DecisionTreeClassifier model', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/03-tree_2.png")
 ```
 

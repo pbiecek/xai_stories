@@ -14,7 +14,54 @@
 
 ## Model 
 
-Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.
+The dataset consists of the following varaibles.
+
+Numerical
+Variable | Unit
+--- | ---
+`date_birth` | date
+`date_start_treatment` | date
+`date_surgery` | date
+`tumor_size_x` | cm
+`tumor_size_y` | cm
+`tumor_size_z` | cm
+`years_smoking` | years
+`age` | years
+`time_to_surgery` | years ("today" - date_surgery)
+
+Categorical
+
+Variable | Decription | Values
+:--- | :--- | :---
+`sex` | subject sex | male/female
+`histopatological_diagnosis` | type of cancer | Rak płaskonabłonkowy, pleomorficzny, ...*
+`symptoms` | whether symptoms were observed | yes/no
+`lung_cancer_in_family` | whether family member had cancer | yes/no
+`stadium_uicc` | severity of tumor | IA1, IA2, IA3, IB, IIA, IIB, IIIA, IIIB, IVA, IVB*
+`alive` | whether subject is alive | yes/no (**target variable**)
+
+About 1/3 af values of varaibles annotated with * was missing.
+
+Survivability was registered `time_to_surgery` years after the procedure, for the majority of the subjects not later than 1 year after the procedure, and at most after 12 years.
+
+We have tried out several models as well as different preprocessing strategies. However, all of the approaches yielded similar results differing no more than 0.01 of cross validation acuracy and 0.01 ROC AUC score. These are the models that were utilized:
+
+- Logistic regression
+- Logistic regression with hyperparameters cross validation
+- Random Forest
+- XGBoost
+- Neural Net - 10 hidden neurons
+- Neural Net - 30 hidden neurons
+- Neural Net - 2 x 10 hidden neurons
+
+As we have indentified higle defendent features as well as observed that tumor sizes disturbed the explaination we have employed following preprocessing strategies:
+
+- encode and normalize
+- encode, remove highly dependent features and normalize 
+- encode, introduce tumor volume, discard tumor sizes, remove highly dependent features and normalize 
+
+Finally we have settled on Neural Net with 10 hidden neurons.
+
 
 ## Explanations
 

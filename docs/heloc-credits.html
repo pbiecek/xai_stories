@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Story COMPAS: recidivism reloaded | XAI Stories</title>
+  <title>Chapter 8 Heloc credits | XAI Stories</title>
   <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Story COMPAS: recidivism reloaded | XAI Stories" />
+  <meta property="og:title" content="Chapter 8 Heloc credits | XAI Stories" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/cover.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Story COMPAS: recidivism reloaded | XAI Stories" />
+  <meta name="twitter:title" content="Chapter 8 Heloc credits | XAI Stories" />
   
   <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
   <meta name="twitter:image" content="images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="story-covid19.html"/>
-<link rel="next" href="acknowledgements.html"/>
+<link rel="prev" href="story-lungs.html"/>
+<link rel="next" href="story-uplift-marketing1.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -237,31 +237,78 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="story-compas-recidivism-reloaded" class="section level1" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Story COMPAS: recidivism reloaded</h1>
-<p><em>Authors: Author 1 (University 1), Author 2 (University 2), Author 3 (University 3)</em></p>
-<p><em>Mentors: Mentor 1 (Affiliation 1), Mentor 2 (Affiliation 2)</em></p>
-<div id="introduction-10" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Introduction</h2>
-<p>Put a description of the problem here. indicate the data source. Describe why this problem is important. Indicate the most important literature on the problem.</p>
+<div id="heloc-credits" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Heloc credits</h1>
+<p><em>Authors: Tomasz Kurzelewski (University of Warsaw), Tomasz Radzikowski (Warsaw University of Technology)</em></p>
+<p><em>Mentors: Marta Gajewska (McKinsey &amp; Company), Amadeusz Andrzejewski (?) (McKinsey &amp; Company)</em></p>
+<div id="introduction-7" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<p>A home equity line of credit, or HELOC, is a loan in which the lender agrees to lend a maximum amount within an agreed period (called a term), where the collateral is the borrower’s equity in his/her house (akin to a second mortgage). Because a home often is a consumer’s most valuable asset, many homeowners use home equity credit lines only for major items, such as education, home improvements, or medical bills, and choose not to use them for day-to-day expenses.</p>
+<p>Since amount of such credit is not small, banks carefully review financial situation of
+applicants. Utmost care is taken so the whole process is transparent
+and decision is easily explainable to the client. Because of that any automated process
+also has to be explainable, and in this XAI methods may be helpful.</p>
 </div>
-<div id="model-7" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> Model</h2>
-<p>Place a description of the model(s) here. Focus on key information on the design and quality of the model(s) developed.</p>
+<div id="dataset" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Dataset</h2>
+<p>Our dataset - Home Equity Line of Credit (HELOC) - originally cames from Explainable Machine Learning Challange organized by FICO company. The data contains anonymized credit applications of HELOC credit lines, which are a type of loan, collateralized by a customer’s property. There are 23 predictors in the dataset, which describe following features:
+* ExternalRiskEstimate - consolidated indicator of risk markers (equivalent of polish BIK’s rate)
+* MSinceOldestTradeOpen - number of months that have elapsed since first trade
+* MSinceMostRecentTradeOpen - number of months that have elapsed since last opened trade
+* AverageMInFile - average months in file
+* NumSatisfactoryTrades - number of satisfactory trades
+* NumTrades60Ever2DerogPubRec - number of trades which are more than 60 past due
+* NumTrades90Ever2DerogPubRec - number of trades which are more than 90 past due
+* PercentTradesNeverDelq - percent of trades, that were not delinquent
+* MSinceMostRecentDelq - number of months that have elapsed since last delinquent trade
+* MaxDelq2PublicRecLast12M - the longest delinquency period in last 12 months
+* MaxDelqEver - the longest delinquency period
+* NumTotalTrades - total number of trades
+* NumTradesOpeninLast12M - number of trades opened in last 12 months
+* PercentInstallTrades - percent of installments trades
+* MSinceMostRecentInqexcl7days - months since last inquiry (excluding last 7 days)
+* NumInqLast6M - number of inquiries in last 6 months
+* NumInqLast6Mexcl7days - number of inquiries in last 6 months (excluding last 7 days)
+* NetFractionRevolvingBurden - revolving balance divided by credit limit
+* NetFractionInstallBurden - installment balance divided by original loan amount
+* NumRevolvingTradesWBalance - number of revolving trades with balance
+* NumInstallTradesWBalance - number of installment trades with balance
+* NumBank2NatlTradesWHighUtilization - number of trades with high utilization ratio (credit utilization ratio - the amount of a credit card balance compared to the credit limit)
+* PercentTradesWBalance - percent of trades with balance</p>
+<p>Features containing data about delinquency are coded to numeric scale and missing values are labeled with negative integer number.<br />
+The majority of features are monotonically decreasing or increasing.
+Dataset has ..xxx.. observations, ..xxx.. of its belongs to class ‘Good’, what means that clients repaid their HELOC account within 2 years, and ..xxx.. to class ‘Bad’.</p>
 </div>
-<div id="explanations-9" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> Explanations</h2>
-<p>Here, show how XAI techniques can be used to solve the problem.
-Will dataset specific or instance specific techniques help more?</p>
-<p>Will XAI be useful before (pre), during (in) or after (post) modeling?</p>
-<p>What is interesting to learn from the XAI analysis?</p>
+<div id="model-5" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Model</h2>
+<p>Since credit decision takes into account many variables related to the customer’s financial
+situation, and many of them were not included into dataset, accuracy of built models was not
+as good as we would want. Best results available in papers are around 0.84 AUC, while
+our model based on XGBoost scored around 0.80 AUC. We experimented with a different models, such based on SVM, Random Forest and XGBoost. The last two gave best results, both around 0.80 AUC, but we chose XGBoost since available implementation allowed us to reinforce monoticity bounds arising from business interpretation of variables. It should provide us with model better describing decision process. We also experimented with variable ‘ExternalRiskEstimate’. This variable representing external credit scoring must be based on other variables from the dataset, and because of that many trained models
+were relying almost exclusively on this single variable, marginalising importance of other ones, and oversimplifying explanation. Such explanation wouldn’t be in any way meaningful
+to potential applicant. What’s more, ExternalRiskEstimate can be explained with other
+variables with mean absolute error 2.5.</p>
 </div>
-<div id="summary-and-conclusions-9" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> Summary and conclusions</h2>
-<p>Here add the most important conclusions related to the XAI analysis.
-What did you learn?
-Where were the biggest difficulties?
-What else did you recommend?</p>
+<div id="explanations-7" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Explanations</h2>
+<p>SHAP values:</p>
+<p>[alt text][images/08_shap1.png]</p>
+<div id="explanation-for-management" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Explanation for management</h3>
+<p>Since management is more focused on overall financial situation, they will get more information from data based on whole dataset than individual instances. One of the
+most important information is which variable are most important in our model. To
+uncover it we can use Permutation Feature Importance. In our case it were
+NetFractionRevolvingBurden, AverageMInFile and PercentTradesNeverDelq.</p>
+</div>
+</div>
+<div id="application-for-clients" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Application for clients</h2>
+<p>While working on this project we tried to use SHAP values to change the particular feature in the observation, what should increase or decrease probability of a positive credit decision. Results was surprisingly bad: in some cases changing the most important feauture in a reasonable range did not affect the output. In others, even a small change disrupted the whole SHAP model.</p>
+<p>[alt text][images/08_ERE_pc.png]</p>
+</div>
+<div id="summary-and-conclusion" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Summary and conclusion</h2>
+<p>Our results show that explainable artificial intelligence could be helpful for banking industry and could provide a valuable explanaition for clients, what is necessary in many countries, including Poland. Unfrotunatelly there are some drawbacks of those techniques, what was shown in previous sections. Although SHAP values present current client’s situation, it is not possible to modify values of a certain feature causing a monotonical increase of probability of a positive credit decision.</p>
 
 </div>
 </div>
@@ -270,8 +317,8 @@ What else did you recommend?</p>
           </div>
         </div>
       </div>
-<a href="story-covid19.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="acknowledgements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="story-lungs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="story-uplift-marketing1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -302,7 +349,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/93-story-compas.Rmd",
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/08-heloc-credits.Rmd",
 "text": "Edit"
 },
 "history": {

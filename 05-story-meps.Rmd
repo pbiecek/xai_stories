@@ -73,6 +73,11 @@ knitr::include_graphics('images/05-r2_no_features.png')
 
 Obtained variables mainly concern the number of visits to specialists.  For a more diverse and interesting analysis, we have also taken into account demographic variables such as age, gender, and race, as well as some disease units. 
 
+
+```{r, cache=FALSE, out.width = "700", fig.align="center",fig.cap = "Scheme of conduct with a specification of origin of variables",echo=FALSE}
+knitr::include_graphics('images/05-mind_map.png')
+```
+
 | Variable | Description |
 |--------------|--------------|
 | *IPNGTDY1*| number of nights associated with hospital discharges | 

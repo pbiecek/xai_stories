@@ -71,7 +71,7 @@ The best fit relying on the determination coefficient was demonstrated by a Grad
 knitr::include_graphics('images/05-r2_no_features.png')
 ```
 
-Obtained variables mainly concern the number of visits to specialists.  For a more diverse and interesting analysis, we have also taken into account demographic variables such as age, gender, and race, as well as some disease units. 
+Obtained variables mainly concern the number of visits to specialists.  For a more diverse and interesting analysis, we have also taken into account demographic variables such as age, gender, educational background, and race, as well as some disease units. 
 
 
 ```{r, cache=FALSE, out.width = "700", fig.align="center",fig.cap = "Scheme of conduct with a specification of origin of variables",echo=FALSE}
@@ -90,6 +90,7 @@ knitr::include_graphics('images/05-mind_map.png')
 |*AGE2X*| age of patient|
 |*RACEV2X*| race of patient|
 |*SEX*| patient's gender|
+|*HIDEG*| the highest degree of education attained at the time the individual entered MEPS|
 |*diab_disease*| indicates whether the patient suffered from a diabetes disease |
 |*art_disease* | indicates whether the patient suffered from a arthritis disease |
 |*ast_disease*| indicates whether the patient suffered from a asthma disease |
@@ -97,7 +98,7 @@ knitr::include_graphics('images/05-mind_map.png')
 |*heart_disease*|  indicates whether the patient suffered from a heart disease|
 Table: A review of selected variables
 
-In the following section we will explain the Gradient Boosting model based on 15 variables presented in the table above. The coefficient of determination of the final model is 0.5
+In the following section we will explain the Gradient Boosting model based on 16 variables presented in the table above. The coefficient of determination of the final model is 0.5
 
 TODO: zaktualizowac wartosci R^2
 

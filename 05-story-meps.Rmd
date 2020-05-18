@@ -233,7 +233,7 @@ The chart shows that spending 52 nights in hospital increases treatment costs by
 Here we will denote the patient with the largest cost predicted as Patient 2, and the patient with the best prediction as Patient 1.
 
 ```{r, cache=FALSE, out.width = "1400",fig.cap = "Ceters Paribus plot for selected 6 features  ", fig.align="center",echo=FALSE}
-knitr::include_graphics('images/05-ct-buss-all.PNG')
+knitr::include_graphics('images/05-ct-buss-all.png')
 ```
 
 In the plot above we have selected features that behave differently between those two patients. In later subsections we will dive more into those differences.
@@ -242,7 +242,7 @@ In the plot above we have selected features that behave differently between thos
 
 
 ```{r, cache=FALSE, out.width = "1400",fig.cap = "Ceters Paribus plot for SEX  ", fig.align="center",echo=FALSE}
-knitr::include_graphics('images/05-ct-buss-SEX.PNG')
+knitr::include_graphics('images/05-ct-buss-SEX.png')
 ```
 
 
@@ -252,7 +252,7 @@ As we can see, our explanation model tries to predict what would have happened i
 
 
 ```{r, cache=FALSE, out.width = "1400",fig.cap = "Ceters Paribus plot for AGE  ", fig.align="center",echo=FALSE}
-knitr::include_graphics('images/05-ct-buss-AGE.PNG')
+knitr::include_graphics('images/05-ct-buss-AGE.png')
 ```
 
 In this section we will investigate age. For patient 1 there is no influence on age on the expenses, but for patient 2 there is an influence of this variable. For patient 2 being around age of 60 and below age of 10 implicates a rise in predicted costs.
@@ -261,7 +261,7 @@ In this section we will investigate age. For patient 1 there is no influence on 
 
 
 ```{r, cache=FALSE, out.width = "1400",fig.cap = "Ceters Paribus plot for IPNGTDY1  ", fig.align="center",echo=FALSE}
-knitr::include_graphics('images/05-ct-buss-IPN.PNG')
+knitr::include_graphics('images/05-ct-buss-IPN.png')
 ```
 
 Here both patients behave similary, but with different sensitivity. Patient 2, because of higher costs is more sensitive in changes of the number of nights associated with hospital discharges.

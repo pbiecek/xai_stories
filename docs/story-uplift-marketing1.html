@@ -263,7 +263,7 @@
 <div style="text-align: justify">
 <p><strong>Key points</strong>:</p>
 <ul>
-<li><p>uplift models thanks to its additivity give wide range of possiblities while using XAI<br />
+<li><p>uplift models thanks to its additivity give wide range of possibilities while using XAI<br />
 </p></li>
 <li><p>SHAP values can be used to explain model both in local and global aspects - they can be generalized in order to estimate Variable Importance and Partial Dependence Plots</p></li>
 <li><p>in the case of analysed dataset, marketing campaign should be sent two months after last purchase to be the most effective</p></li>
@@ -333,7 +333,7 @@ We chose Kevin Hillstrom’s dataset from E-Mail Analytics And Data Mining Chall
 <li>visit the company’s website within 2 weeks after sending to the customers a marketing campaign</li>
 <li>purchase a product from the website within 2 weeks after sending to the customers a marketing campaign</li>
 </ul>
-<p>In the challenge the task was to determine whether the men’s or women’s e-mail campaign was successful. In order to simplify the problem we reformulated the task - we have focused on answering the question whether any e-mail campaign persuaded customers to buy a product.</p>
+<p>In the challenge the task was to determine whether the men’s or women’s e-mail campaign was successful. In order to simplify the problem we reformulated the task - we have focused on answering the question of whether any e-mail campaign persuaded customers to buy a product.</p>
 <p>The features about customers in the dataset are specified in Figure <a href="story-uplift-marketing1.html#fig:dataset">9.3</a>:</p>
 <div class="figure" style="text-align: center"><span id="fig:dataset"></span>
 <img src="images/09_xai_customer.jpg" alt="Customer features in the dataset (own elaboration)" width="100%" />
@@ -349,7 +349,7 @@ FIGURE 9.3: Customer features in the dataset (own elaboration)
 </ul>
 <div id="explanatory-data-analysis" class="section level3" number="9.2.1">
 <h3><span class="header-section-number">9.2.1</span> Explanatory Data Analysis</h3>
-First we decided to investigate variable that have more than 3 unique values. At the same time these variables (<em>recency</em> and <em>history</em>) intuitively seem to be the most important while predicting whether someone will buy a product or not.
+First, we decided to investigate variables that have more than 3 unique values. At the same time these variables (<em>recency</em> and <em>history</em>) intuitively seem to be the most important while predicting whether someone will buy a product or not.
 <div class="figure" style="text-align: center"><span id="fig:histogram"></span>
 <img src="images/09_recency.png" alt="Histograms of *recency* (left) and *history* (right)" width="40%" /><img src="images/09_history.png" alt="Histograms of *recency* (left) and *history* (right)" width="40%" />
 <p class="caption">
@@ -363,7 +363,7 @@ FIGURE 9.4: Histograms of <em>recency</em> (left) and <em>history</em> (right)
 FIGURE 9.5: Count plots
 </p>
 </div>
-<p>In case of <em>mens</em>, <em>womens</em> and <em>newbie</em> variables the proportion of 0’s to 1’s is almost equal. There is much fewer record of people living in countryside than in urban or suburban area. Most of the company customers buy via phone or web. It is rare that someone uses mulitchannel option. In the dataset most of the customers received treatment in the form of marketing E-mail.</p>
+<p>In the case of <em>mens</em>, <em>womens</em> and <em>newbie</em> variables the proportion of 0’s to 1’s is almost equal. There is much fewer records of people living in the countryside than in urban or suburban areas. Most of the company customers buy via phone or web. It is rare that someone uses a mulitchannel option. In the dataset most of the customers received treatment in the form of marketing E-mail.</p>
 </div>
 <div id="feature-engineering" class="section level3" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Feature engineering</h3>
@@ -374,9 +374,9 @@ As the number of columns is small we decided to use one-hot encoding for transfo
 </div>
 <div id="model-exploration-and-metrics" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Model exploration and metrics</h2>
-<p>There are not many packages dedicated to uplift modeling in python. We investigated the two: pylift <span class="citation">(“Pylift Package - Documentation,” <a href="#ref-pylift" role="doc-biblioref">n.d.</a>)</span> and pyuplift <span class="citation">(<span class="citeproc-not-found" data-reference-id="pyuplift"><strong>???</strong></span>)</span>. The latter enables usage of 4 types of models - one of those is the Two Model approach. In the pylift package there is the TransformedOutcome class that generates predictions. However, the model itself is not well described and uses XGBRegressor underneath that is not intuitive. Fortunately the package offer also the class UpliftEval that allows uplift metrics visualization.
+<p>There are not many packages dedicated to uplift modeling in python. We investigated the two: pylift <span class="citation">(“Pylift Package - Documentation,” <a href="#ref-pylift" role="doc-biblioref">n.d.</a>)</span> and pyuplift <span class="citation">(<span class="citeproc-not-found" data-reference-id="pyuplift"><strong>???</strong></span>)</span>. The latter enables usage of 4 types of models - one of those is the Two Model approach. In the pylift package there is the TransformedOutcome class that generates predictions. However, the model itself is not well described and uses XGBRegressor underneath that is not intuitive. Fortunately, the package offers also the class UpliftEval that allows uplift metrics visualization.
 In the scene, we decided to create own classifier (as in the One Model approach) and use UpliftEval class from the pylift package for metric evaluation.
-As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the figure <a href="story-uplift-marketing1.html#fig:upliftRES">9.6</a> we show the cumulative gain chart for train and test sets.</p>
+As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the Figure <a href="story-uplift-marketing1.html#fig:upliftRES">9.6</a> we show the cumulative gain chart for train and test sets.</p>
 <div class="figure" style="text-align: center"><span id="fig:upliftRES"></span>
 <img src="images/09_uplift_train.PNG" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test.PNG" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
 <p class="caption">
@@ -396,11 +396,11 @@ First the customers are sorted in descending order based on predicted uplift. La
 <h3><span class="header-section-number">9.3.1</span> Model</h3>
 <p>It can be seen that our model is better than random choice but much worse than the practical/theoretical maximum possible. It is also worse than the case without <em>“sleeping dogs”</em>.
 However we have to remember what this uplift score indicates. Maximum uplift would mean, that we can always persuade anyone to buy, which is obviously an unrealistic scenario, since our <em>treatment</em> is only a single advertisement. Comparing to uplift modeling in different domains, i. e. medical usages, our treatment has generally smaller impact on individual, therefore dataset itself is more noisy and cumulative gains are smaller. It is also worth noting, that due to small number of features, there are multiple cases in the dataset where two observations with same features have different answers. This kind of noise in data also tremendously impacts the score and requires caution when training models. Also, since uplift itself is an interaction, our model do have to take them into consideration.</p>
-<p>Taking previous observations into consideration, model was found using so called local search procedure, what means that we choose some meta-parameters of the model and iteratively, for every meta-parameter approximate derivative by sampling the local neighbourhood of current value and follow the ascending gradient. Local search stops naturally, when in previus iteration, we did not change any parameter, hence we hit one of the local minima. To be clear, if meta-paremeter is discrete, by approximating local neighborhood we mean just checking close values. For our score function, we’ve chosen cross validation on cumulative gains. This kind of procedure should seek for highly robust models. Therefore, it is worth noticing that our model didn’t experience any overfitting as its quality on the train and test sets is similar. The resulting major parameters were: maximum depth of 5, high learning rate of 0.7 and only 12 estimators.</p>
+<p>Considering previous observations, model was found using so called local search procedure, what means that we choose some meta-parameters of the model and iteratively, for every meta-parameter approximate derivative by sampling the local neighborhood of current value and follow the ascending gradient. Local search stops naturally, when in previous iteration, we did not change any parameter, hence we hit one of the local minima. To be clear, if meta-parameter is discrete, by approximating local neighborhood we mean just checking close values. For our score function, we’ve chosen cross-validation on cumulative gains. This kind of procedure should seek for highly robust models. Therefore, it is worth noticing that our model didn’t experience any overfitting as its quality on the train and test sets is similar. The resulting major parameters were: maximum depth of 5, high learning rate of 0.7 and only 12 estimators.</p>
 </div>
 <div id="comparing-metrics" class="section level3" number="9.3.2">
 <h3><span class="header-section-number">9.3.2</span> Comparing metrics</h3>
-<p>We tried to employ the same local search procedure (as described in Model section) using accuracy as score function. However, it failed to converge with any decent quality, because this metric is much less informative in case of largely imbalanced dataset. Since only a small number of customers actually purchased, it’s hard to correctly predict a positive case using non-overfitted model. Therefore within the local search with accuracy function, starting local neighborhood was always flat. This might be because in the dataset there is more noise than positive cases. But fortunately, only important factor, from our prespective is <em>probability</em> of the purchase, since uplift is increase of purchase probability after treatment, and it directly transfers into money gain.
+<p>We tried to employ the same local search procedure (as described in Model section) using accuracy as score function. However, it failed to converge with any decent quality, because this metric is much less informative in case of largely imbalanced dataset. Since only a small number of customers actually purchased, it’s hard to correctly predict a positive case using non-overfitted model. Therefore within the local search with accuracy function, starting local neighborhood was always flat. This might be because in the dataset there is more noise than positive cases. But fortunately, only important factor, from our perspective is probability of the purchase, since uplift is an increase of purchase probability after treatment, and it directly transfers into money gain.
 To visualize it in a straightforward manner, we present a table comparing our current robust XGBoost model with overfitted one (deep trees, 100 estimators).</p>
 <table>
 <caption><span id="tab:overfitTable">TABLE 9.1: </span>Metrics comparison</caption>
@@ -430,7 +430,7 @@ To visualize it in a straightforward manner, we present a table comparing our cu
 </tr>
 </tbody>
 </table>
-<p>As we can see (Table <a href="story-uplift-marketing1.html#tab:overfitTable">9.1</a>) for the overfitted model, while the overfit gap in accuracy scores is only around 2%, cummulative gain drop by 97%.</p>
+<p>As we can see (Table <a href="story-uplift-marketing1.html#tab:overfitTable">9.1</a>) for the overfitted model, while the overfit gap in accuracy scores is only around 2%, cumulative gain drops by 97%.</p>
 </div>
 </div>
 <div id="explanations-8" class="section level2" number="9.4">
@@ -439,7 +439,7 @@ To visualize it in a straightforward manner, we present a table comparing our cu
 We decided to investigate model interpretability from instance-level and dataset-level perspective.</p>
 <div id="instance-level-2" class="section level3" number="9.4.1">
 <h3><span class="header-section-number">9.4.1</span> Instance-level</h3>
-<p>In order to explain model output for particular customer we employed SHAP (SHapley Additive exPlanations) values <span class="citation">(Lundberg and Lee <a href="#ref-feature_importance_shap" role="doc-biblioref">2017</a>)</span>.</p>
+<p>In order to explain model output for a particular customer we employed SHAP (SHapley Additive exPlanations) values <span class="citation">(Lundberg and Lee <a href="#ref-feature_importance_shap" role="doc-biblioref">2017</a>)</span>.</p>
 <p>Before we move to the investigation of SHAP values let’s get to know customers that got the highest and the lowest uplift prediction. In this section we will analyze the reliability of predictions for these particular instances. In the table <a href="story-uplift-marketing1.html#tab:personalTABLE">9.2</a> there is all the information provided to the system about the customers.</p>
 <table>
 <caption><span id="tab:personalTABLE">TABLE 9.2: </span>Customer with the highest and the lowest uplift - features</caption>
@@ -515,14 +515,14 @@ We decided to investigate model interpretability from instance-level and dataset
 </table>
 <p>As can be seen (Table <a href="story-uplift-marketing1.html#tab:personalTABLE">9.2</a>) the customers spend almost the same amount of money during the last 12 months on our company’s products.
 The person with the highest uplift did last shopping 2 months ago whereas the person with the lowest uplift did it 5 months ago. In the dataset some people purchased the product for the last time even 12 months ago so the person is not the most severe case in that sense. Apart from many other differences among the two customers the key is that the person with the highest uplift received treatment whereas the second customer didn’t.</p>
-Below we present SHAP values for the customer desribed in Table <a href="story-uplift-marketing1.html#tab:personalTABLE">9.2</a>. The values were computed directly on uplift model <a href="story-uplift-marketing1.html#fig:upliftSHAP">9.7</a>.
+Below we present SHAP values for the customer described in Table <a href="story-uplift-marketing1.html#tab:personalTABLE">9.2</a>. The values were computed directly on uplift model <a href="story-uplift-marketing1.html#fig:upliftSHAP">9.7</a>.
 <div class="figure"><span id="fig:upliftSHAP"></span>
 <img src="images/09_shap_min_uplift.PNG" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" /><img src="images/09_shap_max_uplift.PNG" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" />
 <p class="caption">
 FIGURE 9.7: SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift
 </p>
 </div>
-<p>In can be seen that in both cases big contribution to the final result has information about customer history (about 235 USD) and the fact that the customer bought products from Womens collection. What is interesting is the fact that the customers have almost the same values of these two attributes but opposite sign of its contribution.</p>
+<p>In can be seen that in both cases big contribution to the final result has information about customer history (about 235 USD) and the fact that the customer bought products from women’s collection. What is interesting is the fact that the customers have almost the same values of these two attributes but opposite sign of its contribution.</p>
 <p><strong>We can benefit from additive feature attribution property of SHAP values to model the uplift:</strong></p>
 <p><span class="math inline">\(uplift=P(purchase|\ T=1) - P(purchase|\ T=0))\)</span>
 <span class="math inline">\(SHAP(uplift)= SHAP(P(purchase|\ T=1)) - SHAP(P(purchase|\ T=0))\)</span></p>
@@ -600,7 +600,7 @@ FIGURE 9.7: SHAP values: (left) customer with the lowest uplift, (right) custome
 </tr>
 </tbody>
 </table>
-<p>Experimental results proved that these two ways of calculating SHAP values are providing close estimations with precision to numerical errors. There are few features that depending on method have small positive or negative value. This is caused by the fact that for the estimation of SHAP values directly using uplift model the KernelExplainer was used. It has data parameter however in case of big dataset it is recommended in the documentation to take subset of records. In our case we took random subset therefore this could impact the results. Nevertheless, we proved that in case of our example the two methods lead to similar values.</p>
+<p>Experimental results proved that these two ways of calculating SHAP values are providing close estimations with precision to numerical errors. There are few features that depending on the method have a small positive or negative value. This is caused by the fact that for the estimation of SHAP values directly using uplift model the KernelExplainer was used. It has data parameter however in case of big dataset it is recommended in the documentation to take subset of records. In our case we took random subset therefore this could impact the results. Nevertheless, we proved that in the case of our example the two methods lead to similar values.</p>
 <p>The specificity of uplift models in terms of the possibility to analyse them through additivity of SHAP values gives room for another valuable inspection.
 Below we present how SHAP values differ depending on the fact that the customer was or wasn’t addressed by treatment. On <em>x</em> axis there are SHAP values in case T=0 and on <em>y</em> axis in case T=1. In each chart there is SHAP value referring to one variable. In situation when the SHAP values are the same irrespective of the presence or absence of treatment they would lie on identity line. Moreover, there is color used as third dimension indicating the group that the particular customer belongs to. We decided to merge two groups (<em>“sure things”</em> and <em>“lost causes”</em>) as they have uplift almost equal to zero, therefore now we can distinguish 3 groups: <em>“sleeping dogs”</em>, <em>“persuadables”</em> and <em>“sure things and lost causes”</em>. The division was based on the predicted uplift. <em>“Sleeping dogs”</em> have considerable negative uplift, <em>“sure things and lost causes”</em> have uplift in <span class="math inline">\([-0.01,0.01]\)</span> and <em>“persuadables”</em> have uplift greater than 0.01. The group <em>“sure things and lost causes”</em> should has zero uplift, but due to numerical issues we decided to set <span class="math inline">\(\epsilon\)</span> equal to 0.01. As almost all customers were categorized to <em>“persuadables”</em>, we decided to show on the plot only 1000 records from this group to maintain chart readability.</p>
 <div class="figure" style="text-align: center"><span id="fig:recencySHAP"></span>
@@ -616,7 +616,7 @@ It can be seen that <em>“persuadables”</em> are slightly above and below ide
 FIGURE 9.9: SHAP values on variable history in case T=0 and T=1
 </p>
 </div>
-<p>In Figure <a href="story-uplift-marketing1.html#fig:historySHAP">9.9</a> the three customer groups are distinctive. It would be interesting whether the result of clustering metohds would be similar.</p>
+<p>In Figure <a href="story-uplift-marketing1.html#fig:historySHAP">9.9</a> the three customer groups are distinctive. It would be interesting whether the result of clustering methods would be similar.</p>
 We also investigated binary variables. Most of them looked similar as Figure <a href="story-uplift-marketing1.html#fig:historySHAP">9.9</a> but there was one exception - variable <em>womens</em>.
 <div class="figure" style="text-align: center"><span id="fig:womensSHAP"></span>
 <img src="images/09_shap_womens.png" alt="SHAP values on variable womens in case T=0 and T=1" width="50%" />
@@ -624,7 +624,7 @@ We also investigated binary variables. Most of them looked similar as Figure <a 
 FIGURE 9.10: SHAP values on variable womens in case T=0 and T=1
 </p>
 </div>
-<p>The customer groups on Figure <a href="story-uplift-marketing1.html#fig:womensSHAP">9.10</a> are overlapping. They constitue very homogeneous groups.</p>
+<p>The customer groups on Figure <a href="story-uplift-marketing1.html#fig:womensSHAP">9.10</a> are overlapping. They constitute very homogeneous groups.</p>
 <p>Note:<br />
 In the case of our model there is no need to apply LIME as its main advantages - sparsity - is not important when there are only few columns.</p>
 </div>
@@ -652,11 +652,11 @@ FIGURE 9.13: Variable Importance - <em>“persuadables”</em>
 </p>
 </div>
 <p>Conclusions:<br />
-Regardless of the customer groups always <em>history</em> and <em>womens</em> are among three most important features. For observations with considerable negative uplift (<em>“sleeping dogs”</em>) both <em>history</em> and <em>womens</em> have negative correlation with their SHAP values. In case of <em>“sure things and lost causes”</em> <em>womens</em> has positive correlation whereas <em>history</em> has negative. The same variables among <em>“persuadables”</em> (considerable positive uplift) have positive correlation with SHAP values. <em>Correlation changes gradually with uplift value.</em> It is worth noticing that regardless of the customer group importance of <em>segment</em> variable is low. This is suprising because the presence of <em>treatment</em> is substantial element of uplift modeling. What is interesting is the fact that regarding <em>zip code</em> only the information whether someone is from rural area is important. Note that this category of dwelling place was the least popular among customers. Information about purchase channel in general has relatively small predictive power.</p>
+Regardless of the customer groups always <em>history</em> and <em>womens</em> are among three most important features. For observations with considerable negative uplift (<em>“sleeping dogs”</em>) both <em>history</em> and <em>womens</em> have negative correlation with their SHAP values. In the case of <em>“sure things and lost causes”</em> <em>womens</em> has positive correlation whereas <em>history</em> has negative. The same variables among <em>“persuadables”</em> (considerable positive uplift) have positive correlation with SHAP values. <em>Correlation changes gradually with uplift value.</em> It is worth noticing that regardless of the customer group importance of <em>segment</em> variable is low. This is surprising because the presence of <em>treatment</em> is substantial element of uplift modeling. What is interesting is the fact that regarding <em>zip code</em> only the information whether someone is from rural area is important. Note that this category of dwelling place was the least popular among customers. Information about purchase channel in general has relatively small predictive power.</p>
 <div id="dependence-plots" class="section level4" number="9.4.2.1">
 <h4><span class="header-section-number">9.4.2.1</span> Dependence plots</h4>
-<p>Another tool to investigate model are the dependence plots. There are two options. The most common method is the Partial Dependence Plot (PDP)/ Accumulated Local Effects (ALE) and the another one is the SHAP dependence plot. The Partial Dependence Plot shows the marginal effect that one or two features have on the predicted outcome of a machine learning model <span class="citation">(<span class="citeproc-not-found" data-reference-id="pdp"><strong>???</strong></span>)</span>. It tells whether the relationship between the target and a feature is linear, monotonic or more complex. In the SHAP dependence plot we can show how a feature value (<em>x</em> axis) impacted the prediction (<em>y</em> axis) of every sample (each dot) in a dataset <span class="citation">(<span class="citeproc-not-found" data-reference-id="shap_dependence_plot"><strong>???</strong></span>)</span>. This provides richer information than the traditional Partial Dependence Plot, because we have at least two additional information: density and variance of observations.</p>
-<p>The Partial Dependence Plots reflect the expected output of the model if only one feature value is changed and rest stays the same. In contrast, the SHAP value for a feature represents how much that feature impacted the prediction for single sample, accounting for interaction effects. So while in general you would expect to see similar shapes in a SHAP dependence plot and a Partial Dependence Plot they will be different if your model has multi-variable interaction effects (like AND or OR). A PDP has no vertical dispersion and so no indication of how much interaction effects are driving the models predictions <span class="citation">(<span class="citeproc-not-found" data-reference-id="shap_dependence_plot_explained"><strong>???</strong></span>)</span>.</p>
+<p>Another tool to investigate model are the dependence plots. There are two options. The most common method is the Partial Dependence Plot (PDP)/ Accumulated Local Effects (ALE) and the other one is the SHAP dependence plot. The Partial Dependence Plot shows the marginal effect that one or two features have on the predicted outcome of a machine learning model <span class="citation">(<span class="citeproc-not-found" data-reference-id="pdp"><strong>???</strong></span>)</span>. It tells whether the relationship between the target and a feature is linear, monotonic or more complex. In the SHAP dependence plot we can show how a feature value (<em>x</em> axis) impacted the prediction (<em>y</em> axis) of every sample (each dot) in a dataset <span class="citation">(<span class="citeproc-not-found" data-reference-id="shap_dependence_plot"><strong>???</strong></span>)</span>. This provides richer information than the traditional Partial Dependence Plot, because we have at least two additional information: density and variance of observations.</p>
+<p>The Partial Dependence Plots reflect the expected output of the model if only one feature value is changed and the rest stays the same. In contrast, the SHAP value for a feature represents how much that feature impacted the prediction for single sample, accounting for interaction effects. So while in general you would expect to see similar shapes in a SHAP dependence plot and a Partial Dependence Plot they will be different if your model has multi-variable interaction effects (like AND or OR). A PDP has no vertical dispersion and so no indication of how much interaction effects are driving the models predictions <span class="citation">(<span class="citeproc-not-found" data-reference-id="shap_dependence_plot_explained"><strong>???</strong></span>)</span>.</p>
 <p>We generated the Partial Dependence Plot for all features and the SHAP dependence plot based on 1000 observations only for <em>history</em> and <em>recency</em> features due to large processing time.</p>
 <div class="figure"><span id="fig:PDPhistory"></span>
 <img src="images/09_history_PDP_ALE.png" alt="History (left) Partial Dependence Plot / Accumulated Local Effects plot, (right) The SHAP Dependence Plot based on 1000 observations" width="50%" /><img src="images/09_history_shap_dependence_plot.png" alt="History (left) Partial Dependence Plot / Accumulated Local Effects plot, (right) The SHAP Dependence Plot based on 1000 observations" width="50%" />
@@ -678,7 +678,7 @@ FIGURE 9.15: Recency (left) Partial Dependence Plot / Accumulated Local Effects 
 FIGURE 9.16: Gender
 </p>
 </div>
-<p>It is suprising that the disproportion between the results shown in Figure <a href="story-uplift-marketing1.html#fig:PDPmenswomens">9.16</a> is so significant. In the PDP of <em>mens</em> feature the lines are almost flat meaning that regardless of the fact whether someone bought or not a product from mens collection the uplift prediction stays the same.</p>
+<p>It is surprising that the disproportion between the results shown in Figure <a href="story-uplift-marketing1.html#fig:PDPmenswomens">9.16</a> is so significant. In the PDP of <em>mens</em> feature the lines are almost flat meaning that regardless of the fact whether someone bought or not a product from mens collection the uplift prediction stays the same.</p>
 <div class="figure" style="text-align: center"><span id="fig:PDPnewbie"></span>
 <img src="images/09_newbie_PDP_ALE.png" alt="Newbie" width="50%" />
 <p class="caption">
@@ -705,18 +705,18 @@ FIGURE 9.19: Channel
 </div>
 <div id="conclusions" class="section level2" number="9.5">
 <h2><span class="header-section-number">9.5</span> Conclusions</h2>
-<p>Since Partial Dependence Plots are generally parallel to Accumulated Local Effects, we can safely assume that our model does not have (major) interactions. However this does not mean, that we can use some classifier without interactions, because here we model directly the uplift, which is difference between preditions and is itself an interaction.</p>
+<p>Since Partial Dependence Plots are generally parallel to Accumulated Local Effects, we can safely assume that our model does not have (major) interactions. However this does not mean, that we can use some classifier without interactions, because here we model directly the uplift, which is the difference between preditions and is itself an interaction.</p>
 <div id="sweet-spot" class="section level3" number="9.5.1">
 <h3><span class="header-section-number">9.5.1</span> Sweet-spot</h3>
-<p>The most important observation here, should be that while at first glance we can only manipulate the treatment variable, dependence plots also give us opportunity to <em>choose best time to contact the customer</em>. Intuitively, <em>recency</em> function should be concave, aiming to find some “sweet-spot” between time when customer “just went out from the shop” and “forgot about this”. The Figure <a href="story-uplift-marketing1.html#fig:PDPrecency">9.15</a> is indeed concave but only for <em>recency</em> values between 1 and 4. For larger <em>recency</em> there is sinusoidal noise observed. This fluctuations can be interpreted as small overfitting. The key message is that the sweet-spot appears to be two months after last purchase.</p>
+<p>The most important observation here, should be that while at first glance we can only manipulate the treatment variable, dependence plots also give us the opportunity to <em>choose best time to contact the customer</em>. Intuitively, <em>recency</em> function should be concave, aiming to find some “sweet-spot” between time when customer “just went out from the shop” and “forgot about this”. The Figure <a href="story-uplift-marketing1.html#fig:PDPrecency">9.15</a> is indeed concave but only for <em>recency</em> values between 1 and 4. For larger <em>recency</em> there is sinusoidal noise observed. These fluctuations can be interpreted as small overfitting. The key message is that the sweet-spot appears to be two months after the last purchase.</p>
 </div>
 <div id="bigger-influence" class="section level3" number="9.5.2">
 <h3><span class="header-section-number">9.5.2</span> Bigger influence</h3>
-<p>Based on Figure <a href="story-uplift-marketing1.html#fig:PDPmenswomens">9.16</a> bigger influence can be made on customers who bought womens products than the ones who bought products from mens collections. Initially we removed from the dataset information about treatment type (Woman’s/Man’s e-mail). But based on Variable Importance analysis (Figures: <a href="story-uplift-marketing1.html#fig:sleepingDOGS">9.11</a>, <a href="story-uplift-marketing1.html#fig:noIMPACT">9.12</a>, <a href="story-uplift-marketing1.html#fig:persuadables">9.13</a>) we can reason about the type of e-mail that maximizes uplift for particular person. Considering how important is <em>womens</em> variable, we propose a following policy: regardless of the fact whether someone buys from mens or womens collections we should send e-mails dedicated to women.</p>
+<p>Based on Figure <a href="story-uplift-marketing1.html#fig:PDPmenswomens">9.16</a> bigger influence can be made on customers who bought women’s products than the ones who bought products from men’s collections. Initially we removed from the dataset information about treatment type (Woman’s/Man’s e-mail). But based on Variable Importance analysis (Figures: <a href="story-uplift-marketing1.html#fig:sleepingDOGS">9.11</a>, <a href="story-uplift-marketing1.html#fig:noIMPACT">9.12</a>, <a href="story-uplift-marketing1.html#fig:persuadables">9.13</a>) we can reason about the type of e-mail that maximizes uplift for particular person. Considering how important is <em>womens</em> variable, we propose a following policy: in the case when someone buys from men’s and women’s collections we should send e-mails dedicated to women.</p>
 </div>
 <div id="influence-from-other-factors" class="section level3" number="9.5.3">
 <h3><span class="header-section-number">9.5.3</span> Influence from other factors</h3>
-<p>Other PDPs can be used for better understanding of the customer persuadability. Since the only variable considerably reducing estimated uplift is <em>newbie</em> we can safely conclude, that marketing campaigns have better impact on regular customers, which is quite an intuitive conclusion. Analysing other factors, one-hot encoded area of living (<em>zip_code_Rural</em>, <em>zip_code_Suburban</em>, <em>zip_code_Urban</em>) do not have influence bigger than statistical error maybe except <em>zip_code_Rural</em>. Customers living on countryside are more likely to be persuaded. Suprisingly it is the only factor that may have some interactions. Referring to purchase channel, it is best to target customers who bought only by web in past months. It may be connected to the fact that our treatment is conducted via e-mail. We suspect that in some cases the following situation can happen: someone buys via phone as he doesn’t use the internet often. In such cases e-mail campaigns will not be effective.</p>
+<p>Other PDPs can be used for better understanding of the customer persuadability. Since the only variable considerably reducing estimated uplift is <em>newbie</em> we can safely conclude, that marketing campaigns have better impact on regular customers, which is quite an intuitive conclusion. Analysing other factors, one-hot encoded area of living (<em>zip_code_Rural</em>, <em>zip_code_Suburban</em>, <em>zip_code_Urban</em>) do not have influence bigger than statistical error maybe except <em>zip_code_Rural</em>. Customers living on the countryside are more likely to be persuaded. Surprisingly it is the only factor that may have some interactions. Referring to the purchase channel, it is best to target customers who bought only by web in past months. It may be connected to the fact that our treatment is conducted via e-mail. We suspect that in some cases the following situation can happen: someone buys via phone as he doesn’t use the internet often. In such cases e-mail campaigns will not be effective.</p>
 </div>
 </div>
 <div id="summary" class="section level2" number="9.6">
@@ -724,18 +724,19 @@ FIGURE 9.19: Channel
 <p>Using XAI for uplift modeling helps to understand its complex models better. The analysis goes beyond just assessing whether the model is reliable.</p>
 <div id="individual-perspective" class="section level3" number="9.6.1">
 <h3><span class="header-section-number">9.6.1</span> Individual perspective</h3>
-<p>In case of our task individual perpective doesn’t seem to be vital. The situation when a customer writes an e-mail to the company asking why he didn’t receive an e-mail with marketing campaign is highly unlikely. Even if he does, he wouldn’t change his feature like dwelling area only in order to get the e-mail. The things that the customer can rather easily change are his value of <em>recency</em> or <em>history</em> variable.</p>
+<p>In the case of our task individual perspective doesn’t seem to be vital. The situation when a customer writes an e-mail to the company asking why he didn’t receive an e-mail with marketing campaign is highly unlikely. Even if he does, he wouldn’t change his feature like the dwelling area only in order to get the e-mail. The things that the customer can rather easily change are his value of <em>recency</em> or <em>history</em> variable.</p>
 </div>
-<div id="data-scientist-perspective" class="section level3" number="9.6.2">
-<h3><span class="header-section-number">9.6.2</span> Data scientist perspective</h3>
-<p>In the data scientist perspective the most important thing to check is whether the model is overfitted. The tool that can help in verifying model sensitivity is the Partial Dependence Plot. In case of our model it can be seen that the model is slightly overfitted as there is a peak on PDP of <em>history</em>.</p>
+<div id="data-scientists-perspective" class="section level3" number="9.6.2">
+<h3><span class="header-section-number">9.6.2</span> Data scientist’s perspective</h3>
+<p>In the data scientist’s perspective the most important thing to check is whether the model is overfitted. The tool that can help in verifying model sensitivity is the Partial Dependence Plot. In the case of our model it can be seen that the model is slightly overfitted as there is a peak on PDP of <em>history</em>.</p>
 </div>
 <div id="executive-perspective" class="section level3" number="9.6.3">
 <h3><span class="header-section-number">9.6.3</span> Executive perspective</h3>
 <p>XAI techniques can help the executives to understand better the company customers behavior without paying for some extra surveys to investigate their attitude towards the company. Key findings:</p>
 <ul>
-<li>The campaign e-mail should be send two months after last purchase in order to be more effective.</li>
-<li>The most important variables in the model seem to be resonable, e.g. <em>history</em> and <em>recency</em> (Figures: <a href="story-uplift-marketing1.html#fig:sleepingDOGS">9.11</a>, <a href="story-uplift-marketing1.html#fig:noIMPACT">9.12</a>, <a href="story-uplift-marketing1.html#fig:persuadables">9.13</a>). The only suprising thing is high importance of <em>zip_code_Rural</em> feature.</li>
+<li>The campaign e-mail should be sent two months after last purchase in order to be more effective.</li>
+<li>The most important variables in the model seem to be reasonable, e.g. <em>history</em> and <em>recency</em> (Figures: <a href="story-uplift-marketing1.html#fig:sleepingDOGS">9.11</a>, <a href="story-uplift-marketing1.html#fig:noIMPACT">9.12</a>, <a href="story-uplift-marketing1.html#fig:persuadables">9.13</a>). The only surprising thing is the high importance of <em>zip_code_Rural</em> feature.</li>
+<li>In the case when someone buys from men’s and women’s collections we should send e-mails dedicated to women.</li>
 <li>In the case of bigger number of treatment variants it would be possible to create personalized marketing campaign.</li>
 </ul>
 <p>A vital part of our work was adjusting XAI techniques for the particularities of uplift modeling. We found out that thanks to its additivity SHAP values are well suited for uplift modeling - we showed two methods of using it. We identified limitations of well-known Permutation Feature Importance in terms of explaining uplift modeling. It is caused by the fact that unlike in other supervised models here we do not have exactly labels. Therefore we used the generalization of SHAP values that converge to Permutation Feature Importance. Also we analysed the SHAP Dependence Plots as an alternative to PDP. We employed the analysis for the three groups of customers based on the corresponding uplift.</p>
@@ -743,14 +744,14 @@ FIGURE 9.19: Channel
 </div>
 <div id="future-works" class="section level2" number="9.7">
 <h2><span class="header-section-number">9.7</span> Future works</h2>
-<p>During initial feature engineering, we simplified our problem by merging <em>womens treatment</em> and <em>mens treatment</em> into one. By analysing PDP we were able to propose a policy for choosing the optimal treatment type. However, it is not the only possible approach. We can try going beyond standard uplift modeling and model directly uplift with 2 possible outcomes i.e. create purchase prediction, and then check if sending womens or mens email is more profitable, resulting in following equation:</p>
+<p>During initial feature engineering, we simplified our problem by merging women’s treatment and men’s treatment into one. By analysing PDP we were able to propose a policy for choosing the optimal treatment type. However, it is not the only possible approach. We can try going beyond standard uplift modeling and model directly uplift with 2 possible outcomes i.e. create purchase prediction, and then check if sending women’s or men’s e-mail is more profitable, resulting in the following equation:</p>
 <p><span class="math inline">\(uplift=max{(P(purchase\ |\ w\_T=1) - P(purchase\ |\ w\_T=0,m\_T=0), \\ P(purchase\ |\ m\_T=1) - P(purchase\ |\ w\_T=0,m\_T=0))}\)</span></p>
 <p>where:</p>
 <ul>
 <li>w_T is treatment dedicated to women</li>
 <li>m_T is treatment dedicated to men</li>
 </ul>
-<p>However, this leaves us with several open-ended questions i.e.: can we now implicitly calculate SHAP values, using previously presented effecient technique (based on additivity)? Surely the max function breaks the additivity of uplift function, but maybe it is possible using some other method?</p>
+<p>However, this leaves us with several open-ended questions i.e.: can we now implicitly calculate SHAP values, using the previously presented efficient technique (based on additivity)? Surely the max function breaks the additivity of uplift function, but maybe it is possible using some other method?</p>
 </div>
 </div>
 

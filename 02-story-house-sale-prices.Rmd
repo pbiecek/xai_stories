@@ -55,34 +55,18 @@ The next point was data analysis. We work on a dataset which contains house sale
 
 ## Data
 
-We analyzed the data,  [more](https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Data/DataAnalysis). Data contains 19 house features plus the price and the id columns, along with 21613 observations. Below the table describes the variables in the data set.
+We analyzed the data,  [more](https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Data/DataAnalysis). Data contains 19 house features plus the price and the id columns, along with 21613 observations. Below the Table \@ref(tab:variables) describes the variables in the data set.
  
+ 
+```{r variables, echo=FALSE,}
+variables <- data.frame("Variable" = c("id", "date", "price", "bedrooms", "bathrooms", "sqft_living", "sqft_lot", "floors", "waterfront", "view", "condition", "grade", "sqft_above", "sqft_basement", "yr_built", "yr_renovated", "zipcode", "lat", "long", "sqft_living15", "sqft_lot15"),
+                        "Description" = c("unique ID for each house sold", "date of the house sale", "price of each house sold", "number of bedrooms", "number of bathrooms, where .5 accounts for a room with a toilet but no shower", "square footage of the apartments interior living space", "square footage of the land space", "number of floors", "apartment was overlooking the waterfront or not", "how good the view of the property was", "condition of the apartment", "level of construction and design", "the square footage of the interior housing space that is above ground level", "the square footage of the interior housing space that is below ground level", "the year the house was initially built", "the year of the house's last renovation", "zipcode area", "lattitude", "longitude", "the square footage of interior housing living space for the nearest 15 neighbors", "the square footage of the land lots of the nearest 15 neighbors"))
+knitr::kable(
+  variables, booktabs = TRUE,
+  caption = 'Description of variables in the dataset.'
+) 
+```
 
-|Variable | Description|
-|---------|------------|
-|`id`| unique ID for each house sold|
-|`date`| date of the house sale|
-|`price`| price of each house sold|
-|`bedrooms`| number of bedrooms|
-|`bathrooms`| number of bathrooms, where .5 accounts for a room with a toilet but no shower|
-|`sqft_living`| square footage of the apartments interior living space|
-|`sqft_lot`| square footage of the land space|
-|`floors`| number of floors|
-|`waterfront`| apartment was overlooking the waterfront or not|
-|`view`| how good the view of the property was|
-|`condition`| condition of the apartment|
-|`grade`| level of construction and design|
-|`sqft_above`| the square footage of the interior housing space that is above ground level|
-|`sqft_basement`| the square footage of the interior housing space that is below ground level|
-|`yr_built`| the year the house was initially built|
-|`yr_renovated`| the year of the house's last renovation|
-|`zipcode`| zipcode area|
-|`lat`| lattitude|
-|`long`| longitude|
-|`sqft_living15`| the square footage of interior housing living space for the nearest 15 neighbors|
-|`sqft_lot15`| the square footage of the land lots of the nearest 15 neighbors|
-
-Table: Description of variables in the dataset.
 
 Another idea of how to enrich our solution was to add external data. Our hypothesis is that the location of the property can significantly affect the price. We therefore also took into account the distance from public transport and the number of cultural facilities within a kilometer radius.
 
@@ -160,31 +144,21 @@ We are aware that one could find different approaches that could better fit the 
 
 ### Linear models assessment
 
-Estimated coefficients are presented in the table below. All of the estimates (apart from `m_2_lot_log` in first model) are statistically significant on at least 1% level.Since the dependent variable is the logarithm of price, the coefficients have an interpretation of a percentage change. For variables intercept to since_renovated a 1 unit change results in a coefficient *100% change of dependent variable. For variables that were logarithmized (`m_2_lot_log` to `m_2_lot_15_log`) a 1% change results in a coefficient % change of dependent variable.
+Estimated coefficients are presented in the Table \@ref(tab:linear-models). All of the estimates (apart from `m_2_lot_log` in first model) are statistically significant on at least 1% level.Since the dependent variable is the logarithm of price, the coefficients have an interpretation of a percentage change. For variables intercept to since_renovated a 1 unit change results in a coefficient *100% change of dependent variable. For variables that were logarithmized (`m_2_lot_log` to `m_2_lot_15_log`) a 1% change results in a coefficient % change of dependent variable.
 
 Looking at the estimates, a couple of general observations can be made. Firstly, there are no major differences in the coefficients between models, especially between (2) and (3). This tells us that the models can be considered stable. Basing on RMSE, we should note a significant improvement of fit resulting from introducing zip code-based fixed effects in the model (2). A slight, but noticeable improvement was also made by allowing for coefficients to have a random effects in the model (3). These observations suggest that our hypothesis about neighborhood having a significant impact on a house price, but also about particular variables’ effect on price, was reasonable.
 
-
-| Model | Log-loglinear (1) | Fixed effects (2) |Mixed effects (3)|
-|--|:--:|:--:|:--:|
-|(Intercept)  | 8.1531 | | 8.8260(RE) |
-|bedrooms|-0.0304|-0.0096|-0.0079 |
-|bathrooms|0.0579|0.0409|0.0379|
-|floors|0.0293|-0.0339|-0.0186|
-|waterfront|0.4605|0.5208|0.4641(RE)|
-|view|0.0559|0.0609|0.0543(RE)|
-|condition|0.0495|0.0557|0.0586|
-|grade|0.1886|0.0885|0.0876|
-|dist_stop_km|-0.0106|-0.0041|-0.0047|
-|ncult|0.0134|0.0016|0.0026|
-|since_renovated|0.0038|-0.0002|-0.0007|
-|m_2_lot_log|0.0043|0.0727|0.0841(RE)|
-|m_2_above_log|0.3257|0.4099|0.3844(RE)|
-|m_2_basement_log|0.0446|0.0270|0.0271|
-|m_2_living_15_log|0.2877|0.1729|0.1566(RE)|
-|m_2_lot_15_log|-0.0314|-0.0126|(RE)|
-
-Table: Estimated coefficients for linear models.
+```{r linear-models, echo=FALSE,}
+linear_model <- data.frame(c("(Intercept)", "bedrooms", "bathrooms", "floors", "waterfront", "view", "condition", "grade",  "dist_stop_km", "ncult", "since_renovated", "m_2_lot_log", "m_2_above_log", "m_2_basement_log", "m_2_living_15_log", "m_2_lot_15_log"),
+c("8.1531", "-0.0304", "0.0579", "0.0293", "0.4605", "0.0559", "0.0495", "0.1886", "-0.0106", "0.0134", "0.0038", "0.0043", "0.3257", "0.0446", "0.2877", "-0.0314"),
+c(" ", "-0.0096", "0.0409", "-0.0339", "0.5208", "0.0609", "0.0557", "0.0885", "-0.0041", "0.0016", "-0.0002", "0.0727", "0.4099", "0.0270", "0.1729", "-0.0126"),
+c("8.8260(RE)", "-0.0079", "0.0379", "-0.0186", "0.4641(RE)", "0.0543(RE)", "0.0586", "0.0876", "-0.0047", "0.0026", "-0.0007", "0.0841(RE)", "0.3844(RE)", "0.0271", "0.1566(RE)","(RE)"))
+names(linear_model) <- c("Model", "Log-loglinear (1)", "Fixed effects (2)", "Mixed effects (3)")
+knitr::kable(
+  linear_model, booktabs = TRUE,
+  caption = 'Estimated coefficients for linear models.'
+)
+```
 
 |||||
 |--|:--:|:--:|:--:|
@@ -230,14 +204,15 @@ For the models the RMSE score was calculated on the training and test set using 
 knitr::include_graphics('images/02-rmse-train-test.png')
 ```
 
+```{r rf-xgb, echo=FALSE,}
+model_rf_xgb <- data.frame("Model" = c("random forest", "xgboost"), "RMSE train" = c(0.07931109,0.1076962), "RMSE test" = c(0.1674559, 0.1600113))
+names(model_rf_xgb) <- c("Model", "RMSE train", "RMSE test")
+  knitr::kable(
+  model_rf_xgb, booktabs = TRUE,
+  caption = 'Model results on the training and test set.'
+) 
+```
 
-|Model |RMSE train | RMSE test |
-|------|:---------:|:---------:|
-|random forest | 0.07931109 |	0.1674559 |
-|xgboost |	0.1076962 |	0.1600113|
-
-
-Table: Model results on the training and test set.
 
 By analyzing the estimated models we obtained the following results. The random forest model seems to be overfitted, while the xgboost model is more stable. On the test set, they obtained similar scores. Figure \@ref(fig:residual-1) shows the density of the residuals, for both models. We see that the xgboost model has greater residuals than the random forest model.
 
@@ -250,13 +225,15 @@ knitr::include_graphics('images/02-residuals1.png')
 Comparing the xgboost model with one-hot encoding and gbm with one-hot encoding we see that the RMSE score on the training and test set is very similar. Furthermore, the residual density plot (Figure \@ref(fig:residual-2) ) is practically identical.
 
 
-|Model |RMSE train | RMSE test |
-|------|:---------:|:---------:|
-|xgboost one-hot |	0.1207626 |	0.1595913|
-|gbm one-hot |	0.1302585 |	0.1607376 |
+```{r gbm-xgb, echo=FALSE,}
+model_gbm_xgb <- data.frame("Model" = c("xgboost one-hot", "gbm one-hot"), "RMSE train" = c(0.1207626,0.1302585), "RMSE test" = c(0.1595913, 0.1607376))
+names(model_gbm_xgb) <- c("Model", "RMSE train", "RMSE test")
+  knitr::kable(
+  model_gbm_xgb, booktabs = TRUE,
+  caption = 'Model results on the training and test set with one-hot encoding.'
+) 
+```
 
-
-Table: Model results on the training and test set with one-hot encoding.
 
 ```{r residual-2, out.width="700", fig.align="center", echo=FALSE, fig.cap=' Density of residuals for gbm and xgboost models. On the x-axis, we have the rest of the model for the price without transformation.'}
 knitr::include_graphics('images/02-residuals2.png')
@@ -294,7 +271,7 @@ The models agree on importance of `lat` and `long` variables, which are latitude
 knitr:::include_graphics('images/02-pdp_lat_long.png')
 ```
 
-The second variable worth investigation is `m2_living` - house surface in square meters. What we expect is a more or less linear increase. The plot seems to confirm this expectation. With `grade`, we also expected increasing curves, but not necessarily linear. What is interesting, the price goes much higher, if the `grade` changes from 5-6 to 8-9. We will discuss this phenomenon in detail in chapter 6.
+The second variable worth investigation is `m2_living` - house surface in square meters. What we expect is a more or less linear increase. The plot seems to confirm this expectation. With `grade`, we also expected increasing curves, but not necessarily linear. What is interesting, the price goes much higher, if the `grade` changes from 5-6 to 8-9. We will discuss this phenomenon in detail in chapter 5.
 
 ```{r m2-grade, out.width="700", fig.align="center", echo=FALSE, fig.cap='Partial Dependence profiles for `m2_living` and `grade` variables. In both cases we see an increase in the value of the prediction along with an increase in the variable. Each line corresponds to one of the four models. On the x-axis we have values of variables corresponding to m2_living and grade. On the y-axis we see the value of property price prediction.'}
 knitr:::include_graphics('images/02-pdp_living_grade.png')
@@ -391,9 +368,9 @@ Let us begin with zipcode 98010. Here we present a property that was the second 
 ```{r h-98010, out.width="700", fig.align="center", echo=FALSE, fig.cap=' Break Down created with R `iBreakDown` package for hugely mispredicted house. From the top, a vertical line represents the average response of the model, the green and red bars correspond to the contribution of the variable to the prediction. The green ones take positive values, i.e. increase the prediction value, while the red ones take negative values, i.e. decrease the prediction value. The violet bar corresponds to the prediction value for the observation. The numerical values next to the bars inform about the impact. On the x-axis we have model prediction value, on the y-axis we have variables and their values for the observation. It loses a lot of value because of its geographical position (far from Seattle), but gains a lot on grade and surface.'}
 knitr:::include_graphics('images/02-bd_98010.png')
 ```
-As we can find on a map, this particular property actually *has* access to the lake and should have been marked with `waterfront` = 1. If it was, the prediction would be 787325 k\$, according to the XGBoost model, and that halves the relative error. From the picture \@ref(fig:h-98010) we could also conclude, that houses with `waterfront` = 0 are not losing so much, but they would highly gain when `waterfront` would be equal to 1. Another conclusion is that there are mistakes in the data frame.
+As we can find on a map, this particular property actually *has* access to the lake and should have been marked with `waterfront` = 1. If it was, the prediction would be 787325 k\$, according to the XGBoost model, and that halves the relative error. From the Figure \@ref(fig:h-98010) we could also conclude, that houses with `waterfront` = 0 are not losing so much, but they would highly gain when `waterfront` would be equal to 1. Another conclusion is that there are mistakes in the data frame.
 
-Next case is a house in Medina. We chose the one with the highest average price for 1 square meter of the building. In the Figure \@ref(fig:h-98039) we see Break Down plot for this house. All factors are in favor of this house. It is in a good location, top grade, living surface is enormous, it has a beautiful view, access to Lake Washington, and the neighborhood is wealthy. Predicted value is 3,961k\$, while the true value was 3,640k\$. Interesting and counterintuitive is that one variable has negative effect, and that is `floors.` This particular house has 2 levels. In the same picture we also plot Ceteris Paribus (CP) profile for this variable, which says that having two floors is actually the best choice for this observation. 
+Next case is a house in Medina. We chose the one with the highest average price for 1 square meter of the building. In the Figure \@ref(fig:h-98039) we see Break Down plot for this house. All factors are in favor of this house. It is in a good location, top grade, living surface is enormous, it has a beautiful view, access to Lake Washington, and the neighborhood is wealthy. Predicted value is 3,961 k\$, while the true value was 3,640 k\$. Interesting and counterintuitive is that one variable has negative effect, and that is `floors.` This particular house has 2 levels. In the same picture we also plot Ceteris Paribus (CP) profile for this variable, which says that having two floors is actually the best choice for this observation. 
 
 
 ```{r h-98039, out.width="800", fig.align="center", echo=FALSE, fig.cap='On top Break Down plot for a villa in 98038 zipcode. All variables except floor have positive impact on the price prediction. The second plot represents Ceteris Paribus profile (cyan line) for floor. The dot indicates our observation. The shape of the profile implies that no greater prediction can be obtained for this variable value.'}
@@ -409,15 +386,14 @@ First application might be someone who wants to buy a house and improve it to ei
 
 First approach is that one can study a BD Plot for a particular house and see the loss caused by low grade value. If the influence is highly negative, then we calculate a prediction for the same house, but after renovation: that means with replaced grade value and since_renovated set equal to 0 or 1. That might be very useful in case a buyer has already selected some area of interest and choice between houses is narrowed to a couple of them.
 
-In case we only look for houses to renovate and resell with income and specific location is not an issue, then we present a second approach. Here PDP plot can be used. In the figure \@ref(fig:use-grade) PDP is monotonically increasing and the greatest change is between grade < 6 and grade > 8. So we can search for houses with such grade, calculate the prediction for modified data and then search for houses with top uplift. We also see that skipping grades 6-8 we also jump from “below average” to “above average”, what can be seen in the histogram attached.
+In case we only look for houses to renovate and resell with income and specific location is not an issue, then we present a second approach. Here PDP plot can be used. In the Figure \@ref(fig:use-grade) PDP is monotonically increasing and the greatest change is between grade < 6 and grade > 8. So we can search for houses with such grade, calculate the prediction for modified data and then search for houses with top uplift. We also see that skipping grades 6-8 we also jump from “below average” to “above average”, what can be seen in the histogram attached.
 
 ```{r use-grade, out.width="800", fig.align="center", echo=FALSE, fig.cap='Partial Dependence Profile for grade for xgboost model on left. The blue line corresponds to PDP,  for the x-axis, we have the value of a variable and on the y-axis, we have the value of a prediction.  On the right histogram of grade, the x-axis indicates the value of the variable, the y-axis a count of observation in each value of grade. We clearly see that prices change drastically when grade goes up from below 6 to above 8.'}
 knitr:::include_graphics('images/02-use-grade.png')
 ```
 
-Here we present both approaches in a case study. Using the second method we found for an 85m² house in Kent, WA 98032: 105 year old building, never renovated. 3 bedrooms, 1 bathroom. Grade is 5. Prediction is quite accurate: true value is 176.5k\$ and prediction is 168k\$, so relative error is 5%. Modification described in the previous paragraph results in prediction for 272k\$, 100k\$ more. Of course this predicted change should be compared to renovation cost. In figure \@ref(fig:use-case) there are presented BD plots for this house before and after renovation.
+Here we present both approaches in a case study. Using the second method we found for an 85m² house in Kent, WA 98032: 105 year old building, never renovated. 3 bedrooms, 1 bathroom. Grade is 5. Prediction is quite accurate: true value is 176.5 k\$ and prediction is 168 k\$, so relative error is 5%. Modification described in the previous paragraph results in prediction for 272 k\$, 100 k\$ more. Of course this predicted change should be compared to renovation cost. In Figure \@ref(fig:use-case) there are presented BD plots for this house before and after renovation.
 
-“above average”, what can be seen in the histogram attached.
 
 ```{r use-case, out.width="800", fig.align="center", echo=FALSE, fig.cap='On top Break Down plot for a house potentially good for renovate-and-resell. The impact of the grade variable is negative, the price of the property is decreasing. The second plot, the grade variable have a greater value and since_renovated variable is equal 0. The impact of these variables is positive on prediction.'}
 knitr:::include_graphics('images/02-use-case-bd.png')

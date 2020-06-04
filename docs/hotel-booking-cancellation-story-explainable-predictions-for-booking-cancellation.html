@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Hotel booking cancellation story: eXplainable predictions for booking cancellation | XAI Stories</title>
+  <meta name="description" content="Case studies for eXplainable Artificial Intelligence" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Hotel booking cancellation story: eXplainable predictions for booking cancellation | XAI Stories" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/cover.png" />
+  <meta property="og:description" content="Case studies for eXplainable Artificial Intelligence" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Hotel booking cancellation story: eXplainable predictions for booking cancellation | XAI Stories" />
+  
+  <meta name="twitter:description" content="Case studies for eXplainable Artificial Intelligence" />
+  <meta name="twitter:image" content="images/cover.png" />
+
+
+
+<meta name="date" content="2020-06-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="story-uplift-marketing1.html"/>
+<link rel="next" href="examples.html"/>
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"><h3>XAI Stories</h3> Case studies</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="foreword.html"><a href="foreword.html"><i class="fa fa-check"></i>Foreword</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="foreword.html"><a href="foreword.html#why"><i class="fa fa-check"></i><b>0.1</b> Why?</a></li>
+<li class="chapter" data-level="0.2" data-path="foreword.html"><a href="foreword.html#what"><i class="fa fa-check"></i><b>0.2</b> What?</a></li>
+<li class="chapter" data-level="0.3" data-path="foreword.html"><a href="foreword.html#how"><i class="fa fa-check"></i><b>0.3</b> How?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="story-compas.html"><a href="story-compas.html"><i class="fa fa-check"></i><b>1</b> Story COMPAS: recidivism reloaded</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="story-compas.html"><a href="story-compas.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="story-compas.html"><a href="story-compas.html#previous-work"><i class="fa fa-check"></i><b>1.1.1</b> Previous work</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="story-compas.html"><a href="story-compas.html#models"><i class="fa fa-check"></i><b>1.2</b> Models</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="story-compas.html"><a href="story-compas.html#recidivism"><i class="fa fa-check"></i><b>1.2.1</b> Recidivism</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="story-compas.html"><a href="story-compas.html#explanations"><i class="fa fa-check"></i><b>1.3</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="story-compas.html"><a href="story-compas.html#model-specific"><i class="fa fa-check"></i><b>1.3.1</b> Model specific</a></li>
+<li class="chapter" data-level="1.3.2" data-path="story-compas.html"><a href="story-compas.html#instance-specific"><i class="fa fa-check"></i><b>1.3.2</b> Instance specific</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="story-compas.html"><a href="story-compas.html#summary-and-conclusions"><i class="fa fa-check"></i><b>1.4</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html"><i class="fa fa-check"></i><b>2</b> Story House Sale Prices: eXplainable predictions for house sale</a>
+<ul>
+<li class="chapter" data-level="" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#take-away-messages"><i class="fa fa-check"></i>Take-away messages</a></li>
+<li class="chapter" data-level="2.1" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#data"><i class="fa fa-check"></i><b>2.2</b> Data</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#data-preperation"><i class="fa fa-check"></i><b>2.2.1</b> Data preperation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#external-data"><i class="fa fa-check"></i><b>2.2.2</b> External data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#model"><i class="fa fa-check"></i><b>2.3</b> Model</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#linear-models"><i class="fa fa-check"></i><b>2.3.1</b> Linear models</a></li>
+<li class="chapter" data-level="2.3.2" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#linear-models-assessment"><i class="fa fa-check"></i><b>2.3.2</b> Linear models assessment</a></li>
+<li class="chapter" data-level="2.3.3" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#machine-learning-models"><i class="fa fa-check"></i><b>2.3.3</b> Machine Learning models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#explanations-1"><i class="fa fa-check"></i><b>2.4</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#xai-for-geographical-location"><i class="fa fa-check"></i><b>2.4.1</b> XAI for geographical location</a></li>
+<li class="chapter" data-level="2.4.2" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#feature-importance"><i class="fa fa-check"></i><b>2.4.2</b> Feature importance</a></li>
+<li class="chapter" data-level="2.4.3" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#partial-dependence-plots-pdp"><i class="fa fa-check"></i><b>2.4.3</b> Partial Dependence Plots (PDP)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#new-possibilities-with-pdp"><i class="fa fa-check"></i><b>2.4.4</b> New possibilities with PDP</a></li>
+<li class="chapter" data-level="2.4.5" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#instance-level-explanations."><i class="fa fa-check"></i><b>2.4.5</b> Instance level explanations.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#use-case-of-the-model"><i class="fa fa-check"></i><b>2.5</b> Use case of the model</a></li>
+<li class="chapter" data-level="2.6" data-path="story-house-sale-prices.html"><a href="story-house-sale-prices.html#summary-and-conclusions-1"><i class="fa fa-check"></i><b>2.6</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html"><i class="fa fa-check"></i><b>3</b> Story hotel booking: eXplainable predictions of booking cancellation and guests coming back</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#imbalanced-dataset"><i class="fa fa-check"></i><b>3.1.1</b> Imbalanced dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#model-1"><i class="fa fa-check"></i><b>3.2</b> Model</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#model-1.-booking-cancellation"><i class="fa fa-check"></i><b>3.2.1</b> Model 1. Booking cancellation</a></li>
+<li class="chapter" data-level="3.2.2" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#model-2.-repeated-guests"><i class="fa fa-check"></i><b>3.2.2</b> Model 2. Repeated guests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#explanations-2"><i class="fa fa-check"></i><b>3.3</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#model-1.-booking-cancellation-1"><i class="fa fa-check"></i><b>3.3.1</b> Model 1. Booking cancellation</a></li>
+<li class="chapter" data-level="3.3.2" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#model-2.-repeated-guests-1"><i class="fa fa-check"></i><b>3.3.2</b> Model 2. Repeated guests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="story-hotel-booking.html"><a href="story-hotel-booking.html#summary-and-conclusions-2"><i class="fa fa-check"></i><b>3.4</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html"><i class="fa fa-check"></i><b>4</b> Story Uplift Modelling: eXplaining colon cancer survival rate after treatment</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#what-is-uplift-modelling"><i class="fa fa-check"></i><b>4.1.1</b> What is Uplift Modelling?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#dataset-description"><i class="fa fa-check"></i><b>4.1.2</b> Dataset Description</a></li>
+<li class="chapter" data-level="4.1.3" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#ideas"><i class="fa fa-check"></i><b>4.1.3</b> Ideas</a></li>
+<li class="chapter" data-level="4.1.4" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#why-is-it-worth-the-hassle"><i class="fa fa-check"></i><b>4.1.4</b> Why is it worth the hassle?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#data-preprocessing"><i class="fa fa-check"></i><b>4.2</b> Data Preprocessing</a></li>
+<li class="chapter" data-level="4.3" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#model-2"><i class="fa fa-check"></i><b>4.3</b> Model</a></li>
+<li class="chapter" data-level="4.4" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#explanations-3"><i class="fa fa-check"></i><b>4.4</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#dataset-level-explainations"><i class="fa fa-check"></i><b>4.4.1</b> Dataset Level Explainations</a></li>
+<li class="chapter" data-level="4.4.2" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#instance-level-explainations"><i class="fa fa-check"></i><b>4.4.2</b> Instance Level Explainations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="story-uplift-modelling.html"><a href="story-uplift-modelling.html#summary-and-conclusions-3"><i class="fa fa-check"></i><b>4.5</b> Summary and Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html"><i class="fa fa-check"></i><b>5</b> Story Meps: eXplainable predictions for healthcare expenditures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#model-3"><i class="fa fa-check"></i><b>5.2</b> Model</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#data-1"><i class="fa fa-check"></i><b>5.2.1</b> Data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#model-4"><i class="fa fa-check"></i><b>5.2.2</b> Model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#explanations-4"><i class="fa fa-check"></i><b>5.3</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#model-level-explainations"><i class="fa fa-check"></i><b>5.3.1</b> Model Level Explainations</a></li>
+<li class="chapter" data-level="5.3.2" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#instance-level-explainations---business-approach"><i class="fa fa-check"></i><b>5.3.2</b> Instance Level Explainations - business approach</a></li>
+<li class="chapter" data-level="5.3.3" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#instance-level-explainations---instance-specific-approach"><i class="fa fa-check"></i><b>5.3.3</b> Instance Level Explainations - instance specific approach</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="story-meps-explainable-predictions-for-healthcare-expenditures.html"><a href="story-meps-explainable-predictions-for-healthcare-expenditures.html#summary-and-conclusions-4"><i class="fa fa-check"></i><b>5.4</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html"><i class="fa fa-check"></i><b>6</b> Story MEPS: Healthcare expenditures of individuals</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#todos"><i class="fa fa-check"></i><b>6.1</b> TODOS</a></li>
+<li class="chapter" data-level="6.2" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#introduction-5"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+<li class="chapter" data-level="6.3" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#models-1"><i class="fa fa-check"></i><b>6.3</b> Models</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#model-1-linear"><i class="fa fa-check"></i><b>6.3.1</b> Model 1: Linear</a></li>
+<li class="chapter" data-level="6.3.2" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#model-2-ann"><i class="fa fa-check"></i><b>6.3.2</b> Model 2: ANN</a></li>
+<li class="chapter" data-level="6.3.3" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#model-3-xgb"><i class="fa fa-check"></i><b>6.3.3</b> Model 3: XGB</a></li>
+<li class="chapter" data-level="6.3.4" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#results"><i class="fa fa-check"></i><b>6.3.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#explanations-5"><i class="fa fa-check"></i><b>6.4</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#instance-level-1"><i class="fa fa-check"></i><b>6.4.1</b> Instance level</a></li>
+<li class="chapter" data-level="6.4.2" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#dataset-level-1"><i class="fa fa-check"></i><b>6.4.2</b> Dataset level</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="story-meps-healthcare-expenditures-of-individuals.html"><a href="story-meps-healthcare-expenditures-of-individuals.html#summary-and-conclusions-5"><i class="fa fa-check"></i><b>6.5</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="story-lungs.html"><a href="story-lungs.html"><i class="fa fa-check"></i><b>7</b> Story lungs: eXplainable predictions for post operational risks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="story-lungs.html"><a href="story-lungs.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="story-lungs.html"><a href="story-lungs.html#model-5"><i class="fa fa-check"></i><b>7.2</b> Model</a></li>
+<li class="chapter" data-level="7.3" data-path="story-lungs.html"><a href="story-lungs.html#explanations-6"><i class="fa fa-check"></i><b>7.3</b> Explanations</a></li>
+<li class="chapter" data-level="7.4" data-path="story-lungs.html"><a href="story-lungs.html#summary-and-conclusions-6"><i class="fa fa-check"></i><b>7.4</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="heloc-credits.html"><a href="heloc-credits.html"><i class="fa fa-check"></i><b>8</b> Heloc credits</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="heloc-credits.html"><a href="heloc-credits.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="heloc-credits.html"><a href="heloc-credits.html#dataset"><i class="fa fa-check"></i><b>8.2</b> Dataset</a></li>
+<li class="chapter" data-level="8.3" data-path="heloc-credits.html"><a href="heloc-credits.html#model-6"><i class="fa fa-check"></i><b>8.3</b> Model</a></li>
+<li class="chapter" data-level="8.4" data-path="heloc-credits.html"><a href="heloc-credits.html#explanations-7"><i class="fa fa-check"></i><b>8.4</b> Explanations</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="heloc-credits.html"><a href="heloc-credits.html#explanation-for-management"><i class="fa fa-check"></i><b>8.4.1</b> Explanation for management</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="heloc-credits.html"><a href="heloc-credits.html#application-for-clients"><i class="fa fa-check"></i><b>8.5</b> Application for clients</a></li>
+<li class="chapter" data-level="8.6" data-path="heloc-credits.html"><a href="heloc-credits.html#summary-and-conclusion"><i class="fa fa-check"></i><b>8.6</b> Summary and conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html"><i class="fa fa-check"></i><b>9</b> Story Uplift modeling on marketing dataset: eXplainable predictions for optimized marketing campaigns</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#approaches-towards-uplift-modeling"><i class="fa fa-check"></i><b>9.1.1</b> Approaches towards uplift modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#dataset-1"><i class="fa fa-check"></i><b>9.2</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#feature-engineering"><i class="fa fa-check"></i><b>9.2.1</b> Feature engineering</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#model-wymaga-dopracowania"><i class="fa fa-check"></i><b>9.3</b> Model [wymaga dopracowania]</a></li>
+<li class="chapter" data-level="9.4" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#explanations-wymaga-dopracowania"><i class="fa fa-check"></i><b>9.4</b> Explanations [wymaga dopracowania]</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#individual-perspective"><i class="fa fa-check"></i><b>9.4.1</b> Individual perspective</a></li>
+<li class="chapter" data-level="9.4.2" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#data-scientist-perspective"><i class="fa fa-check"></i><b>9.4.2</b> Data scientist perspective</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="story-uplift-marketing1.html"><a href="story-uplift-marketing1.html#summary-and-conclusions-7"><i class="fa fa-check"></i><b>9.5</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><i class="fa fa-check"></i><b>10</b> Hotel booking cancellation story: eXplainable predictions for booking cancellation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html#problem-specification"><i class="fa fa-check"></i><b>10.2</b> Problem specification</a></li>
+<li class="chapter" data-level="10.3" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html#target-leak-detection"><i class="fa fa-check"></i><b>10.3</b> Target leak detection</a></li>
+<li class="chapter" data-level="10.4" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html#bias-correction"><i class="fa fa-check"></i><b>10.4</b> Bias correction</a></li>
+<li class="chapter" data-level="10.5" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html#offering-different-conditions"><i class="fa fa-check"></i><b>10.5</b> Offering different conditions</a></li>
+<li class="chapter" data-level="10.6" data-path="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html"><a href="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation.html#conclusions"><i class="fa fa-check"></i><b>10.6</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i>Examples</a></li>
+<li class="chapter" data-level="11" data-path="story-covid19.html"><a href="story-covid19.html"><i class="fa fa-check"></i><b>11</b> Story covid19: eXplainable predictions for mortality</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="story-covid19.html"><a href="story-covid19.html#figures-and-citations"><i class="fa fa-check"></i><b>11.1</b> Figures and citations</a></li>
+<li class="chapter" data-level="11.2" data-path="story-covid19.html"><a href="story-covid19.html#introduction-10"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
+<li class="chapter" data-level="11.3" data-path="story-covid19.html"><a href="story-covid19.html#model-7"><i class="fa fa-check"></i><b>11.3</b> Model</a></li>
+<li class="chapter" data-level="11.4" data-path="story-covid19.html"><a href="story-covid19.html#explanations-8"><i class="fa fa-check"></i><b>11.4</b> Explanations</a></li>
+<li class="chapter" data-level="11.5" data-path="story-covid19.html"><a href="story-covid19.html#summary-and-conclusions-8"><i class="fa fa-check"></i><b>11.5</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="story-compas-recidivism-reloaded.html"><a href="story-compas-recidivism-reloaded.html"><i class="fa fa-check"></i><b>12</b> Story COMPAS: recidivism reloaded</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="story-compas-recidivism-reloaded.html"><a href="story-compas-recidivism-reloaded.html#introduction-11"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="story-compas-recidivism-reloaded.html"><a href="story-compas-recidivism-reloaded.html#model-8"><i class="fa fa-check"></i><b>12.2</b> Model</a></li>
+<li class="chapter" data-level="12.3" data-path="story-compas-recidivism-reloaded.html"><a href="story-compas-recidivism-reloaded.html#explanations-9"><i class="fa fa-check"></i><b>12.3</b> Explanations</a></li>
+<li class="chapter" data-level="12.4" data-path="story-compas-recidivism-reloaded.html"><a href="story-compas-recidivism-reloaded.html#summary-and-conclusions-9"><i class="fa fa-check"></i><b>12.4</b> Summary and conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">XAI Stories</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hotel-booking-cancellation-story-explainable-predictions-for-booking-cancellation" class="section level1" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Hotel booking cancellation story: eXplainable predictions for booking cancellation</h1>
+<p><em>Authors: Miłosz Michta (University of Warsaw), Kazimierz Wojciechowski (Warsaw University of Technology)</em></p>
+<p><em>Mentors: Maciej Andrzejak (McKinsey &amp; Company), Alicja Jośko (McKinsey &amp; Company)</em></p>
+<p>Apr–Jun 2020</p>
+<div id="introduction-9" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introduction</h2>
+<p>Imagine you are the owner of a portuguese hotel. You notice that some of the reservations are cancelled on a regular basis. To maximize revenue you plan to practice room overbooking strategy. How exactly would you approach this strategy? How many rooms to oversell? Which customers are most likely to cancel their reservation? What is the probability of cancellation? And most importantly: <strong>what is the reason behind the prediction?</strong> We will make an attempt to answer this question using explainable machine learning.</p>
+<p>From the standpoint of a machine learning engineer one might want to find a model that not only is high-performing, but is also based on intuitive insights about the data.</p>
+<p>A persuasive manager of the facility might want to attempt to offer the booking on slightly different conditions to customers that are most prone to cancel their reservation e.g. by offering a non-refundable booking for customers from Portugal and Germany. It will be of crucial importance to determine which features to tweak to make the booking as secure as possible while trying not to make the customer feel too uncomfortable by insisting on too many changes. To solve this interesting problem we propose instance-specific explainable machine learning techniques.</p>
+</div>
+<div id="problem-specification" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Problem specification</h2>
+<p>In this chapter, we will use data from Hotel booking demand <span class="citation">(Mostipak <a href="#ref-booking_cancellation_1" role="doc-biblioref">2020</a>)</span> The data contains several information about when booking was made, what is the date of an arrival, how long visitors will stay, where are they come from, how many of them will come, etc. In terms of hotel, we know what type of the hotel is, what is the <a href="https://en.wikipedia.org/wiki/Average_daily_rate">ADR</a>, the deposit type, agent and company that made the booking or are responsible for paying booking, and much more.</p>
+<p>Our machine learning task will be classification whether client will cancell their bookings or not. From business perspective, model like this might not be explicite useful, since predicted category should not affect decision of cancellation from the side of company, agent or hotel itself. On the other hand, use of explainable machine learning might give us the most important factors of cancellation process and use them to reduce rate of cancelled reservations.</p>
+<p>To obtain most reliable results, we have used three different models: LightGBM <span class="citation">(Guolin Ke <a href="#ref-booking_cancellation_2" role="doc-biblioref">2017</a>)</span>, Naive Bayes and Logistic regression. Each of them has distinct learning procedure and structure, thus our conclusions should not be biased by the choosed model.</p>
+</div>
+<div id="target-leak-detection" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Target leak detection</h2>
+<p>At the beginning, we test how baseline models work without any feature engineering. Suprisingly, all models get 100% accuracy score both on training and validation score. This could mean three things:</p>
+<ul>
+<li>We are awesome!</li>
+<li>We are lucky!</li>
+<li>We have a target leakage in the dataset!</li>
+</ul>
+<p>Firstly, let’s see partial dependence profiles for each feature. If there is some leakage, then average prediction profile should distinguish itself amoung the others. At first glance, the <code>reservation status</code> feature has strange plot. It looks like we ommit the feature represents almost the same as target.</p>
+<p><img src="images/10_reservation_status_pdp.svg" alt="image" />
+<em>Partial dependence profiles for <code>reservation_status</code> feature using three different models: LightGBM, Naive Bayes and Logistic regression.</em></p>
+<p>We had to remove this feature from our dataset even if we loose high performance score, because of laking interpretation power.</p>
+</div>
+<div id="bias-correction" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> Bias correction</h2>
+<p>Since we have already remove leakage feature, lets figure out which variables are the most important.</p>
+<p><img src="images/10_permutation_importance.svg" alt="image" />
+<em>The most important features for LightGBM, Naive Bayes and Logistic regression in according to Permutation Importance.</em></p>
+<p>It looks like, the country of origin is the most important and the most impactful for 2 out of 3 models. The others variables looks reasonable, but logically <code>country</code> should not be the most important feature for predicting booking cancellation. Lets figure out what what is the cause if results like that.</p>
+<p><img src="images/10_country_piechart.svg" alt="image" />
+<em>Dependency between number of observations (angle) and average prediction (radius) for each country.</em></p>
+<p>The Portugal seems to be reason of the bias in the dataset. Around 40% of the data comes from Portugal and their average prediction equals 56%, where the average is around 38%. In this case, we split model on 2 parts:</p>
+<ul>
+<li>One model for portugals</li>
+<li>One model for other countries.</li>
+</ul>
+<p><img src="images/10_uplift.svg" alt="image" />
+<em>Accuracy score uplift after splitting data for portugals and other countires.</em></p>
+<p>After splitting the dataset in each fold and training two distinct models, we get significant uplift in model accuracy for each model and fold.</p>
+</div>
+<div id="offering-different-conditions" class="section level2" number="10.5">
+<h2><span class="header-section-number">10.5</span> Offering different conditions</h2>
+<p>Here we will attempt to use a instance-specific explainable machine learning techniques in order to provide a similar offer that will reduce the probability of cancellation.
+We will determine which methods, if any, might be applicable for real-time negotiation.</p>
+</div>
+<div id="conclusions" class="section level2" number="10.6">
+<h2><span class="header-section-number">10.6</span> Conclusions</h2>
+<p>As you probably noticed, explainable machine learning gives a lot opportunities to validate predictive models, find most insightful facts about data and set new directions to improve our results.</p>
+<p>Explainaible machine learning methods can be compared to the pointing fingers on every model weakness and to the compass guiding where we should go to improve final outcome.</p>
+<p>Thank to XAI accomapnied by strong analysis and visualtion, we was able to achieve better results of our models.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-booking_cancellation_2">
+<p>Guolin Ke, Thomas Finley, Qi Meng. 2017. “LightGBM: A Highly Efficient Gradient Boosting Decision Tree.” <a href="https://papers.nips.cc/paper/6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree.pdf">https://papers.nips.cc/paper/6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree.pdf</a>.</p>
+</div>
+<div id="ref-booking_cancellation_1">
+<p>Mostipak, Jesse. 2020. “Hotel Booking Demand.” <a href="https://www.kaggle.com/jessemostipak/hotel-booking-demand">https://www.kaggle.com/jessemostipak/hotel-booking-demand</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="story-uplift-marketing1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/compstat-lmu/iml_methods_limitations/edit/master/10-story-hotel-booking.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

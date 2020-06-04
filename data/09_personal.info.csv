@@ -1,0 +1,13 @@
+Column.name,customer_with_biggest_uplift,customer_with_lowest_uplift
+recency,2.0,5.0
+history,228.93,243.95
+mens,1.0,0.0
+womens,1.0,1.0
+zip_code_Surburban,1.0,0.0
+zip_code_Rural,0.0,1.0
+zip_code_Urban,0.0,0.0
+newbie,0.0,1.0
+channel_Phone,0.0,1.0
+channel_Web,1.0,0.0
+channel_Multichannel,0.0,0.0
+segment,0.0,1.0

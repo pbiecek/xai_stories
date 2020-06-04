@@ -1,0 +1,13 @@
+Column_name,Uplift_approach,Diff_approach
+recency,-0.00593,-0.00535
+history,-0.27282,-0.27270
+mens,-0.00961,-0.00928
+womens,-0.05628,-0.05692
+zip_code_Surburban,0.00076,-0.00055
+zip_code_Rural,-0.03313,-0.03257
+zip_code_Urban,-0.00148,-0.00179
+newbie,0.00365,0.00351
+channel_Phone,0.00024,-0.00036
+channel_Web,0.00188,0.00200
+channel_Multichannel,-0.00067,0.00029
+segment,0.00010,0.00043

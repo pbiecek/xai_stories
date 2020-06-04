@@ -8,7 +8,7 @@
 <div style="text-align: justify">
 **Key points**:
 
-* uplift models thanks to its additivity give wide range of possiblities while using XAI  
+* uplift models thanks to its additivity give wide range of possibilities while using XAI  
 * SHAP values can be used to explain model both in local and global aspects - they can be generalized in order to estimate Variable Importance and Partial Dependence Plots  
 
 * in the case of analysed dataset, marketing campaign should be sent two months after last purchase to be the most effective
@@ -82,7 +82,7 @@ As an expected behavior the following actions were determined:
 * visit the company's website within 2 weeks after sending to the customers a marketing campaign 
 * purchase a product from the website within 2 weeks after sending to the customers a marketing campaign 
 
-In the challenge the task was to determine whether the men's or women's e-mail campaign was successful. In order to simplify the problem we reformulated the task - we have focused on answering the question whether any e-mail campaign persuaded customers to buy a product.
+In the challenge the task was to determine whether the men's or women's e-mail campaign was successful. In order to simplify the problem we reformulated the task - we have focused on answering the question of whether any e-mail campaign persuaded customers to buy a product.
 
 The features about customers in the dataset are specified in Figure \@ref(fig:dataset):
 
@@ -98,7 +98,7 @@ In the dataset there is also information about customer activity in the two week
 
 
 ### Explanatory Data Analysis
-First we decided to investigate variable that have more than 3 unique values. At the same time these variables (*recency* and *history*) intuitively seem to be the most important while predicting whether someone will buy a product or not.
+First, we decided to investigate variables that have more than 3 unique values. At the same time these variables (*recency* and *history*) intuitively seem to be the most important while predicting whether someone will buy a product or not.
 ```{r histogram, echo=FALSE, fig.cap='Histograms of *recency* (left) and *history* (right)', out.width = '40%', fig.align='center', fig.show="hold"}
 knitr::include_graphics("images/09_recency.PNG")
 knitr::include_graphics("images/09_history.PNG")
@@ -108,7 +108,7 @@ It can be seen that *history* variable has heavy-tailed distribution therefore i
 ```{r countplots, echo=FALSE, fig.cap='Count plots', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/09_count_plots.PNG")
 ```
-In case of *mens*, *womens* and *newbie* variables the proportion of 0's to 1's is almost equal. There is much fewer record of people living in countryside than in urban or suburban area. Most of the company customers buy via phone or web. It is rare that someone uses mulitchannel option. In the dataset most of the customers received treatment in the form of marketing E-mail.
+In the case of *mens*, *womens* and *newbie* variables the proportion of 0's to 1's is almost equal. There is much fewer records of people living in the countryside than in urban or suburban areas. Most of the company customers buy via phone or web. It is rare that someone uses a mulitchannel option. In the dataset most of the customers received treatment in the form of marketing E-mail.
 
 ### Feature engineering
 
@@ -117,9 +117,9 @@ In such a situation we decided to use column *Visit* as a target for the classif
 As the number of columns is small we decided to use one-hot encoding for transforming categorical variables instead of target encoding. 
 
 ## Model exploration and metrics
-There are not many packages dedicated to uplift modeling in python. We investigated the two: pylift [@pylift] and pyuplift [@pyuplift]. The latter enables usage of 4 types of models - one of those is the Two Model approach. In the pylift package there is the TransformedOutcome class that generates predictions. However, the model itself is not well described and uses XGBRegressor underneath that is not intuitive. Fortunately the package offer also the class UpliftEval that allows uplift metrics visualization. 
+There are not many packages dedicated to uplift modeling in python. We investigated the two: pylift [@pylift] and pyuplift [@pyuplift]. The latter enables usage of 4 types of models - one of those is the Two Model approach. In the pylift package there is the TransformedOutcome class that generates predictions. However, the model itself is not well described and uses XGBRegressor underneath that is not intuitive. Fortunately, the package offers also the class UpliftEval that allows uplift metrics visualization. 
 In the scene, we decided to create own classifier (as in the One Model approach) and use UpliftEval class from the pylift package for metric evaluation.
-As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the figure \@ref(fig:upliftRES) we show the cumulative gain chart for train and test sets. 
+As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the Figure \@ref(fig:upliftRES) we show the cumulative gain chart for train and test sets. 
 
 
 ```{r upliftRES, echo=FALSE, fig.cap='Cumulative gain chart: (left) train set, (right) test set', out.width = '50%', fig.align='center', fig.show="hold"}
@@ -142,11 +142,11 @@ First the customers are sorted in descending order based on predicted uplift. La
 It can be seen that our model is better than random choice but much worse than the practical/theoretical maximum possible. It is also worse than the case without *"sleeping dogs"*. 
 However we have to remember what this uplift score indicates. Maximum uplift would mean, that we can always persuade anyone to buy, which is obviously an unrealistic scenario, since our *treatment* is only a single advertisement. Comparing to uplift modeling in different domains, i. e. medical usages, our treatment has generally smaller impact on individual, therefore dataset itself is more noisy and cumulative gains are smaller. It is also worth noting, that due to small number of features, there are multiple cases in the dataset where two observations with same features have different answers. This kind of noise in data also tremendously impacts the score and requires caution when training models. Also, since uplift itself is an interaction, our model do have to take them into consideration.
 
-Taking previous observations into consideration, model was found using so called local search procedure, what means that we choose some meta-parameters of the model and iteratively, for every meta-parameter approximate derivative by sampling the local neighbourhood of current value and follow the ascending gradient. Local search stops naturally, when in previus iteration, we did not change any parameter, hence we hit one of the local minima. To be clear, if meta-paremeter is discrete, by approximating local neighborhood we mean just checking close values. For our score function, we've chosen cross validation on cumulative gains. This kind of procedure should seek for highly robust models. Therefore, it is worth noticing that our model didn't experience any overfitting as its quality on the train and test sets is similar. The resulting major parameters were: maximum depth of 5, high learning rate of 0.7 and only 12 estimators.
+Considering previous observations, model was found using so called local search procedure, what means that we choose some meta-parameters of the model and iteratively, for every meta-parameter approximate derivative by sampling the local neighborhood of current value and follow the ascending gradient. Local search stops naturally, when in previous iteration, we did not change any parameter, hence we hit one of the local minima. To be clear, if meta-parameter is discrete, by approximating local neighborhood we mean just checking close values. For our score function, we've chosen cross-validation on cumulative gains. This kind of procedure should seek for highly robust models. Therefore, it is worth noticing that our model didn't experience any overfitting as its quality on the train and test sets is similar. The resulting major parameters were: maximum depth of 5, high learning rate of 0.7 and only 12 estimators.
 
 ### Comparing metrics
 
-We tried to employ the same local search procedure (as described in Model section) using accuracy as score function. However, it failed to converge with any decent quality, because this metric is much less informative in case of largely imbalanced dataset. Since only a small number of customers actually purchased, it's hard to correctly predict a positive case using non-overfitted model. Therefore within the local search with accuracy function, starting local neighborhood was always flat. This might be because in the dataset there is more noise than positive cases. But fortunately, only important factor, from our prespective is *probability* of the purchase, since uplift is increase of purchase probability after treatment, and it directly transfers into money gain.
+We tried to employ the same local search procedure (as described in Model section) using accuracy as score function. However, it failed to converge with any decent quality, because this metric is much less informative in case of largely imbalanced dataset. Since only a small number of customers actually purchased, it's hard to correctly predict a positive case using non-overfitted model. Therefore within the local search with accuracy function, starting local neighborhood was always flat. This might be because in the dataset there is more noise than positive cases. But fortunately, only important factor, from our perspective is probability of the purchase, since uplift is an increase of purchase probability after treatment, and it directly transfers into money gain.
 To visualize it in a straightforward manner, we present a table comparing our current robust XGBoost model with overfitted one (deep trees, 100 estimators).
 ```{r overfitTable, echo=FALSE} 
 table <- data.frame(
@@ -160,7 +160,7 @@ knitr::kable(table, caption='Metrics comparison' )
 ```
 
 
-As we can see (Table \@ref(tab:overfitTable)) for the overfitted model, while the overfit gap in accuracy scores is only around 2%, cummulative gain drop by 97%. 
+As we can see (Table \@ref(tab:overfitTable)) for the overfitted model, while the overfit gap in accuracy scores is only around 2%, cumulative gain drops by 97%. 
 
 ## Explanations
 The Cumulative gain chart (Figure \@ref(fig:upliftRES)) shows that the proposed model brings additional value. Here comes the question of whether the model is reliable? Does it make the decision based on the features that are important from an expert perspective? Such judgment can be done based on the results of XAI tools.
@@ -168,7 +168,7 @@ We decided to investigate model interpretability from instance-level and dataset
 
 ### Instance-level
 
-In order to explain model output for particular customer we employed SHAP (SHapley Additive exPlanations) values [@feature_importance_shap]. 
+In order to explain model output for a particular customer we employed SHAP (SHapley Additive exPlanations) values [@feature_importance_shap]. 
 
 Before we move to the investigation of SHAP values let's get to know customers that got the highest and the lowest uplift prediction. In this section we will analyze the reliability of predictions for these particular instances. In the table \@ref(tab:personalTABLE) there is all the information provided to the system about the customers.
 
@@ -181,13 +181,13 @@ As can be seen (Table \@ref(tab:personalTABLE)) the customers spend almost the s
 The person with the highest uplift did last shopping 2 months ago whereas the person with the lowest uplift did it 5 months ago. In the dataset some people purchased the product for the last time even 12 months ago so the person is not the most severe case in that sense. Apart from many other differences among the two customers the key is that the person with the highest uplift received treatment whereas the second customer didn't.
 
 
-Below we present SHAP values for the customer desribed in Table \@ref(tab:personalTABLE). The values were computed directly on uplift model \@ref(fig:upliftSHAP).
+Below we present SHAP values for the customer described in Table \@ref(tab:personalTABLE). The values were computed directly on uplift model \@ref(fig:upliftSHAP).
 ```{r upliftSHAP, echo=FALSE, fig.cap='SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift', out.width = '50%', fig.align='default', fig.show="hold"}
 knitr::include_graphics("images/09_shap_min_uplift.png")
 knitr::include_graphics("images/09_shap_max_uplift.png")
 ```
 
-In can be seen that in both cases big contribution to the final result has information about customer history (about 235 USD) and the fact that the customer bought products from Womens collection. What is interesting is the fact that the customers have almost the same values of these two attributes but opposite sign of its contribution. 
+In can be seen that in both cases big contribution to the final result has information about customer history (about 235 USD) and the fact that the customer bought products from women's collection. What is interesting is the fact that the customers have almost the same values of these two attributes but opposite sign of its contribution. 
 
 **We can benefit from additive feature attribution property of SHAP values to model the uplift:**
 
@@ -204,7 +204,7 @@ options(digits=4)
 knitr::kable(tab, caption = 'SHAP values obtained using two methods')
 ```
 
-Experimental results proved that these two ways of calculating SHAP values are providing close estimations with precision to numerical errors. There are few features that depending on method have small positive or negative value. This is caused by the fact that for the estimation of SHAP values directly using uplift model the KernelExplainer was used. It has data parameter however in case of big dataset it is recommended in the documentation to take subset of records. In our case we took random subset therefore this could impact the results. Nevertheless, we proved that in case of our example the two methods lead to similar values.
+Experimental results proved that these two ways of calculating SHAP values are providing close estimations with precision to numerical errors. There are few features that depending on the method have a small positive or negative value. This is caused by the fact that for the estimation of SHAP values directly using uplift model the KernelExplainer was used. It has data parameter however in case of big dataset it is recommended in the documentation to take subset of records. In our case we took random subset therefore this could impact the results. Nevertheless, we proved that in the case of our example the two methods lead to similar values.
 
 
 The specificity of uplift models in terms of the possibility to analyse them through additivity of SHAP values gives room for another valuable inspection. 
@@ -218,13 +218,13 @@ It can be seen that *"persuadables"* are slightly above and below identity line.
 ```{r historySHAP, echo=FALSE, fig.cap='SHAP values on variable history in case T=0 and T=1', out.width = '50%', fig.align='center'}
 knitr::include_graphics("images/09_shap_history.png")
 ```
-In Figure \@ref(fig:historySHAP) the three customer groups are distinctive. It would be interesting whether the result of clustering metohds would be similar.
+In Figure \@ref(fig:historySHAP) the three customer groups are distinctive. It would be interesting whether the result of clustering methods would be similar.
 
 We also investigated binary variables. Most of them looked similar as Figure \@ref(fig:historySHAP) but there was one exception - variable *womens*. 
 ```{r womensSHAP, echo=FALSE, fig.cap='SHAP values on variable womens in case T=0 and T=1', out.width = '50%', fig.align='center'}
 knitr::include_graphics("images/09_shap_womens.png")
 ```
-The customer groups on Figure \@ref(fig:womensSHAP) are overlapping. They constitue very homogeneous groups.
+The customer groups on Figure \@ref(fig:womensSHAP) are overlapping. They constitute very homogeneous groups.
 
 
 Note:  
@@ -254,14 +254,14 @@ knitr::include_graphics("images/09_persuadables_feature_importance_correlations.
 ```
 
 Conclusions:  
-Regardless of the customer groups always *history* and *womens* are among three most important features. For observations with considerable negative uplift (*"sleeping dogs"*) both *history* and *womens* have negative correlation with their SHAP values. In case of *"sure things and lost causes"* *womens* has positive correlation whereas *history* has negative. The same variables among *"persuadables"* (considerable positive uplift) have positive correlation with SHAP values. *Correlation changes gradually with uplift value.* It is worth noticing that regardless of the customer group importance of *segment* variable is low. This is suprising because the presence of *treatment* is substantial element of uplift modeling. What is interesting is the fact that regarding *zip code* only the information whether someone is from rural area is important. Note that this category of dwelling place was the least popular among customers. Information about purchase channel in general has relatively small predictive power.
+Regardless of the customer groups always *history* and *womens* are among three most important features. For observations with considerable negative uplift (*"sleeping dogs"*) both *history* and *womens* have negative correlation with their SHAP values. In the case of *"sure things and lost causes"* *womens* has positive correlation whereas *history* has negative. The same variables among *"persuadables"* (considerable positive uplift) have positive correlation with SHAP values. *Correlation changes gradually with uplift value.* It is worth noticing that regardless of the customer group importance of *segment* variable is low. This is surprising because the presence of *treatment* is substantial element of uplift modeling. What is interesting is the fact that regarding *zip code* only the information whether someone is from rural area is important. Note that this category of dwelling place was the least popular among customers. Information about purchase channel in general has relatively small predictive power.
 
 
 #### Dependence plots
  
-Another tool to investigate model are the dependence plots. There are two options. The most common method is the Partial Dependence Plot (PDP)/ Accumulated Local Effects (ALE) and the another one is the SHAP dependence plot. The Partial Dependence Plot shows the marginal effect that one or two features have on the predicted outcome of a machine learning model [@pdp]. It tells whether the relationship between the target and a feature is linear, monotonic or more complex. In the SHAP dependence plot we can show how a feature value (*x* axis) impacted the prediction (*y* axis) of every sample (each dot) in a dataset [@shap_dependence_plot]. This provides richer information than the traditional Partial Dependence Plot, because we have at least two additional information: density and variance of observations.
+Another tool to investigate model are the dependence plots. There are two options. The most common method is the Partial Dependence Plot (PDP)/ Accumulated Local Effects (ALE) and the other one is the SHAP dependence plot. The Partial Dependence Plot shows the marginal effect that one or two features have on the predicted outcome of a machine learning model [@pdp]. It tells whether the relationship between the target and a feature is linear, monotonic or more complex. In the SHAP dependence plot we can show how a feature value (*x* axis) impacted the prediction (*y* axis) of every sample (each dot) in a dataset [@shap_dependence_plot]. This provides richer information than the traditional Partial Dependence Plot, because we have at least two additional information: density and variance of observations.
 
-The Partial Dependence Plots reflect the expected output of the model if only one feature value is changed and rest stays the same. In contrast, the SHAP value for a feature represents how much that feature impacted the prediction for single sample, accounting for interaction effects. So while in general you would expect to see similar shapes in a SHAP dependence plot and a Partial Dependence Plot they will be different if your model has multi-variable interaction effects (like AND or OR). A PDP has no vertical dispersion and so no indication of how much interaction effects are driving the models predictions [@shap_dependence_plot_explained].
+The Partial Dependence Plots reflect the expected output of the model if only one feature value is changed and the rest stays the same. In contrast, the SHAP value for a feature represents how much that feature impacted the prediction for single sample, accounting for interaction effects. So while in general you would expect to see similar shapes in a SHAP dependence plot and a Partial Dependence Plot they will be different if your model has multi-variable interaction effects (like AND or OR). A PDP has no vertical dispersion and so no indication of how much interaction effects are driving the models predictions [@shap_dependence_plot_explained].
 
 We generated the Partial Dependence Plot for all features and the SHAP dependence plot based on 1000 observations only for *history* and *recency* features due to large processing time. 
 
@@ -283,7 +283,7 @@ Due to the fact that *recency* can have only one of 12 values, only 12 "clusters
 knitr::include_graphics("images/09_mens_womens_PDP_ALE.png")
 ```
 
-It is suprising that the disproportion between the results shown in Figure \@ref(fig:PDPmenswomens) is so significant. In the PDP of *mens* feature the lines are almost flat meaning that regardless of the fact whether someone bought or not a product from mens collection the uplift prediction stays the same.
+It is surprising that the disproportion between the results shown in Figure \@ref(fig:PDPmenswomens) is so significant. In the PDP of *mens* feature the lines are almost flat meaning that regardless of the fact whether someone bought or not a product from mens collection the uplift prediction stays the same.
 
 ```{r PDPnewbie, echo=FALSE, fig.cap='Newbie', out.width = '50%', fig.align='center'}
 knitr::include_graphics("images/09_newbie_PDP_ALE.png")
@@ -305,19 +305,18 @@ The biggest gain in terms of uplift can be seen in case when the person uses Web
 
 ## Conclusions
 
-Since Partial Dependence Plots are generally parallel to Accumulated Local Effects, we can safely assume that our model does not have (major) interactions. However this does not mean, that we can use some classifier without interactions, because here we model directly the uplift, which is difference between preditions and is itself an interaction.
+Since Partial Dependence Plots are generally parallel to Accumulated Local Effects, we can safely assume that our model does not have (major) interactions. However this does not mean, that we can use some classifier without interactions, because here we model directly the uplift, which is the difference between preditions and is itself an interaction.
 
 
 ### Sweet-spot
-The most important observation here, should be that while at first glance we can only manipulate the treatment variable, dependence plots also give us opportunity to *choose best time to contact the customer*. Intuitively, *recency* function should be concave, aiming to find some "sweet-spot" between time when customer "just went out from the shop" and "forgot about this". The Figure \@ref(fig:PDPrecency) is indeed concave but only for *recency* values between 1 and 4. For larger *recency* there is sinusoidal noise observed. This fluctuations can be interpreted as small overfitting. The key message is that the sweet-spot appears to be two months after last purchase.
+The most important observation here, should be that while at first glance we can only manipulate the treatment variable, dependence plots also give us the opportunity to *choose best time to contact the customer*. Intuitively, *recency* function should be concave, aiming to find some "sweet-spot" between time when customer "just went out from the shop" and "forgot about this". The Figure \@ref(fig:PDPrecency) is indeed concave but only for *recency* values between 1 and 4. For larger *recency* there is sinusoidal noise observed. These fluctuations can be interpreted as small overfitting. The key message is that the sweet-spot appears to be two months after the last purchase.
 
 
 ### Bigger influence
-Based on Figure \@ref(fig:PDPmenswomens) bigger influence can be made on customers who bought womens products than the ones who bought products from mens collections. Initially we removed from the dataset information about treatment type (Woman's/Man's e-mail). But based on Variable Importance analysis (Figures: \@ref(fig:sleepingDOGS), \@ref(fig:noIMPACT), \@ref(fig:persuadables)) we can reason about the type of e-mail that maximizes uplift for particular person. Considering how important is *womens* variable, we propose a following policy: regardless of the fact whether someone buys from mens or womens collections we should send e-mails dedicated to women.
-
+Based on Figure \@ref(fig:PDPmenswomens) bigger influence can be made on customers who bought women's products than the ones who bought products from men's collections. Initially we removed from the dataset information about treatment type (Woman's/Man's e-mail). But based on Variable Importance analysis (Figures: \@ref(fig:sleepingDOGS), \@ref(fig:noIMPACT), \@ref(fig:persuadables)) we can reason about the type of e-mail that maximizes uplift for particular person. Considering how important is *womens* variable, we propose a following policy: in the case when someone buys from men's and women's collections we should send e-mails dedicated to women.
 
 ### Influence from other factors
-Other PDPs can be used for better understanding of the customer persuadability. Since the only variable considerably reducing estimated uplift is *newbie* we can safely conclude, that marketing campaigns have better impact on regular customers, which is quite an intuitive conclusion. Analysing other factors, one-hot encoded area of living (*zip_code_Rural*, *zip_code_Suburban*, *zip_code_Urban*) do not have influence bigger than statistical error maybe except *zip_code_Rural*. Customers living on countryside are more likely to be persuaded. Suprisingly it is the only factor that may have some interactions. Referring to purchase channel, it is best to target customers who bought only by web in past months. It may be connected to the fact that our treatment is conducted via e-mail. We suspect that in some cases the following situation can happen: someone buys via phone as he doesn't use the internet often. In such cases e-mail campaigns will not be effective. 
+Other PDPs can be used for better understanding of the customer persuadability. Since the only variable considerably reducing estimated uplift is *newbie* we can safely conclude, that marketing campaigns have better impact on regular customers, which is quite an intuitive conclusion. Analysing other factors, one-hot encoded area of living (*zip_code_Rural*, *zip_code_Suburban*, *zip_code_Urban*) do not have influence bigger than statistical error maybe except *zip_code_Rural*. Customers living on the countryside are more likely to be persuaded. Surprisingly it is the only factor that may have some interactions. Referring to the purchase channel, it is best to target customers who bought only by web in past months. It may be connected to the fact that our treatment is conducted via e-mail. We suspect that in some cases the following situation can happen: someone buys via phone as he doesn't use the internet often. In such cases e-mail campaigns will not be effective. 
 
 
 ## Summary 
@@ -325,24 +324,25 @@ Using XAI for uplift modeling helps to understand its complex models better. The
 
 ### Individual perspective 
 
-In case of our task individual perpective doesn't seem to be vital. The situation when a customer writes an e-mail to the company asking why he didn't receive an e-mail with marketing campaign is highly unlikely. Even if he does, he wouldn't change his feature like dwelling area only in order to get the e-mail. The things that the customer can rather easily change are his value of *recency* or *history* variable. 
+In the case of our task individual perspective doesn't seem to be vital. The situation when a customer writes an e-mail to the company asking why he didn't receive an e-mail with marketing campaign is highly unlikely. Even if he does, he wouldn't change his feature like the dwelling area only in order to get the e-mail. The things that the customer can rather easily change are his value of *recency* or *history* variable. 
 
-### Data scientist perspective 
+### Data scientist's perspective 
 
-In the data scientist perspective the most important thing to check is whether the model is overfitted. The tool that can help in verifying model sensitivity is the Partial Dependence Plot. In case of our model it can be seen that the model is slightly overfitted as there is a peak on PDP of *history*.
+In the data scientist's perspective the most important thing to check is whether the model is overfitted. The tool that can help in verifying model sensitivity is the Partial Dependence Plot. In the case of our model it can be seen that the model is slightly overfitted as there is a peak on PDP of *history*.
 
 ### Executive perspective 
 
 XAI techniques can help the executives to understand better the company customers behavior without paying for some extra surveys to investigate their attitude towards the company. Key findings:
 
-* The campaign e-mail should be send two months after last purchase in order to be more effective. 
-* The most important variables in the model seem to be resonable, e.g. *history* and *recency* (Figures: \@ref(fig:sleepingDOGS), \@ref(fig:noIMPACT), \@ref(fig:persuadables)). The only suprising thing is high importance of *zip_code_Rural* feature. 
+* The campaign e-mail should be sent two months after last purchase in order to be more effective. 
+* The most important variables in the model seem to be reasonable, e.g. *history* and *recency* (Figures: \@ref(fig:sleepingDOGS), \@ref(fig:noIMPACT), \@ref(fig:persuadables)). The only surprising thing is the high importance of *zip_code_Rural* feature. 
+* In the case when someone buys from men's and women's collections we should send e-mails dedicated to women.
 * In the case of bigger number of treatment variants it would be possible to create personalized marketing campaign.
 
 A vital part of our work was adjusting XAI techniques for the particularities of uplift modeling. We found out that thanks to its additivity SHAP values are well suited for uplift modeling - we showed two methods of using it. We identified limitations of well-known Permutation Feature Importance in terms of explaining uplift modeling. It is caused by the fact that unlike in other supervised models here we do not have exactly labels. Therefore we used the generalization of SHAP values that converge to Permutation Feature Importance. Also we analysed the SHAP Dependence Plots as an alternative to PDP. We employed the analysis for the three groups of customers based on the corresponding uplift.
 
 ## Future works
-During initial feature engineering, we simplified our problem by merging *womens treatment* and *mens treatment* into one. By analysing PDP we were able to propose a policy for choosing the optimal treatment type. However, it is not the only possible approach. We can try going beyond standard uplift modeling and model directly uplift with 2 possible outcomes i.e. create purchase prediction, and then check if sending womens or mens email is more profitable, resulting in following equation:
+During initial feature engineering, we simplified our problem by merging women's treatment and men's treatment into one. By analysing PDP we were able to propose a policy for choosing the optimal treatment type. However, it is not the only possible approach. We can try going beyond standard uplift modeling and model directly uplift with 2 possible outcomes i.e. create purchase prediction, and then check if sending women's or men's e-mail is more profitable, resulting in the following equation:
 
 $uplift=max{(P(purchase\ |\ w\_T=1) - P(purchase\ |\ w\_T=0,m\_T=0), \\
 P(purchase\ |\ m\_T=1) - P(purchase\ |\ w\_T=0,m\_T=0))}$
@@ -352,7 +352,7 @@ where:
 * w_T is treatment dedicated to women
 * m_T is treatment dedicated to men
 
-However, this leaves us with several open-ended questions i.e.: can we now implicitly calculate SHAP values, using previously presented effecient technique (based on additivity)? Surely the max function breaks the additivity of uplift function, but maybe it is possible using some other method? 
+However, this leaves us with several open-ended questions i.e.: can we now implicitly calculate SHAP values, using the previously presented efficient technique (based on additivity)? Surely the max function breaks the additivity of uplift function, but maybe it is possible using some other method? 
 
 
 

@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-06-03" />
+<meta name="date" content="2020-06-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -310,103 +310,99 @@ FIGURE 2.2:  Comparison of performance of linear regression model and ANN (artif
 </div>
 <div id="data" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Data</h2>
-<p>We analyzed the data, <a href="https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Data/DataAnalysis">more</a>. Data contains 19 house features plus the price and the id columns, along with 21613 observations. Below the table describes the variables in the data set.</p>
+<p>We analyzed the data, <a href="https://github.com/kozaka93/InterpretableHouseSalePrices/tree/master/Data/DataAnalysis">more</a>. Data contains 19 house features plus the price and the id columns, along with 21613 observations. Below the Table <a href="story-house-sale-prices.html#tab:variables">2.1</a> describes the variables in the data set.</p>
 <table>
-<caption>Description of variables in the dataset.</caption>
-<colgroup>
-<col width="42%" />
-<col width="57%" />
-</colgroup>
+<caption><span id="tab:variables">TABLE 2.1: </span>Description of variables in the dataset.</caption>
 <thead>
 <tr class="header">
-<th>Variable</th>
-<th>Description</th>
+<th align="left">Variable</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>id</code></td>
-<td>unique ID for each house sold</td>
+<td align="left">id</td>
+<td align="left">unique ID for each house sold</td>
 </tr>
 <tr class="even">
-<td><code>date</code></td>
-<td>date of the house sale</td>
+<td align="left">date</td>
+<td align="left">date of the house sale</td>
 </tr>
 <tr class="odd">
-<td><code>price</code></td>
-<td>price of each house sold</td>
+<td align="left">price</td>
+<td align="left">price of each house sold</td>
 </tr>
 <tr class="even">
-<td><code>bedrooms</code></td>
-<td>number of bedrooms</td>
+<td align="left">bedrooms</td>
+<td align="left">number of bedrooms</td>
 </tr>
 <tr class="odd">
-<td><code>bathrooms</code></td>
-<td>number of bathrooms, where .5 accounts for a room with a toilet but no shower</td>
+<td align="left">bathrooms</td>
+<td align="left">number of bathrooms, where .5 accounts for a room with a toilet but no shower</td>
 </tr>
 <tr class="even">
-<td><code>sqft_living</code></td>
-<td>square footage of the apartments interior living space</td>
+<td align="left">sqft_living</td>
+<td align="left">square footage of the apartments interior living space</td>
 </tr>
 <tr class="odd">
-<td><code>sqft_lot</code></td>
-<td>square footage of the land space</td>
+<td align="left">sqft_lot</td>
+<td align="left">square footage of the land space</td>
 </tr>
 <tr class="even">
-<td><code>floors</code></td>
-<td>number of floors</td>
+<td align="left">floors</td>
+<td align="left">number of floors</td>
 </tr>
 <tr class="odd">
-<td><code>waterfront</code></td>
-<td>apartment was overlooking the waterfront or not</td>
+<td align="left">waterfront</td>
+<td align="left">apartment was overlooking the waterfront or not</td>
 </tr>
 <tr class="even">
-<td><code>view</code></td>
-<td>how good the view of the property was</td>
+<td align="left">view</td>
+<td align="left">how good the view of the property was</td>
 </tr>
 <tr class="odd">
-<td><code>condition</code></td>
-<td>condition of the apartment</td>
+<td align="left">condition</td>
+<td align="left">condition of the apartment</td>
 </tr>
 <tr class="even">
-<td><code>grade</code></td>
-<td>level of construction and design</td>
+<td align="left">grade</td>
+<td align="left">level of construction and design</td>
 </tr>
 <tr class="odd">
-<td><code>sqft_above</code></td>
-<td>the square footage of the interior housing space that is above ground level</td>
+<td align="left">sqft_above</td>
+<td align="left">the square footage of the interior housing space that is above ground level</td>
 </tr>
 <tr class="even">
-<td><code>sqft_basement</code></td>
-<td>the square footage of the interior housing space that is below ground level</td>
+<td align="left">sqft_basement</td>
+<td align="left">the square footage of the interior housing space that is below ground level</td>
 </tr>
 <tr class="odd">
-<td><code>yr_built</code></td>
-<td>the year the house was initially built</td>
+<td align="left">yr_built</td>
+<td align="left">the year the house was initially built</td>
 </tr>
 <tr class="even">
-<td><code>yr_renovated</code></td>
-<td>the year of the house’s last renovation</td>
+<td align="left">yr_renovated</td>
+<td align="left">the year of the house’s last renovation</td>
 </tr>
 <tr class="odd">
-<td><code>zipcode</code></td>
-<td>zipcode area</td>
+<td align="left">zipcode</td>
+<td align="left">zipcode area</td>
 </tr>
 <tr class="even">
-<td><code>lat</code></td>
-<td>lattitude</td>
+<td align="left">lat</td>
+<td align="left">lattitude</td>
 </tr>
 <tr class="odd">
-<td><code>long</code></td>
-<td>longitude</td>
+<td align="left">long</td>
+<td align="left">longitude</td>
 </tr>
 <tr class="even">
-<td><code>sqft_living15</code></td>
-<td>the square footage of interior housing living space for the nearest 15 neighbors</td>
+<td align="left">sqft_living15</td>
+<td align="left">the square footage of interior housing living space for the nearest 15 neighbors</td>
 </tr>
 <tr class="odd">
-<td><code>sqft_lot15</code></td>
-<td>the square footage of the land lots of the nearest 15 neighbors</td>
+<td align="left">sqft_lot15</td>
+<td align="left">the square footage of the land lots of the nearest 15 neighbors</td>
 </tr>
 </tbody>
 </table>
@@ -467,114 +463,114 @@ We are aware that one could find different approaches that could better fit the 
 </div>
 <div id="linear-models-assessment" class="section level3" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Linear models assessment</h3>
-<p>Estimated coefficients are presented in the table below. All of the estimates (apart from <code>m_2_lot_log</code> in first model) are statistically significant on at least 1% level.Since the dependent variable is the logarithm of price, the coefficients have an interpretation of a percentage change. For variables intercept to since_renovated a 1 unit change results in a coefficient *100% change of dependent variable. For variables that were logarithmized (<code>m_2_lot_log</code> to <code>m_2_lot_15_log</code>) a 1% change results in a coefficient % change of dependent variable.</p>
+<p>Estimated coefficients are presented in the Table <a href="story-house-sale-prices.html#tab:linear-models">2.2</a>. All of the estimates (apart from <code>m_2_lot_log</code> in first model) are statistically significant on at least 1% level.Since the dependent variable is the logarithm of price, the coefficients have an interpretation of a percentage change. For variables intercept to since_renovated a 1 unit change results in a coefficient *100% change of dependent variable. For variables that were logarithmized (<code>m_2_lot_log</code> to <code>m_2_lot_15_log</code>) a 1% change results in a coefficient % change of dependent variable.</p>
 <p>Looking at the estimates, a couple of general observations can be made. Firstly, there are no major differences in the coefficients between models, especially between (2) and (3). This tells us that the models can be considered stable. Basing on RMSE, we should note a significant improvement of fit resulting from introducing zip code-based fixed effects in the model (2). A slight, but noticeable improvement was also made by allowing for coefficients to have a random effects in the model (3). These observations suggest that our hypothesis about neighborhood having a significant impact on a house price, but also about particular variables’ effect on price, was reasonable.</p>
 <table>
-<caption>Estimated coefficients for linear models.</caption>
+<caption><span id="tab:linear-models">TABLE 2.2: </span>Estimated coefficients for linear models.</caption>
 <thead>
 <tr class="header">
-<th>Model</th>
-<th align="center">Log-loglinear (1)</th>
-<th align="center">Fixed effects (2)</th>
-<th align="center">Mixed effects (3)</th>
+<th align="left">Model</th>
+<th align="left">Log-loglinear (1)</th>
+<th align="left">Fixed effects (2)</th>
+<th align="left">Mixed effects (3)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>(Intercept)</td>
-<td align="center">8.1531</td>
-<td align="center"></td>
-<td align="center">8.8260(RE)</td>
+<td align="left">(Intercept)</td>
+<td align="left">8.1531</td>
+<td align="left"></td>
+<td align="left">8.8260(RE)</td>
 </tr>
 <tr class="even">
-<td>bedrooms</td>
-<td align="center">-0.0304</td>
-<td align="center">-0.0096</td>
-<td align="center">-0.0079</td>
+<td align="left">bedrooms</td>
+<td align="left">-0.0304</td>
+<td align="left">-0.0096</td>
+<td align="left">-0.0079</td>
 </tr>
 <tr class="odd">
-<td>bathrooms</td>
-<td align="center">0.0579</td>
-<td align="center">0.0409</td>
-<td align="center">0.0379</td>
+<td align="left">bathrooms</td>
+<td align="left">0.0579</td>
+<td align="left">0.0409</td>
+<td align="left">0.0379</td>
 </tr>
 <tr class="even">
-<td>floors</td>
-<td align="center">0.0293</td>
-<td align="center">-0.0339</td>
-<td align="center">-0.0186</td>
+<td align="left">floors</td>
+<td align="left">0.0293</td>
+<td align="left">-0.0339</td>
+<td align="left">-0.0186</td>
 </tr>
 <tr class="odd">
-<td>waterfront</td>
-<td align="center">0.4605</td>
-<td align="center">0.5208</td>
-<td align="center">0.4641(RE)</td>
+<td align="left">waterfront</td>
+<td align="left">0.4605</td>
+<td align="left">0.5208</td>
+<td align="left">0.4641(RE)</td>
 </tr>
 <tr class="even">
-<td>view</td>
-<td align="center">0.0559</td>
-<td align="center">0.0609</td>
-<td align="center">0.0543(RE)</td>
+<td align="left">view</td>
+<td align="left">0.0559</td>
+<td align="left">0.0609</td>
+<td align="left">0.0543(RE)</td>
 </tr>
 <tr class="odd">
-<td>condition</td>
-<td align="center">0.0495</td>
-<td align="center">0.0557</td>
-<td align="center">0.0586</td>
+<td align="left">condition</td>
+<td align="left">0.0495</td>
+<td align="left">0.0557</td>
+<td align="left">0.0586</td>
 </tr>
 <tr class="even">
-<td>grade</td>
-<td align="center">0.1886</td>
-<td align="center">0.0885</td>
-<td align="center">0.0876</td>
+<td align="left">grade</td>
+<td align="left">0.1886</td>
+<td align="left">0.0885</td>
+<td align="left">0.0876</td>
 </tr>
 <tr class="odd">
-<td>dist_stop_km</td>
-<td align="center">-0.0106</td>
-<td align="center">-0.0041</td>
-<td align="center">-0.0047</td>
+<td align="left">dist_stop_km</td>
+<td align="left">-0.0106</td>
+<td align="left">-0.0041</td>
+<td align="left">-0.0047</td>
 </tr>
 <tr class="even">
-<td>ncult</td>
-<td align="center">0.0134</td>
-<td align="center">0.0016</td>
-<td align="center">0.0026</td>
+<td align="left">ncult</td>
+<td align="left">0.0134</td>
+<td align="left">0.0016</td>
+<td align="left">0.0026</td>
 </tr>
 <tr class="odd">
-<td>since_renovated</td>
-<td align="center">0.0038</td>
-<td align="center">-0.0002</td>
-<td align="center">-0.0007</td>
+<td align="left">since_renovated</td>
+<td align="left">0.0038</td>
+<td align="left">-0.0002</td>
+<td align="left">-0.0007</td>
 </tr>
 <tr class="even">
-<td>m_2_lot_log</td>
-<td align="center">0.0043</td>
-<td align="center">0.0727</td>
-<td align="center">0.0841(RE)</td>
+<td align="left">m_2_lot_log</td>
+<td align="left">0.0043</td>
+<td align="left">0.0727</td>
+<td align="left">0.0841(RE)</td>
 </tr>
 <tr class="odd">
-<td>m_2_above_log</td>
-<td align="center">0.3257</td>
-<td align="center">0.4099</td>
-<td align="center">0.3844(RE)</td>
+<td align="left">m_2_above_log</td>
+<td align="left">0.3257</td>
+<td align="left">0.4099</td>
+<td align="left">0.3844(RE)</td>
 </tr>
 <tr class="even">
-<td>m_2_basement_log</td>
-<td align="center">0.0446</td>
-<td align="center">0.0270</td>
-<td align="center">0.0271</td>
+<td align="left">m_2_basement_log</td>
+<td align="left">0.0446</td>
+<td align="left">0.0270</td>
+<td align="left">0.0271</td>
 </tr>
 <tr class="odd">
-<td>m_2_living_15_log</td>
-<td align="center">0.2877</td>
-<td align="center">0.1729</td>
-<td align="center">0.1566(RE)</td>
+<td align="left">m_2_living_15_log</td>
+<td align="left">0.2877</td>
+<td align="left">0.1729</td>
+<td align="left">0.1566(RE)</td>
 </tr>
 <tr class="even">
-<td>m_2_lot_15_log</td>
-<td align="center">-0.0314</td>
-<td align="center">-0.0126</td>
-<td align="center">(RE)</td>
+<td align="left">m_2_lot_15_log</td>
+<td align="left">-0.0314</td>
+<td align="left">-0.0126</td>
+<td align="left">(RE)</td>
 </tr>
 </tbody>
 </table>
@@ -629,24 +625,24 @@ FIGURE 2.6: Comparison of model performance by RMSE on training and test set. In
 </p>
 </div>
 <table>
-<caption>Model results on the training and test set.</caption>
+<caption><span id="tab:rf-xgb">TABLE 2.3: </span>Model results on the training and test set.</caption>
 <thead>
 <tr class="header">
-<th>Model</th>
-<th align="center">RMSE train</th>
-<th align="center">RMSE test</th>
+<th align="left">Model</th>
+<th align="right">RMSE train</th>
+<th align="right">RMSE test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>random forest</td>
-<td align="center">0.07931109</td>
-<td align="center">0.1674559</td>
+<td align="left">random forest</td>
+<td align="right">0.0793</td>
+<td align="right">0.1675</td>
 </tr>
 <tr class="even">
-<td>xgboost</td>
-<td align="center">0.1076962</td>
-<td align="center">0.1600113</td>
+<td align="left">xgboost</td>
+<td align="right">0.1077</td>
+<td align="right">0.1600</td>
 </tr>
 </tbody>
 </table>
@@ -659,24 +655,24 @@ FIGURE 2.7:  Density of residuals for random forest and xgboost models. On the x
 </div>
 <p>Comparing the xgboost model with one-hot encoding and gbm with one-hot encoding we see that the RMSE score on the training and test set is very similar. Furthermore, the residual density plot (Figure <a href="story-house-sale-prices.html#fig:residual-2">2.8</a> ) is practically identical.</p>
 <table>
-<caption>Model results on the training and test set with one-hot encoding.</caption>
+<caption><span id="tab:gbm-xgb">TABLE 2.4: </span>Model results on the training and test set with one-hot encoding.</caption>
 <thead>
 <tr class="header">
-<th>Model</th>
-<th align="center">RMSE train</th>
-<th align="center">RMSE test</th>
+<th align="left">Model</th>
+<th align="right">RMSE train</th>
+<th align="right">RMSE test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>xgboost one-hot</td>
-<td align="center">0.1207626</td>
-<td align="center">0.1595913</td>
+<td align="left">xgboost one-hot</td>
+<td align="right">0.1208</td>
+<td align="right">0.1596</td>
 </tr>
 <tr class="even">
-<td>gbm one-hot</td>
-<td align="center">0.1302585</td>
-<td align="center">0.1607376</td>
+<td align="left">gbm one-hot</td>
+<td align="right">0.1303</td>
+<td align="right">0.1607</td>
 </tr>
 </tbody>
 </table>
@@ -716,7 +712,7 @@ FIGURE 2.9: Comparison of the importance of the permutation variables for four m
 FIGURE 2.10: Partial Dependence Profiles for four models, on the left for the variable <code>lat</code> and on the right for the variable <code>long</code>. Each line corresponds to a PDP for one of the four models. The x-axis shows the values of the variable for <code>lat</code> and <code>long</code>, while the y-axis shows the value of price prediction.
 </p>
 </div>
-<p>The second variable worth investigation is <code>m2_living</code> - house surface in square meters. What we expect is a more or less linear increase. The plot seems to confirm this expectation. With <code>grade</code>, we also expected increasing curves, but not necessarily linear. What is interesting, the price goes much higher, if the <code>grade</code> changes from 5-6 to 8-9. We will discuss this phenomenon in detail in chapter 6.</p>
+<p>The second variable worth investigation is <code>m2_living</code> - house surface in square meters. What we expect is a more or less linear increase. The plot seems to confirm this expectation. With <code>grade</code>, we also expected increasing curves, but not necessarily linear. What is interesting, the price goes much higher, if the <code>grade</code> changes from 5-6 to 8-9. We will discuss this phenomenon in detail in chapter 5.</p>
 <div class="figure" style="text-align: center"><span id="fig:m2-grade"></span>
 <img src="images/02-pdp_living_grade.png" alt="Partial Dependence profiles for `m2_living` and `grade` variables. In both cases we see an increase in the value of the prediction along with an increase in the variable. Each line corresponds to one of the four models. On the x-axis we have values of variables corresponding to m2_living and grade. On the y-axis we see the value of property price prediction." width="700" />
 <p class="caption">
@@ -815,8 +811,8 @@ Let us begin with zipcode 98010. Here we present a property that was the second 
 FIGURE 2.20:  Break Down created with R <code>iBreakDown</code> package for hugely mispredicted house. From the top, a vertical line represents the average response of the model, the green and red bars correspond to the contribution of the variable to the prediction. The green ones take positive values, i.e. increase the prediction value, while the red ones take negative values, i.e. decrease the prediction value. The violet bar corresponds to the prediction value for the observation. The numerical values next to the bars inform about the impact. On the x-axis we have model prediction value, on the y-axis we have variables and their values for the observation. It loses a lot of value because of its geographical position (far from Seattle), but gains a lot on grade and surface.
 </p>
 </div>
-<p>As we can find on a map, this particular property actually <em>has</em> access to the lake and should have been marked with <code>waterfront</code> = 1. If it was, the prediction would be 787325 k$, according to the XGBoost model, and that halves the relative error. From the picture <a href="story-house-sale-prices.html#fig:h-98010">2.20</a> we could also conclude, that houses with <code>waterfront</code> = 0 are not losing so much, but they would highly gain when <code>waterfront</code> would be equal to 1. Another conclusion is that there are mistakes in the data frame.</p>
-<p>Next case is a house in Medina. We chose the one with the highest average price for 1 square meter of the building. In the Figure <a href="story-house-sale-prices.html#fig:h-98039">2.21</a> we see Break Down plot for this house. All factors are in favor of this house. It is in a good location, top grade, living surface is enormous, it has a beautiful view, access to Lake Washington, and the neighborhood is wealthy. Predicted value is 3,961k$, while the true value was 3,640k$. Interesting and counterintuitive is that one variable has negative effect, and that is <code>floors.</code> This particular house has 2 levels. In the same picture we also plot Ceteris Paribus (CP) profile for this variable, which says that having two floors is actually the best choice for this observation.</p>
+<p>As we can find on a map, this particular property actually <em>has</em> access to the lake and should have been marked with <code>waterfront</code> = 1. If it was, the prediction would be 787325 k$, according to the XGBoost model, and that halves the relative error. From the Figure <a href="story-house-sale-prices.html#fig:h-98010">2.20</a> we could also conclude, that houses with <code>waterfront</code> = 0 are not losing so much, but they would highly gain when <code>waterfront</code> would be equal to 1. Another conclusion is that there are mistakes in the data frame.</p>
+<p>Next case is a house in Medina. We chose the one with the highest average price for 1 square meter of the building. In the Figure <a href="story-house-sale-prices.html#fig:h-98039">2.21</a> we see Break Down plot for this house. All factors are in favor of this house. It is in a good location, top grade, living surface is enormous, it has a beautiful view, access to Lake Washington, and the neighborhood is wealthy. Predicted value is 3,961 k$, while the true value was 3,640 k$. Interesting and counterintuitive is that one variable has negative effect, and that is <code>floors.</code> This particular house has 2 levels. In the same picture we also plot Ceteris Paribus (CP) profile for this variable, which says that having two floors is actually the best choice for this observation.</p>
 <div class="figure" style="text-align: center"><span id="fig:h-98039"></span>
 <img src="images/02-bd_cp_98039.png" alt="On top Break Down plot for a villa in 98038 zipcode. All variables except floor have positive impact on the price prediction. The second plot represents Ceteris Paribus profile (cyan line) for floor. The dot indicates our observation. The shape of the profile implies that no greater prediction can be obtained for this variable value." width="800" />
 <p class="caption">
@@ -830,15 +826,14 @@ FIGURE 2.21: On top Break Down plot for a villa in 98038 zipcode. All variables 
 <p>Having model trained, tested and explained, here comes the time for use cases.</p>
 <p>First application might be someone who wants to buy a house and improve it to either sell with income, either move in and live in good standard. With model and support of XAI tools there are several ways one can benefit.</p>
 <p>First approach is that one can study a BD Plot for a particular house and see the loss caused by low grade value. If the influence is highly negative, then we calculate a prediction for the same house, but after renovation: that means with replaced grade value and since_renovated set equal to 0 or 1. That might be very useful in case a buyer has already selected some area of interest and choice between houses is narrowed to a couple of them.</p>
-<p>In case we only look for houses to renovate and resell with income and specific location is not an issue, then we present a second approach. Here PDP plot can be used. In the figure <a href="story-house-sale-prices.html#fig:use-grade">2.22</a> PDP is monotonically increasing and the greatest change is between grade &lt; 6 and grade &gt; 8. So we can search for houses with such grade, calculate the prediction for modified data and then search for houses with top uplift. We also see that skipping grades 6-8 we also jump from “below average” to “above average”, what can be seen in the histogram attached.</p>
+<p>In case we only look for houses to renovate and resell with income and specific location is not an issue, then we present a second approach. Here PDP plot can be used. In the Figure <a href="story-house-sale-prices.html#fig:use-grade">2.22</a> PDP is monotonically increasing and the greatest change is between grade &lt; 6 and grade &gt; 8. So we can search for houses with such grade, calculate the prediction for modified data and then search for houses with top uplift. We also see that skipping grades 6-8 we also jump from “below average” to “above average”, what can be seen in the histogram attached.</p>
 <div class="figure" style="text-align: center"><span id="fig:use-grade"></span>
 <img src="images/02-use-grade.png" alt="Partial Dependence Profile for grade for xgboost model on left. The blue line corresponds to PDP,  for the x-axis, we have the value of a variable and on the y-axis, we have the value of a prediction.  On the right histogram of grade, the x-axis indicates the value of the variable, the y-axis a count of observation in each value of grade. We clearly see that prices change drastically when grade goes up from below 6 to above 8." width="800" />
 <p class="caption">
 FIGURE 2.22: Partial Dependence Profile for grade for xgboost model on left. The blue line corresponds to PDP, for the x-axis, we have the value of a variable and on the y-axis, we have the value of a prediction. On the right histogram of grade, the x-axis indicates the value of the variable, the y-axis a count of observation in each value of grade. We clearly see that prices change drastically when grade goes up from below 6 to above 8.
 </p>
 </div>
-<p>Here we present both approaches in a case study. Using the second method we found for an 85m² house in Kent, WA 98032: 105 year old building, never renovated. 3 bedrooms, 1 bathroom. Grade is 5. Prediction is quite accurate: true value is 176.5k$ and prediction is 168k$, so relative error is 5%. Modification described in the previous paragraph results in prediction for 272k$, 100k$ more. Of course this predicted change should be compared to renovation cost. In figure <a href="story-house-sale-prices.html#fig:use-case">2.23</a> there are presented BD plots for this house before and after renovation.</p>
-<p>“above average”, what can be seen in the histogram attached.</p>
+<p>Here we present both approaches in a case study. Using the second method we found for an 85m² house in Kent, WA 98032: 105 year old building, never renovated. 3 bedrooms, 1 bathroom. Grade is 5. Prediction is quite accurate: true value is 176.5 k$ and prediction is 168 k$, so relative error is 5%. Modification described in the previous paragraph results in prediction for 272 k$, 100 k$ more. Of course this predicted change should be compared to renovation cost. In Figure <a href="story-house-sale-prices.html#fig:use-case">2.23</a> there are presented BD plots for this house before and after renovation.</p>
 <div class="figure" style="text-align: center"><span id="fig:use-case"></span>
 <img src="images/02-use-case-bd.png" alt="On top Break Down plot for a house potentially good for renovate-and-resell. The impact of the grade variable is negative, the price of the property is decreasing. The second plot, the grade variable have a greater value and since_renovated variable is equal 0. The impact of these variables is positive on prediction." width="800" />
 <p class="caption">

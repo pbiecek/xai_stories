@@ -114,7 +114,7 @@ knitr::include_graphics('images/age_07.png')
 
 The date_surgery variable is interesting. It indicates the number of years that have passed from surgery to the end of the study. It would seem that the earlier we do surgery, the better our prognosis will be. The charts show the opposite. This may be because if the surgery was done a long time ago, the patient has been getting older since then and has little chance of survival.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for date_surgery variable. '}
-knitr::include_graphics('images/date_birth_07_07.png')
+knitr::include_graphics('images/date_birth_07.png')
 ```
 
 

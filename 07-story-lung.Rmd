@@ -96,7 +96,7 @@ For example, let's take a patient with the following variable values:
 - `log_tumor_volume` 5.8
 Our most recent model indicated that the chances of survival after surgery for such a patient are $43\%.$
 Here we have an explanation of this result by SHAP.
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap="Shap method for choosen patient.'}
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap="Shap method for choosen patient."}
 knitr::include_graphics('images/shap11_07.png')
 ```
 

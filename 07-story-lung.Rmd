@@ -73,7 +73,7 @@ knitr::include_graphics('images/07_auc_nn.png')
 
 
 ## Explanations
-The final model we based on was logistic regression. 
+The explanations are based on logistic regression model. 
 
 We base our analysis on 3 methods of explaining models, mainly Ceteris Paribus as well as Shap and Variable Importance. Let's start by explaining at the dataset level. Let's see how Variable Importance behaves.
 

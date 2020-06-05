@@ -66,7 +66,7 @@ and considered two, equally well performing, versions of the data set:
 - pruned - with no `histopatological_diagnosis` and only `log_tumor_volume` with regard to the tumor
 
 This is the receiver operating curve for the final model.
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='ROC for final model.'}
 knitr::include_graphics('images/07_lrcv_auc.png')
 ```
 
@@ -77,7 +77,7 @@ The explanations are based on logistic regression model.
 We base our analysis on 3 methods of explaining models, mainly Ceteris Paribus as well as Shap and Variable Importance. Let's start by explaining at the dataset level. Let's see how Variable Importance behaves.
 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Variable Importance for Logistic Regression model. Under the date_surgery variable is the number of years that have elapsed between that date and the end of the study. As the explanation shows that this variable is the most important, we will look at it in more detail later in this chapter.'}
-knitr::include_graphics('images/Variable_imp_07.png')
+knitr::include_graphics('images/07_Variable_imp.png')
 ```
 
 The second most important is the UICC stage. This variable tells us how advanced the cancer we cut out is. You can guess that the more advanced the stage, the bigger and harder the tumor is to cut out. We may wonder why the third most important variable is date of birth, not age. In fact, these two variables are obviously very correlated and the above results are the result of the distribution of importance between the two variables. Interestingly, the period of time the patient smoked cigarettes does not affect the outcome too much. Of course, if we were to consider the chances of getting lung cancer, or overall survival, this variable could be much more important. However, let's remember that our study involves patients who are already in advanced disease and undergoing surgery anyway, so how many years they have smoked doesn't have to be so important at this point.
@@ -97,7 +97,7 @@ For example, let's take a patient with the following variable values:
 Our most recent model indicated that the chances of survival after surgery for such a patient are $43\%.$
 Here we have an explanation of this result by SHAP.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap="Shap method for choosen patient."}
-knitr::include_graphics('images/shap11_07.png')
+knitr::include_graphics('images/07_shap11.png')
 ```
 
 
@@ -107,14 +107,14 @@ To find out, we use another Ceteris Paribus method. First we'll look at the date
 If we look at the age variable, i.e. the age at the time of surgery, we can see that it behaves quite intuitively. The younger the patient, the better he is able to recover from surgery, so his chances for survival are higher.
 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for age variable. '}
-knitr::include_graphics('images/age_07.png')
+knitr::include_graphics('images/07_age.png')
 ```
 
 
 
 The date_surgery variable is interesting. It indicates the number of years that have passed from surgery to the end of the study. It would seem that the earlier we do surgery, the better our prognosis will be. The charts show the opposite. This may be because if the surgery was done a long time ago, the patient has been getting older since then and has little chance of survival.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for date_surgery variable. '}
-knitr::include_graphics('images/date_birth_07.png')
+knitr::include_graphics('images/07_date_birth.png')
 ```
 
 
@@ -122,13 +122,13 @@ knitr::include_graphics('images/date_birth_07.png')
 Now let's look at the stadium. As mentioned earlier, the more advanced the stage of cancer the worse for the patient. Our patient's stadium is quite advanced, which has a big influence on the predictions, but if she had a more benign stage her chances of survival would increase strongly.
 
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for stadium_uicc variable. '}
-knitr::include_graphics('images/uicc_07.png')
+knitr::include_graphics('images/07_uicc.png')
 ```
 
 
 The variable log_tumor_volume indicates that if we cut out a smaller tumor, our postoperative survival increases. This conclusion coincides with our intuition, the removal of a smaller tumor is much safer, because perhaps with a larger one we could damage certain structures and thus increase mortality.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for the volume of the tumor, but after transformation as a logarithm. '}
-knitr::include_graphics('images/tumor_07.png')
+knitr::include_graphics('images/07_tumor.png')
 ```
 
 

@@ -9,7 +9,7 @@
 **Key points**:
 
 * uplift models thanks to its additivity give wide range of possibilities while using XAI  
-* SHAP values can be used to explain model both in local and global aspects - they can be generalized in order to estimate Variable Importance and Partial Dependence Plots  
+* SHAP values can be used to explain model both in local and global aspects - they can be generalized in order to estimate Variable Importance and dependence plots  
 
 * in the case of analysed dataset, marketing campaign should be sent two months after last purchase to be the most effective
 
@@ -100,13 +100,13 @@ In the dataset there is also information about customer activity in the two week
 ### Explanatory Data Analysis
 First, we decided to investigate variables that have more than 3 unique values. At the same time these variables (*recency* and *history*) intuitively seem to be the most important while predicting whether someone will buy a product or not.
 ```{r histogram, echo=FALSE, fig.cap='Histograms of *recency* (left) and *history* (right)', out.width = '40%', fig.align='center', fig.show="hold"}
-knitr::include_graphics("images/09_recency.PNG")
-knitr::include_graphics("images/09_history.PNG")
+knitr::include_graphics("images/09_recency.png")
+knitr::include_graphics("images/09_history.png")
 ```
 It can be seen that *history* variable has heavy-tailed distribution therefore it may be reasonable to use Box-Cox transformation. However, we decided to keep the variable without any preprocessing for easier interpretation.
 
 ```{r countplots, echo=FALSE, fig.cap='Count plots', out.width = '100%', fig.align='center'}
-knitr::include_graphics("images/09_count_plots.PNG")
+knitr::include_graphics("images/09_count_plots.png")
 ```
 In the case of *mens*, *womens* and *newbie* variables the proportion of 0's to 1's is almost equal. There is much fewer records of people living in the countryside than in urban or suburban areas. Most of the company customers buy via phone or web. It is rare that someone uses a mulitchannel option. In the dataset most of the customers received treatment in the form of marketing E-mail.
 
@@ -279,25 +279,25 @@ knitr::include_graphics("images/09_recency_shap_dependence_plot.png")
 
 Due to the fact that *recency* can have only one of 12 values, only 12 "clusters" can be seen on the SHAP Dependence Plot. Dispersion within the "clusters" shows how much the observations in our dataset differ.
 
-```{r PDPmenswomens, echo=FALSE, fig.cap='Gender', out.width = '100%', fig.align='center'}
+```{r PDPmenswomens, echo=FALSE, fig.cap='Gender PDP', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/09_mens_womens_PDP_ALE.png")
 ```
 
 It is surprising that the disproportion between the results shown in Figure \@ref(fig:PDPmenswomens) is so significant. In the PDP of *mens* feature the lines are almost flat meaning that regardless of the fact whether someone bought or not a product from mens collection the uplift prediction stays the same.
 
-```{r PDPnewbie, echo=FALSE, fig.cap='Newbie', out.width = '50%', fig.align='center'}
+```{r PDPnewbie, echo=FALSE, fig.cap='Newbie PDP', out.width = '50%', fig.align='center'}
 knitr::include_graphics("images/09_newbie_PDP_ALE.png")
 ```
 
 According to the Figure \@ref(fig:PDPnewbie) if a person is a *newbie* it is harder to encourage him/her to buy a product through marketing campaign. 
 
-```{r PDPzip, echo=FALSE, fig.cap='Dwelling place', out.width = '100%', fig.align='center'}
+```{r PDPzip, echo=FALSE, fig.cap='Dwelling place PDP', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/09_zip_PDP_ALE.png")
 ```
 
 It can be seen that PDP of *zip_code_Suburban* and *zip_code_Urban* look very similar. They both have decreasing trend. Whereas PDP of *zip_code_Rural* has increasing trend. In this case it can be seen that ALE nd PDP crosses as they aren't parallel, it means there is slight interaction in model.
 
-```{r PDPchannel, echo=FALSE, fig.cap='Channel', out.width = '100%', fig.align='center'}
+```{r PDPchannel, echo=FALSE, fig.cap='Channel PDP', out.width = '100%', fig.align='center'}
 knitr::include_graphics("images/09_channel_PDP_ALE.png")
 ```
 

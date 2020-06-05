@@ -288,7 +288,7 @@
 <ul>
 <li><p>uplift models thanks to its additivity give wide range of possibilities while using XAI<br />
 </p></li>
-<li><p>SHAP values can be used to explain model both in local and global aspects - they can be generalized in order to estimate Variable Importance and Partial Dependence Plots</p></li>
+<li><p>SHAP values can be used to explain model both in local and global aspects - they can be generalized in order to estimate Variable Importance and dependence plots</p></li>
 <li><p>in the case of analysed dataset, marketing campaign should be sent two months after last purchase to be the most effective</p></li>
 <li><p>XAI analysis can help in creating personalized marketing campaigns</p></li>
 </ul>
@@ -301,7 +301,7 @@ Here come Machine Learning and uplift models that can help in optimizing marketi
 <div class="figure" style="text-align: center"><span id="fig:4groups"></span>
 <img src="images/09_e45e2d97-confmatrix_alt.png" alt="Customer types taking into consideration their response to treatment [@4groups_chart]" width="50%" />
 <p class="caption">
-FIGURE 9.1: Customer types taking into consideration their response to treatment <span class="citation">(<span class="citeproc-not-found" data-reference-id="4groups_chart"><strong>???</strong></span>)</span>
+FIGURE 9.1: Customer types taking into consideration their response to treatment <span class="citation">(Yi and Frost <a href="#ref-4groups_chart" role="doc-biblioref">2018</a><a href="#ref-4groups_chart" role="doc-biblioref">a</a>)</span>
 </p>
 </div>
 <p>The matrix (Figure: <a href="story-uplift-marketing1.html#fig:4groups">9.1</a>) was created based on customer decision to buy a product depending on the fact that they were addressed by a marketing campaign or not. The action used for triggering in customers the particular behavior is called treatment. In the 4 groups we distinguish:</p>
@@ -381,7 +381,7 @@ FIGURE 9.4: Histograms of <em>recency</em> (left) and <em>history</em> (right)
 </div>
 <p>It can be seen that <em>history</em> variable has heavy-tailed distribution therefore it may be reasonable to use Box-Cox transformation. However, we decided to keep the variable without any preprocessing for easier interpretation.</p>
 <div class="figure" style="text-align: center"><span id="fig:countplots"></span>
-<img src="images/09_count_plots.PNG" alt="Count plots" width="100%" />
+<img src="images/09_count_plots.png" alt="Count plots" width="100%" />
 <p class="caption">
 FIGURE 9.5: Count plots
 </p>
@@ -397,11 +397,11 @@ As the number of columns is small we decided to use one-hot encoding for transfo
 </div>
 <div id="model-exploration-and-metrics" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Model exploration and metrics</h2>
-<p>There are not many packages dedicated to uplift modeling in python. We investigated the two: pylift <span class="citation">(“Pylift Package - Documentation,” <a href="#ref-pylift" role="doc-biblioref">n.d.</a>)</span> and pyuplift <span class="citation">(<span class="citeproc-not-found" data-reference-id="pyuplift"><strong>???</strong></span>)</span>. The latter enables usage of 4 types of models - one of those is the Two Model approach. In the pylift package there is the TransformedOutcome class that generates predictions. However, the model itself is not well described and uses XGBRegressor underneath that is not intuitive. Fortunately, the package offers also the class UpliftEval that allows uplift metrics visualization.
+<p>There are not many packages dedicated to uplift modeling in python. We investigated the two: pylift <span class="citation">(Yi and Frost <a href="#ref-pylift" role="doc-biblioref">2018</a><a href="#ref-pylift" role="doc-biblioref">b</a>)</span> and pyuplift <span class="citation">(Kuchumov <a href="#ref-pyuplift" role="doc-biblioref">2018</a>)</span>. The latter enables usage of 4 types of models - one of those is the Two Model approach. In the pylift package there is the TransformedOutcome class that generates predictions. However, the model itself is not well described and uses XGBRegressor underneath that is not intuitive. Fortunately, the package offers also the class UpliftEval that allows uplift metrics visualization.
 In the scene, we decided to create own classifier (as in the One Model approach) and use UpliftEval class from the pylift package for metric evaluation.
 As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the Figure <a href="story-uplift-marketing1.html#fig:upliftRES">9.6</a> we show the cumulative gain chart for train and test sets.</p>
 <div class="figure" style="text-align: center"><span id="fig:upliftRES"></span>
-<img src="images/09_uplift_train.PNG" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test.PNG" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
+<img src="images/09_uplift_train.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
 <p class="caption">
 FIGURE 9.6: Cumulative gain chart: (left) train set, (right) test set
 </p>
@@ -540,7 +540,7 @@ We decided to investigate model interpretability from instance-level and dataset
 The person with the highest uplift did last shopping 2 months ago whereas the person with the lowest uplift did it 5 months ago. In the dataset some people purchased the product for the last time even 12 months ago so the person is not the most severe case in that sense. Apart from many other differences among the two customers the key is that the person with the highest uplift received treatment whereas the second customer didn’t.</p>
 Below we present SHAP values for the customer described in Table <a href="story-uplift-marketing1.html#tab:personalTABLE">9.2</a>. The values were computed directly on uplift model <a href="story-uplift-marketing1.html#fig:upliftSHAP">9.7</a>.
 <div class="figure"><span id="fig:upliftSHAP"></span>
-<img src="images/09_shap_min_uplift.PNG" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" /><img src="images/09_shap_max_uplift.PNG" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" />
+<img src="images/09_shap_min_uplift.png" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" /><img src="images/09_shap_max_uplift.png" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" />
 <p class="caption">
 FIGURE 9.7: SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift
 </p>
@@ -678,8 +678,8 @@ FIGURE 9.13: Variable Importance - <em>“persuadables”</em>
 Regardless of the customer groups always <em>history</em> and <em>womens</em> are among three most important features. For observations with considerable negative uplift (<em>“sleeping dogs”</em>) both <em>history</em> and <em>womens</em> have negative correlation with their SHAP values. In the case of <em>“sure things and lost causes”</em> <em>womens</em> has positive correlation whereas <em>history</em> has negative. The same variables among <em>“persuadables”</em> (considerable positive uplift) have positive correlation with SHAP values. <em>Correlation changes gradually with uplift value.</em> It is worth noticing that regardless of the customer group importance of <em>segment</em> variable is low. This is surprising because the presence of <em>treatment</em> is substantial element of uplift modeling. What is interesting is the fact that regarding <em>zip code</em> only the information whether someone is from rural area is important. Note that this category of dwelling place was the least popular among customers. Information about purchase channel in general has relatively small predictive power.</p>
 <div id="dependence-plots" class="section level4" number="9.4.2.1">
 <h4><span class="header-section-number">9.4.2.1</span> Dependence plots</h4>
-<p>Another tool to investigate model are the dependence plots. There are two options. The most common method is the Partial Dependence Plot (PDP)/ Accumulated Local Effects (ALE) and the other one is the SHAP dependence plot. The Partial Dependence Plot shows the marginal effect that one or two features have on the predicted outcome of a machine learning model <span class="citation">(<span class="citeproc-not-found" data-reference-id="pdp"><strong>???</strong></span>)</span>. It tells whether the relationship between the target and a feature is linear, monotonic or more complex. In the SHAP dependence plot we can show how a feature value (<em>x</em> axis) impacted the prediction (<em>y</em> axis) of every sample (each dot) in a dataset <span class="citation">(<span class="citeproc-not-found" data-reference-id="shap_dependence_plot"><strong>???</strong></span>)</span>. This provides richer information than the traditional Partial Dependence Plot, because we have at least two additional information: density and variance of observations.</p>
-<p>The Partial Dependence Plots reflect the expected output of the model if only one feature value is changed and the rest stays the same. In contrast, the SHAP value for a feature represents how much that feature impacted the prediction for single sample, accounting for interaction effects. So while in general you would expect to see similar shapes in a SHAP dependence plot and a Partial Dependence Plot they will be different if your model has multi-variable interaction effects (like AND or OR). A PDP has no vertical dispersion and so no indication of how much interaction effects are driving the models predictions <span class="citation">(<span class="citeproc-not-found" data-reference-id="shap_dependence_plot_explained"><strong>???</strong></span>)</span>.</p>
+<p>Another tool to investigate model are the dependence plots. There are two options. The most common method is the Partial Dependence Plot (PDP)/ Accumulated Local Effects (ALE) and the other one is the SHAP dependence plot. The Partial Dependence Plot shows the marginal effect that one or two features have on the predicted outcome of a machine learning model <span class="citation">(Friedman <a href="#ref-pdp" role="doc-biblioref">2000</a>)</span>. It tells whether the relationship between the target and a feature is linear, monotonic or more complex. In the SHAP dependence plot we can show how a feature value (<em>x</em> axis) impacted the prediction (<em>y</em> axis) of every sample (each dot) in a dataset <span class="citation">(Lundberg et al. <a href="#ref-shap_dependence_plot" role="doc-biblioref">2019</a>)</span>. This provides richer information than the traditional Partial Dependence Plot, because we have at least two additional information: density and variance of observations.</p>
+<p>The Partial Dependence Plots reflect the expected output of the model if only one feature value is changed and the rest stays the same. In contrast, the SHAP value for a feature represents how much that feature impacted the prediction for single sample, accounting for interaction effects. So while in general you would expect to see similar shapes in a SHAP dependence plot and a Partial Dependence Plot they will be different if your model has multi-variable interaction effects (like AND or OR). A PDP has no vertical dispersion and so no indication of how much interaction effects are driving the models predictions <span class="citation">(Lundberg <a href="#ref-shap_dependence_plot_explained" role="doc-biblioref">2018</a>)</span>.</p>
 <p>We generated the Partial Dependence Plot for all features and the SHAP dependence plot based on 1000 observations only for <em>history</em> and <em>recency</em> features due to large processing time.</p>
 <div class="figure"><span id="fig:PDPhistory"></span>
 <img src="images/09_history_PDP_ALE.png" alt="History (left) Partial Dependence Plot / Accumulated Local Effects plot, (right) The SHAP Dependence Plot based on 1000 observations" width="50%" /><img src="images/09_history_shap_dependence_plot.png" alt="History (left) Partial Dependence Plot / Accumulated Local Effects plot, (right) The SHAP Dependence Plot based on 1000 observations" width="50%" />
@@ -696,30 +696,30 @@ FIGURE 9.15: Recency (left) Partial Dependence Plot / Accumulated Local Effects 
 </div>
 <p>Due to the fact that <em>recency</em> can have only one of 12 values, only 12 “clusters” can be seen on the SHAP Dependence Plot. Dispersion within the “clusters” shows how much the observations in our dataset differ.</p>
 <div class="figure" style="text-align: center"><span id="fig:PDPmenswomens"></span>
-<img src="images/09_mens_womens_PDP_ALE.png" alt="Gender" width="100%" />
+<img src="images/09_mens_womens_PDP_ALE.png" alt="Gender PDP" width="100%" />
 <p class="caption">
-FIGURE 9.16: Gender
+FIGURE 9.16: Gender PDP
 </p>
 </div>
 <p>It is surprising that the disproportion between the results shown in Figure <a href="story-uplift-marketing1.html#fig:PDPmenswomens">9.16</a> is so significant. In the PDP of <em>mens</em> feature the lines are almost flat meaning that regardless of the fact whether someone bought or not a product from mens collection the uplift prediction stays the same.</p>
 <div class="figure" style="text-align: center"><span id="fig:PDPnewbie"></span>
-<img src="images/09_newbie_PDP_ALE.png" alt="Newbie" width="50%" />
+<img src="images/09_newbie_PDP_ALE.png" alt="Newbie PDP" width="50%" />
 <p class="caption">
-FIGURE 9.17: Newbie
+FIGURE 9.17: Newbie PDP
 </p>
 </div>
 <p>According to the Figure <a href="story-uplift-marketing1.html#fig:PDPnewbie">9.17</a> if a person is a <em>newbie</em> it is harder to encourage him/her to buy a product through marketing campaign.</p>
 <div class="figure" style="text-align: center"><span id="fig:PDPzip"></span>
-<img src="images/09_zip_PDP_ALE.png" alt="Dwelling place" width="100%" />
+<img src="images/09_zip_PDP_ALE.png" alt="Dwelling place PDP" width="100%" />
 <p class="caption">
-FIGURE 9.18: Dwelling place
+FIGURE 9.18: Dwelling place PDP
 </p>
 </div>
 <p>It can be seen that PDP of <em>zip_code_Suburban</em> and <em>zip_code_Urban</em> look very similar. They both have decreasing trend. Whereas PDP of <em>zip_code_Rural</em> has increasing trend. In this case it can be seen that ALE nd PDP crosses as they aren’t parallel, it means there is slight interaction in model.</p>
 <div class="figure" style="text-align: center"><span id="fig:PDPchannel"></span>
-<img src="images/09_channel_PDP_ALE.png" alt="Channel" width="100%" />
+<img src="images/09_channel_PDP_ALE.png" alt="Channel PDP" width="100%" />
 <p class="caption">
-FIGURE 9.19: Channel
+FIGURE 9.19: Channel PDP
 </p>
 </div>
 <p>The biggest gain in terms of uplift can be seen in case when the person uses Web channel. The PDP of <em>Phone_channel</em> is flat.</p>
@@ -784,23 +784,38 @@ FIGURE 9.19: Channel
 <div id="ref-uplift_stanford">
 <p>Akshay Kumar, Rishabh Kumar. 2018. “Uplift Modeling : Predicting Incremental Gains.” 2018. <a href="http://cs229.stanford.edu/proj2018/report/296.pdf">http://cs229.stanford.edu/proj2018/report/296.pdf</a>.</p>
 </div>
+<div id="ref-pdp">
+<p>Friedman, Jerome. 2000. “Greedy Function Approximation: A Gradient Boosting Machine.” <em>The Annals of Statistics</em> 29 (November). <a href="https://doi.org/10.1214/aos/1013203451">https://doi.org/10.1214/aos/1013203451</a>.</p>
+</div>
 <div id="ref-uplift_dataset_marketing">
 <p>Hillstrom, Kevin. 2008. “The Minethatdata E-Mail Analytics and Data Mining Challenge Dataset.” 2008. <a href="https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html">https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html</a>.</p>
+</div>
+<div id="ref-pyuplift">
+<p>Kuchumov, Artem. 2018. “Pyuplift Package - Documentation.” 2018. <a href="https://pyuplift.readthedocs.io/en/latest/index.html">https://pyuplift.readthedocs.io/en/latest/index.html</a>.</p>
 </div>
 <div id="ref-uplift_approaches">
 <p>Lee, Josh Xin Jie. 2018. “Simple Machine Learning Techniques to Improve Your Marketing Strategy: Demystifying Uplift Models.” 2018. <a href="https://medium.com/datadriveninvestor/simple-machine-learning-techniques-to-improve-your-marketing-strategy-demystifying-uplift-models-dc4fb3f927a2">https://medium.com/datadriveninvestor/simple-machine-learning-techniques-to-improve-your-marketing-strategy-demystifying-uplift-models-dc4fb3f927a2</a>.</p>
 </div>
+<div id="ref-shap_dependence_plot_explained">
+<p>Lundberg, Scott. 2018. “Interpretable Machine Learning with Xgboost.” 2018. <a href="https://towardsdatascience.com/interpretable-machine-learning-with-xgboost-9ec80d148d27">https://towardsdatascience.com/interpretable-machine-learning-with-xgboost-9ec80d148d27</a>.</p>
+</div>
 <div id="ref-feature_importance_shap">
 <p>Lundberg, Scott, and Su-In Lee. 2017. “A Unified Approach to Interpreting Model Predictions.” In.</p>
 </div>
-<div id="ref-pylift">
-<p>“Pylift Package - Documentation.” n.d. <a href="https://pylift.readthedocs.io/en/latest/">https://pylift.readthedocs.io/en/latest/</a>.</p>
+<div id="ref-shap_dependence_plot">
+<p>Lundberg, Scott M., Gabriel G. Erion, Hugh Chen, Alex DeGrave, Jordan M. Prutkin, Bala Nair, Ronit Katz, Jonathan Himmelfarb, Nisha Bansal, and Su-In Lee. 2019. “Explainable AI for Trees: From Local Explanations to Global Understanding.” <em>CoRR</em> abs/1905.04610. <a href="http://arxiv.org/abs/1905.04610">http://arxiv.org/abs/1905.04610</a>.</p>
 </div>
 <div id="ref-uplift_dataset_modification">
 <p>Rzepakowski, Piotr, and Szymon Jaroszewicz. 2012. “Decision Trees for Uplift Modeling with Single and Multiple Treatments.” <em>Knowledge and Information Systems - KAIS</em> 32 (August). <a href="https://doi.org/10.1007/s10115-011-0434-0">https://doi.org/10.1007/s10115-011-0434-0</a>.</p>
 </div>
 <div id="ref-book_uplift">
 <p>Verbeke, W., and C. Bravo. 2017. <em>Profit Driven Business Analytics: A Practitioner’s Guide to Transforming Big Data into Added Value</em>. Wiley and Sas Business Series. Wiley. <a href="https://books.google.pl/books?id=NCA3DwAAQBAJ">https://books.google.pl/books?id=NCA3DwAAQBAJ</a>.</p>
+</div>
+<div id="ref-4groups_chart">
+<p>Yi, Robert, and Will Frost. 2018a. “Pylift: A Fast Python Package for Uplift Modeling.” 2018. <a href="https://tech.wayfair.com/data-science/2018/10/pylift-a-fast-python-package-for-uplift-modeling/">https://tech.wayfair.com/data-science/2018/10/pylift-a-fast-python-package-for-uplift-modeling/</a>.</p>
+</div>
+<div id="ref-pylift">
+<p>Yi, Robert, and Will Frost. 2018b. “Pylift Package - Documentation.” 2018. <a href="https://pylift.readthedocs.io/en/latest/">https://pylift.readthedocs.io/en/latest/</a>.</p>
 </div>
 </div>
             </section>

@@ -137,12 +137,12 @@ knitr::include_graphics('images/07_tumor.png')
  
  When we built the model on all variables, the explanations allowed us to find highly dependent variables. Let's compare the CeterisParibus results for the full model and the pruned one. The image below shows the date_birth variable in its original version, i.e. as date.
  
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Selected model with correlated variables left.'}
 knitr::include_graphics('images/07_cp_3.png')
 ```
  In the picture above you can see that the influence of two correlated variables was distributed between them, but after leaving only one of these variables, the influence accumulated on it (picture below).
  
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Model after removing correlated variables, you can see a big difference in the explanation.'}
 knitr::include_graphics('images/07_cp_4.png')
 ```
 

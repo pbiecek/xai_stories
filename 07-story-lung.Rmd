@@ -65,10 +65,9 @@ and considered two, equally well performing, versions of the data set:
 - full - with added `tumor_volume` and `log_tumor_volume`
 - pruned - with no `histopatological_diagnosis` and only `log_tumor_volume` with regard to the tumor
 
-This is the receiver operating curve for selected model(s).
-**TODO zmienic**
+This is the receiver operating curve for the final model.
 ```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/07_auc_nn.png')
+knitr::include_graphics('images/07_lrcv_auc.png')
 ```
 
 

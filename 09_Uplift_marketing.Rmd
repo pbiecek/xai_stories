@@ -183,8 +183,8 @@ The person with the highest uplift did last shopping 2 months ago whereas the pe
 
 Below we present SHAP values for the customer described in Table \@ref(tab:personalTABLE). The values were computed directly on uplift model \@ref(fig:upliftSHAP).
 ```{r upliftSHAP, echo=FALSE, fig.cap='SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift', out.width = '50%', fig.align='default', fig.show="hold"}
-knitr::include_graphics("images/09_shap_min_uplift.png")
-knitr::include_graphics("images/09_shap_max_uplift.png")
+knitr::include_graphics("images/09_shap_min_uplift_pred.png")
+knitr::include_graphics("images/09_shap_max_uplift_pred.png")
 ```
 
 In can be seen that in both cases big contribution to the final result has information about customer history (about 235 USD) and the fact that the customer bought products from women's collection. What is interesting is the fact that the customers have almost the same values of these two attributes but opposite sign of its contribution. 

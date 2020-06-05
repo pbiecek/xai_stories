@@ -381,7 +381,7 @@ FIGURE 9.4: Histograms of <em>recency</em> (left) and <em>history</em> (right)
 </div>
 <p>It can be seen that <em>history</em> variable has heavy-tailed distribution therefore it may be reasonable to use Box-Cox transformation. However, we decided to keep the variable without any preprocessing for easier interpretation.</p>
 <div class="figure" style="text-align: center"><span id="fig:countplots"></span>
-<img src="images/09_count_plots.PNG" alt="Count plots" width="100%" />
+<img src="images/09_count_plots.png" alt="Count plots" width="100%" />
 <p class="caption">
 FIGURE 9.5: Count plots
 </p>
@@ -401,7 +401,7 @@ As the number of columns is small we decided to use one-hot encoding for transfo
 In the scene, we decided to create own classifier (as in the One Model approach) and use UpliftEval class from the pylift package for metric evaluation.
 As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the Figure <a href="story-uplift-marketing1.html#fig:upliftRES">9.6</a> we show the cumulative gain chart for train and test sets.</p>
 <div class="figure" style="text-align: center"><span id="fig:upliftRES"></span>
-<img src="images/09_uplift_train.PNG" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test.PNG" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
+<img src="images/09_uplift_train.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
 <p class="caption">
 FIGURE 9.6: Cumulative gain chart: (left) train set, (right) test set
 </p>
@@ -540,7 +540,7 @@ We decided to investigate model interpretability from instance-level and dataset
 The person with the highest uplift did last shopping 2 months ago whereas the person with the lowest uplift did it 5 months ago. In the dataset some people purchased the product for the last time even 12 months ago so the person is not the most severe case in that sense. Apart from many other differences among the two customers the key is that the person with the highest uplift received treatment whereas the second customer didn’t.</p>
 Below we present SHAP values for the customer described in Table <a href="story-uplift-marketing1.html#tab:personalTABLE">9.2</a>. The values were computed directly on uplift model <a href="story-uplift-marketing1.html#fig:upliftSHAP">9.7</a>.
 <div class="figure"><span id="fig:upliftSHAP"></span>
-<img src="images/09_shap_min_uplift.PNG" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" /><img src="images/09_shap_max_uplift.PNG" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" />
+<img src="images/09_shap_min_uplift.png" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" /><img src="images/09_shap_max_uplift.png" alt="SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift" width="50%" />
 <p class="caption">
 FIGURE 9.7: SHAP values: (left) customer with the lowest uplift, (right) customer with the highest uplift
 </p>

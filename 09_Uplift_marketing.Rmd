@@ -123,8 +123,8 @@ As the classifier we used fine-tuned XGBoost with the score function as the area
 
 
 ```{r upliftRES, echo=FALSE, fig.cap='Cumulative gain chart: (left) train set, (right) test set', out.width = '50%', fig.align='center', fig.show="hold"}
-knitr::include_graphics("images/09_uplift_train.png")
-knitr::include_graphics("images/09_uplift_test.png")
+knitr::include_graphics("images/09_uplift_train_robust.png")
+knitr::include_graphics("images/09_uplift_test_robust.png")
 ```
 The Qini curve is not suggested for performance evaluation of uplift models as it is vulnerable to overfitting to the treatment label. Therefore the Cumulative gain chart is used. It is the least biased estimate of the uplift. In the pylift package it is implemented based on the formula:
 $Cumulative\ gain(\phi) = (\frac {n_{t,1}(\phi)}{n_{t,1}}-\frac {n_{c,1}(\phi)}{n_{c,1}})(\frac{n_t(\phi)+n_c(\phi)}{N_t+N_c})$   

@@ -385,7 +385,7 @@ As the number of columns is small we decided to use one-hot encoding for transfo
 In the scene, we decided to create own classifier (as in the One Model approach) and use UpliftEval class from the pylift package for metric evaluation.
 As the classifier we used fine-tuned XGBoost with the score function as the area under the cumulative gain chart (described below). In the Figure <a href="story-uplift-marketing1.html#fig:upliftRES">8.6</a> we show the cumulative gain chart for train and test sets.</p>
 <div class="figure" style="text-align: center"><span id="fig:upliftRES"></span>
-<img src="images/09_uplift_train.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
+<img src="images/09_uplift_train_robust.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" /><img src="images/09_uplift_test_robust.png" alt="Cumulative gain chart: (left) train set, (right) test set" width="50%" />
 <p class="caption">
 FIGURE 8.6: Cumulative gain chart: (left) train set, (right) test set
 </p>

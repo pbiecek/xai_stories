@@ -106,7 +106,7 @@ knitr::include_graphics("images/09_history.png")
 It can be seen that *history* variable has heavy-tailed distribution therefore it may be reasonable to use Box-Cox transformation. However, we decided to keep the variable without any preprocessing for easier interpretation.
 
 ```{r countplots, echo=FALSE, fig.cap='Count plots', out.width = '100%', fig.align='center'}
-knitr::include_graphics("images/09_count_plots.png")
+knitr::include_graphics("images/09_count_plot.png")
 ```
 In the case of *mens*, *womens* and *newbie* variables the proportion of 0's to 1's is almost equal. There is much fewer records of people living in the countryside than in urban or suburban areas. Most of the company customers buy via phone or web. It is rare that someone uses a mulitchannel option. In the dataset most of the customers received treatment in the form of marketing E-mail.
 

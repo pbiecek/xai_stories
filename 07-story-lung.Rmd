@@ -10,11 +10,12 @@
 ## Introduction 
  Science allows us to understand the world better. New technologies, data collection solves the problems not only of large companies but also of ordinary people. Especially if human life is at stake.
  They say that cancer is the killer of the 21st century. That's why even small attempts to subdue this problem are important. 
- In our work, we deal with lung cancer. We try to predict the chances of survival of a patient who has had a tumor removal surgery. We try different approaches.
+ In our work, we deal with lung cancer. We try to analise the chances of survival of a patient who has had a tumor removal surgery by explaining predicitve models. Note that we do not generally anticipate the chances of survival here, but only consider a particular group of patients who have cancer and have been qualified for surgery. Therefore, along the way we may encounter many non-intuitive conclusions, we may encounter here the survivorship bias. That is why the role of explaining the model in this case is so important, as we will show in the next parts of this chapter. But let's focus on the data for a moment.
 
-## Model 
 
-The dataset consists of the following varaibles.
+## Data set 
+
+The data set consists of the following varaibles.
 
 Numerical
 
@@ -39,82 +40,109 @@ Variable | Decription | Values
 `symptoms` | whether symptoms were observed | yes/no
 `lung_cancer_in_family` | whether family member had cancer | yes/no
 `stadium_uicc` | severity of tumor | IA1, IA2, IA3, IB, IIA, IIB, IIIA, IIIB, IVA, IVB*
-`alive` | whether subject is alive | yes/no (**target variable**)
+`alive` | whether subject is alive | yes/no (**the target variable**)
 
 About 1/3 af values of varaibles annotated with * was missing.
 
-Survivability was registered `time_to_surgery` years after the procedure, for the majority of the subjects not later than 1 year after the procedure, and at most after 12 years.
+Survivability was registered in a certain point of time - December 2016. That's why we transform all the date varriables to number of years to December 2016. There are two reasons:
+- by changing dates to ages, i.e. `date_surgery` to `age_when_surgery_was_performed` we wouldn't capture the time between the surgery and "today". The longer it is the "more time patient has to die", 
+- similar analysis could be easily performed for different value of "today".
 
-We have tried out several models as well as different preprocessing strategies. However, all of the approaches yielded similar results differing no more than 0.01 of cross validation acuracy and 0.01 ROC AUC score. These are the models that were utilized:
+Following encoding strategy was employed:
+- binary variables were encoded as 0s and 1s,
+- categorical variable `histopatological_diagnosis` was one-hot encoded,
+- categorical variable `stadium_uicc` was encoded by increasing integers as there is natural order to this variable.
 
-- Logistic regression
-- Logistic regression with hyperparameters cross validation
-- Random Forest
-- XGBoost
-- Neural Net - 10 hidden neurons
-- Neural Net - 30 hidden neurons
-- Neural Net - 2 x 10 hidden neurons
+## Models
 
-As we have indentified higle defendent features as well as observed that tumor sizes disturbed the explaination we have employed following preprocessing strategies:
+We have tried out several models as well as different preprocessing strategies. However, no model yielded better results than `scikit-learn`'s logistic regression with hyperparameters cross validation. 
 
-- encode and normalize
-- encode, remove highly dependent features and normalize 
-- encode, introduce tumor volume, discard tumor sizes, remove highly dependent features and normalize 
+In order to further refine our model we tried adding some features as well as pruning irrelevent ones. We have added following variables:
+- `tumor_volume = tumor_size_x * tumor_size_y * tumor_size_z`,
+- `log_tumor_volume = log(tumor_volume + 1e-4)`
 
-Finally we have settled on Neural Net with 10 hidden neurons with following receiver operating curve.
+and considered two, equally well performing, versions of the data set:
+- full - with added `tumor_volume` and `log_tumor_volume`
+- pruned - with no `histopatological_diagnosis` and only `log_tumor_volume` with regard to the tumor
 
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/07_auc_nn.png')
+This is the receiver operating curve for the final model.
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='ROC for final model.'}
+knitr::include_graphics('images/07_lrcv_auc.png')
 ```
 
 
 ## Explanations
+The explanations are based on logistic regression model. 
 
-We are based on 3 methods of explaining models, mainly Ceteris Paribus as well as Shap and Variable Importance.
-Of course, it is our goal to understand on what basis our model has found a chance of survival of a given patient. For example, let's take a patient with the following variable values: 
-- `date_start_treatment` 2007-03-01
-- `sex` M
-- `histopatological_diagnosis` rak niedrobnokomórkowy
-- `years_smoking` 35
+We base our analysis on 3 methods of explaining models, mainly Ceteris Paribus as well as Shap and Variable Importance. Let's start by explaining at the dataset level. Let's see how Variable Importance behaves.
+
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Variable Importance for Logistic Regression model. Under the date_surgery variable is the number of years that have elapsed between that date and the end of the study. As the explanation shows that this variable is the most important, we will look at it in more detail later in this chapter.'}
+knitr::include_graphics('images/07_Variable_imp.png')
+```
+
+The second most important is the UICC stage. This variable tells us how advanced the cancer we cut out is. You can guess that the more advanced the stage, the bigger and harder the tumor is to cut out. We may wonder why the third most important variable is date of birth, not age. In fact, these two variables are obviously very correlated and the above results are the result of the distribution of importance between the two variables. Interestingly, the period of time the patient smoked cigarettes does not affect the outcome too much. Of course, if we were to consider the chances of getting lung cancer, or overall survival, this variable could be much more important. However, let's remember that our study involves patients who are already in advanced disease and undergoing surgery anyway, so how many years they have smoked doesn't have to be so important at this point.
+
+After a general look at the significance of variables, it is time to go into details.  It would be useful if we could explain to the patient why his chances of survival after surgery are as high as our model predicted and show him what would increase or decrease his chances.
+
+For example, let's take a patient with the following variable values: 
+- `date_start_treatment` 4.4
+- `sex` K
+- `years_smoking` 0
 - `lung_cancer_in_family` No
 - `symptoms` No
-- `stadium_uicc` IIIA
-- `age` 54
+- `stadium_uicc` IIIB
+- `age` 72
 - `time_to_surgery` 0
-- `volume` 125
-Our most recent model indicated that the chances of survival after surgery for such a patient are $24\%.$
+- `log_tumor_volume` 5.8
+Our most recent model indicated that the chances of survival after surgery for such a patient are $43\%.$
 Here we have an explanation of this result by SHAP.
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/07_shap_1.png')
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap="Shap method for choosen patient."}
+knitr::include_graphics('images/07_shap11.png')
 ```
 
-According to our intuition, the lack of symptoms increases the chance of survival, quite advanced stage of UICC equal to IIIA reduces these chances. We may also notice that the prognosis is worse because our patient is a man. However, it will be best if we refer to the results of another method - Ceteris Paribus.
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/07_cp_1.png')
-```
-Here we see 3 variables that show well how a parameter change works for or against the patient. This confirms that women have a better prognosis of survival after surgery, the symptoms of the disease do not herald the best, and also the younger we are, the better we are able to cope with convalescence. 
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/07_cp_2.png')
+
+We see that, according to the conclusions of the previous method, variables stadium_uicc and date_surgery have the greatest impact. The SHAP method allows us to see whether individual variables have a negative or rather positive impact on predictions. Our patient's stadium_uicc is quite advanced, so it reduces the chances of survival after surgery quite drastically. The date_surgery variable, on the other hand, increases the probability, but we do not know whether a smaller value could further improve our prediction or the opposite.
+
+To find out, we use another Ceteris Paribus method. First we'll look at the date variables.
+If we look at the age variable, i.e. the age at the time of surgery, we can see that it behaves quite intuitively. The younger the patient, the better he is able to recover from surgery, so his chances for survival are higher.
+
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for age variable. '}
+knitr::include_graphics('images/07_age.png')
 ```
 
-Here too, the model shows that if our patient's cancer was classified as much lighter, his chances would increase.
 
-Let's take a look at another method for the whole data set - Variable Importance.
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
-knitr::include_graphics('images/07_vi_1.png')
+
+The date_surgery variable is interesting. It indicates the number of years that have passed from surgery to the end of the study. It would seem that the earlier we do surgery, the better our prognosis will be. The charts show the opposite. This may be because if the surgery was done a long time ago, the patient has been getting older since then and has little chance of survival.
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for date_surgery variable. '}
+knitr::include_graphics('images/07_date_birth.png')
 ```
- The most important one seems to be the variable that says when the patient started treatment. The second most important is the UICC stage. Interestingly, the period of time the patient smoked cigarettes does not affect the outcome too much.
 
- But using model explanations not only helps to explain the result of the prediction, it can also give a hint how to improve our model.
+
+
+Now let's look at the stadium. As mentioned earlier, the more advanced the stage of cancer the worse for the patient. Our patient's stadium is quite advanced, which has a big influence on the predictions, but if she had a more benign stage her chances of survival would increase strongly.
+
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for stadium_uicc variable. '}
+knitr::include_graphics('images/07_uicc.png')
+```
+
+
+The variable log_tumor_volume indicates that if we cut out a smaller tumor, our postoperative survival increases. This conclusion coincides with our intuition, the removal of a smaller tumor is much safer, because perhaps with a larger one we could damage certain structures and thus increase mortality.
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Ceteris Paribus for the volume of the tumor, but after transformation as a logarithm. '}
+knitr::include_graphics('images/07_tumor.png')
+```
+
+
+
+ Using model explanations not only helps to explain the result of the prediction, it can also give a hint how to improve our model.
  
- When we built the model on all variables, the explanations allowed us to find correlations. Let's compare the CeterisParibus results for the full model and the deleted dependent variables.
+ When we built the model on all variables, the explanations allowed us to find highly dependent variables. Let's compare the CeterisParibus results for the full model and the pruned one. The image below shows the date_birth variable in its original version, i.e. as date.
  
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Selected model with correlated variables left.'}
 knitr::include_graphics('images/07_cp_3.png')
 ```
  In the picture above you can see that the influence of two correlated variables was distributed between them, but after leaving only one of these variables, the influence accumulated on it (picture below).
  
-```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE}
+```{r, cache=FALSE, out.width="600", fig.align="center", echo=FALSE, fig.cap='Model after removing correlated variables, you can see a big difference in the explanation.'}
 knitr::include_graphics('images/07_cp_4.png')
 ```
 

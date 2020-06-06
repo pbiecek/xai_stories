@@ -1,4 +1,10 @@
 # Acknowledgements {-}
 
-This project is inspired by a fantastic book [Limitations of Interpretable Machine Learning Methods](https://compstat-lmu.github.io/iml_methods_limitations/) created at the Department of Statistics, LMU Munich.
-We used the LIML project as cornerstone for this reopsitory.
+This project is inspired by a fantastic book [Limitations of Interpretable Machine Learning Methods](https://compstat-lmu.github.io/iml_methods_limitations/) created at the Department of Statistics, LMU Munich. We used the LIML project as cornerstone for this reopsitory.
+
+This book would not have been written without openness to cooperation of three Warsaw universities: Warsaw University of Technology, University of Warsaw and SGH Warsaw School of Economics. Students from these three universities collaborated (remotely due to the Covid-19 epidemic) on their chapters.
+
+My biggest thanks go to two people from McKinsey, who have been supporting my classes on UoW and WUT for years, inspiring it with ideas for new challenges, ideas and solutions.
+[Mateusz Zawisza](https://www.linkedin.com/in/mateusz-zawisza/) and [Amadeusz Andrzejewski](https://www.linkedin.com/in/amadeusz-andrzejewski-66554bb0/), thank you very much!
+
+*Przemysław Biecek, June 2020, Warsaw*

@@ -1,4 +1,4 @@
-# Story Meps: eXplainable predictions for healthcare expenditures
+# Story MEPS: eXplainable predictions for healthcare expenditures
 
 *Authors:  Anna Kozioł (Warsaw University of Technology), Katarzyna Lorenc (Warsaw University of Technology), Piotr Podolski (University of Warsaw)*
 

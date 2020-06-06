@@ -27,5 +27,3 @@ These examples are called *XAI stories* and like every good story, each one has 
 For XAI stories to be credible they need not only a strong predictive model, but also business validation of the proposed modeling and explanation approach. 
 
 Each group of students got two mentors from McKinsey's Data Science department. The mentors, together with the students, searched for strengths and weaknesses of XAI applications in specific problems.
-
-TODO: write more about this collaboration

@@ -1,4 +1,4 @@
-# Story hotel booking: eXplainable predictions of booking cancellation and guests coming back {#story-hotel-booking}
+# Story Hotel Booking: eXplainable predictions of booking cancellation and guests coming back {#story-hotel-booking}
 
 *Authors: Domitrz Witalis (MIM), Seweryn Karolina (MiNI)*
 

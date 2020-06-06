@@ -1,4 +1,4 @@
-# Story: Uplift modeling - eXplainable predictions for optimized marketing campaigns {#story-uplift-marketing1}
+# Story Uplift Modeling: eXplainable predictions for optimized marketing campaigns {#story-uplift-marketing1}
 
 *Authors: Jan Ludziejewski (Warsaw University), Paulina Tomaszewska (Warsaw University of Technology), Andżelika Zalewska (Warsaw University of Technology)*
 

@@ -1,4 +1,4 @@
-# Story lungs: eXplainable predictions for post operational risks {#story-lungs}
+# Story Lungs: eXplainable predictions for post operational risks {#story-lungs}
 
 *Authors: Maciej Bartczak (UW), Marika Partyka (PW)*
 

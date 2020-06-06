@@ -1,4 +1,4 @@
-# Hotel booking cancellation story: eXplainable predictions for booking cancellation for a {#story-hotel-booking-2}
+# Story Hotel Booking Cancellations: eXplainable predictions for booking cancellation for a {#story-hotel-booking-2}
 
 *Authors: Miłosz Michta (University of Warsaw), Kazimierz Wojciechowski (Warsaw University of Technology)*
 

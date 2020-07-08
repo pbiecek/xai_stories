@@ -24,6 +24,46 @@ These examples are called *XAI stories* and like every good story, each one has 
 
 ## How?
 
-For XAI stories to be credible they need not only a strong predictive model, but also business validation of the proposed modeling and explanation approach. 
+For XAI stories to be credible they need not only a strong predictive model but also business validation of the proposed modeling and an explanation approach.
 
-Each group of students got two mentors from McKinsey's Data Science department. The mentors, together with the students, searched for strengths and weaknesses of XAI applications in specific problems.
+Each group of students was assigned two mentors from data scientists and experts within McKinsey Digital: a consultant and a data scientist. The mentors, together with the students, searched for the strengths and weaknesses of XAI applications in specific problems. At McKinsey Digital, we help our clients create change that matters—transformation, enabled by technology and sustained through capabilities. We drive transformation and build businesses by bringing together the capabilities needed to help organizations grow and thrive in the digital age. We help our clients harness the power of data and artificial intelligence, modernize core technology and capitalize on new technology, optimize and automate operations, fuel digital growth, create stunning digital experiences, and build digital talent and culture.
+
+## About academic partners
+
+**The Faculty of Mathematics and Information Science, Warsaw University of Technology**
+
+The Faculty of Mathematics and Information Science offers studies in data science at the level of the bachelor degree, master degree and doctoral studies.
+
+The study program includes a powerful dose of mathematics and programming. 
+
+This book was prepared as part of the Interpretable Machine Learning 2019/2020 elective course. Find more details about [MiNI classes, here](https://usosweb.usos.pw.edu.pl/kontroler.php?_action=katalog2/przedmioty/pokazPrzedmiot&kod=1120-IN000-MSP-0501) and about [the faculty, here](https://ww2.mini.pw.edu.pl/).
+
+
+**The Faculty of Mathematics, Informatics, and Mechanics, University of Warsaw**
+
+The Faculty of Mathematics, Informatics, and Mechanics Department offers a master's degree with a specialization in mathematical statistics or a specialization in machine learning. The curriculum includes many interesting subjects related to computational statistics or deep learning. 
+
+This book was prepared as part of the Interpretable Machine Learning 2019/2020 elective course. Find more details about the [MIM classes here](https://usosweb.uw.edu.pl/kontroler.php?_action=katalog2/przedmioty/pokazPrzedmiot&kod=1000-1M18WUM) and about [the faculty, here](https://www.mimuw.edu.pl/en).
+
+
+## About business partner
+
+**McKinsey & Company around the world**
+
+McKinsey & Company is a global management consulting firm committed to helping organizations create Change that Matters. In more than 130 cities and 65 countries, our teams help clients across the private, public and social sectors shape bold strategies and transform the way they work, embed technology where it unlocks value, and build capabilities to sustain the change. Not just any change, but Change that Matters –for their organizations, their people, and in turn society at large.
+
+**McKinsey & Company in Poland**
+
+The Polish office of McKinsey & Company first opened its doors more than a quarter of a century ago. Since then we have become the largest strategic consulting firm in Poland, employing more than 1,500 people. We advise Poland’s biggest companies and public institutions and have played a part in the transformation of key enterprises, contributing to the development of companies that today are leaders in banking and insurance, consumer goods, energy, oil, telecommunications, mining and many other sectors. In total we have carried out almost 1,000 projects for our Polish clients. In 2010 we opened our Polish Knowledge Center in Wrocław, where we currently employ almost 250 top analysts. A year later we established a Shared Services Center in Poznań, where over a thousand of our people now work. A McKinsey Digital Lab has been operating in the Warsaw Office since 2017. Our developers, experts in Big Data and business consultants support companies undergoing comprehensive digital transformation and perform advanced data analytics. For more information, visit [www.mckinsey.pl](www.mckinsey.pl).
+
+**McKinsey Analytics**
+
+McKinsey & Company perform many engagements with strong analytics components. Our data scientists and architects, together with our machine learning and data engineers, complement our strategic and operational consulting and provide our clients with advanced and robust data-driven solutions. For more information, visit our [Polish website](https://www.mckinsey.com/pl/our-work/mckinsey-analytics) and our [global website](https://www.mckinsey.com/business-functions/mckinsey-analytics/how-we-help-clients).
+
+**Explainable Artificial Intelligence at McKinsey & Company**
+
+The importance of Explainable Artificial Intelligence (XAI) methods was recognized at McKinsey & Company from the beginning. Whenever needed, XAI methods are extensively employed in our analytical engagements. Moreover, McKinsey & Company contributes to the prevalence of XAI methods with its numerous publications and podcasts on this topic; to name but a few:
+
+* Burkhardt, Roger, Nicolas Hohn, and Chris Wigley. [Leading your organization to responsible AI](https://www.mckinsey.com/business-functions/mckinsey-analytics/our-insights/leading-your-organization-to-responsible-ai) McKinsey Analytics (2019)
+* Chui, Michael, James Manyika, and Mehdi Miremadi. [What AI can and can’t do (yet) for your business.](https://www.mckinsey.com/business-functions/mckinsey-analytics/our-insights/what-ai-can-and-cant-do-yet-for-your-business) McKinsey Quarterly 1 (2018)
+* Chui, Michael, Chris Wigley and Simon London. [AI Ethics in today’s world.](https://www.mckinsey.com/featured-insights/artificial-intelligence/ai-ethics-podcast) The McKinsey Podcast (2019)
